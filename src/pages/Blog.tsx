@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
-import { BlogPost } from '../types';
 import { Calendar } from 'lucide-react';
 
 export default function Blog() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // Replace with your WordPress site URL
-        const response = await fetch('https://your-wordpress-site.com/wp-json/wp/v2/posts');
+        // Blogger API key and blog ID
+        const API_KEY = 'AIzaSyCw9p4Ar_wc9h3zOuaPb7JcdH3Lj8Ail_4';
+        const BLOG_ID = '369044396031799467';
+        
+        // Blogger API URL
+        const url = `https://www.googleapis.com/blogger/v3/blogs/${BLOG_ID}/posts?key=${API_KEY}`;
+        
+        const response = await fetch(url);
         if (!response.ok) throw new Error('Failed to fetch posts');
+        
         const data = await response.json();
-        setPosts(data);
+        setPosts(data.items || []);
       } catch (err) {
+        console.error('Error fetching posts:', err);
         setError('Failed to load blog posts. Please try again later.');
       } finally {
         setLoading(false);
@@ -53,29 +60,37 @@ export default function Blog() {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold mb-8 text-blue-400">Blog Posts</h1>
           <div className="space-y-8">
-            {posts.map((post) => (
-              <article key={post.id} className="bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-700 hover:border-blue-500 transition-colors duration-300">
-                <h2 className="text-2xl font-semibold mb-4">
-                  <a href={post.link} className="text-blue-400 hover:text-blue-300 transition-colors">
-                    {post.title.rendered}
+            {posts.length > 0 ? (
+              posts.map((post) => (
+                <article key={post.id} className="bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-700 hover:border-blue-500 transition-colors duration-300">
+                  <h2 className="text-2xl font-semibold mb-4">
+                    <a href={post.url} className="text-blue-400 hover:text-blue-300 transition-colors">
+                      {post.title}
+                    </a>
+                  </h2>
+                  <div className="flex items-center text-gray-400 mb-4">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    <time>{format(new Date(post.published), 'MMMM d, yyyy')}</time>
+                  </div>
+                  <div
+                    className="prose prose-invert max-w-none text-gray-300"
+                    dangerouslySetInnerHTML={{ 
+                      __html: post.content 
+                        ? post.content.slice(0, 300) + (post.content.length > 300 ? '...' : '')
+                        : ''
+                    }}
+                  />
+                  <a
+                    href={post.url}
+                    className="inline-block mt-4 text-blue-400 hover:text-blue-300 font-medium group"
+                  >
+                    Read more <span className="group-hover:translate-x-1 inline-block transition-transform duration-200">→</span>
                   </a>
-                </h2>
-                <div className="flex items-center text-gray-400 mb-4">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  <time>{format(new Date(post.date), 'MMMM d, yyyy')}</time>
-                </div>
-                <div
-                  className="prose prose-invert max-w-none text-gray-300"
-                  dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
-                />
-                <a
-                  href={post.link}
-                  className="inline-block mt-4 text-blue-400 hover:text-blue-300 font-medium group"
-                >
-                  Read more <span className="group-hover:translate-x-1 inline-block transition-transform duration-200">→</span>
-                </a>
-              </article>
-            ))}
+                </article>
+              ))
+            ) : (
+              <p className="text-center text-gray-400">No posts found.</p>
+            )}
           </div>
         </div>
       </div>
