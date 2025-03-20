@@ -26,3 +26,6 @@ dist-ssr
 # lock files
 package-lock.json
 yarn.lock
+
+#bolt
+.bolt
