@@ -210,11 +210,13 @@ export const skills: Skill[] = [
     icon: faBox,
     description: "Containerization and orchestration for scalable applications",
     category: "technical",
-  },{ 
-    name: "API Development & Microservices", 
-    icon: faNode, 
-    description: "RESTful & GraphQL APIs, Express.js, NestJS, microservices architecture, and service communication with RabbitMQ & Kafka", 
-    category: "technical" 
+  },
+  {
+    name: "API Development & Microservices",
+    icon: faNode,
+    description:
+      "RESTful & GraphQL APIs, Express.js, NestJS, microservices architecture, and service communication with RabbitMQ & Kafka",
+    category: "technical",
   },
 
   // Soft Skills

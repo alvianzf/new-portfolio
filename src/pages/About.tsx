@@ -29,7 +29,7 @@ export default function About() {
             future engineers, I thrive on creating impactful, scalable systems.
             I bridge Southeast Asian talent with European opportunities while
             fostering growth through thoughtful software development and
-            tailored education programs. \n When I'm not working, you’ll find me
+            tailored education programs.When I'm not working, you’ll find me
             refining Agile methodologies, coaching career transitions, or
             empowering engineering teams. Let’s connect and build something
             remarkable!
