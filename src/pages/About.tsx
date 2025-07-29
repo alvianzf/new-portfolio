@@ -1,4 +1,4 @@
-import alvian from "../assets/alvian.jpeg";
+import alvian from "../assets/potraits.png";
 import { skills, categories } from "../data";
 import SkillCard from "../components/SkillCard";
 
@@ -9,6 +9,7 @@ export default function About() {
         <div className="text-center mb-12">
           <img
             src={alvian}
+            width={400}
             alt="Profile"
             className="w-100 h-100 rounded-full mx-auto mb-4 object-cover"
           />
