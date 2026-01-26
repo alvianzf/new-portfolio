@@ -1,5 +1,5 @@
 import { Experience, Skill, Category } from "./types";
-import { Code2, Brain, Languages } from "lucide-react";
+import { Code2, Brain, Languages, UserSearch, Presentation, GraduationCap, Terminal, Rocket, Server, LayoutTemplate } from "lucide-react";
 import {
   faReact,
   faNode,
@@ -33,6 +33,7 @@ export const experiences: Experience[] = [
   {
     title: "Talent Acquisition Specialist & Regional Manager",
     company: "Devshore Partners, s.r.o.",
+    icon: UserSearch,
     period: "Oct 2023 – Present",
     description:
       "Recruited and assessed senior developers for European companies, achieving a 60% shortlist-to-interview efficiency. Enhanced hiring assessment processes for precision and effectiveness.",
@@ -41,6 +42,7 @@ export const experiences: Experience[] = [
   {
     title: "Program Manager",
     company: "RevoU",
+    icon: GraduationCap,
     period: "Feb 2023 – Apr 2024",
     description:
       "Led and managed software engineering programs, designing scalable curricula, integrating real-world projects, and aligning training with industry standards.",
@@ -49,6 +51,7 @@ export const experiences: Experience[] = [
   {
     title: "Technical Assessment Designer",
     company: "Glints",
+    icon: Presentation,
     period: "Jan 2022 – Apr 2023",
     description:
       "Developed assessment systems to evaluate software engineers, refining hiring processes and ensuring a strong match between candidates and companies.",
@@ -57,6 +60,7 @@ export const experiences: Experience[] = [
   {
     title: "Technical Curriculum Lead",
     company: "Glints Academy",
+    icon: Brain,
     period: "Nov 2020 – Dec 2021",
     description:
       "Designed industry-standard curricula, implemented mentorship programs, and transitioned bootcamp models to self-paced learning formats.",
@@ -67,6 +71,7 @@ export const experiences: Experience[] = [
   {
     title: "Full Stack Engineer",
     company: "Talent Tribe Asia",
+    icon: LayoutTemplate,
     period: "Feb 2020 – Nov 2020",
     description:
       "Developed and maintained career platform components using AWS, Next.js, Express.js, and Firestore. Managed WordPress deployment and SSL configuration.",
@@ -75,6 +80,7 @@ export const experiences: Experience[] = [
   {
     title: "Software Developer",
     company: "Webimp, pte. ltd.",
+    icon: Code2,
     period: "Mar 2019 – Feb 2020",
     description:
       "Developed web applications with PHP, CodeIgniter, and jQuery. Enhanced business processes through software solutions.",
@@ -83,6 +89,7 @@ export const experiences: Experience[] = [
   {
     title: "Technical Lead",
     company: "PT. Mitra Kuadran Teknologi",
+    icon: Terminal,
     period: "Nov 2021 - Dec 2021",
     description:
       "Led a team in developing ERP solutions for government entities using Vue.js, React.js, Express.js, Laravel, and PostgreSQL. Managed hiring processes and DevOps deployments on AWS/GCP.",
@@ -91,6 +98,7 @@ export const experiences: Experience[] = [
   {
     title: "Technical Facilitator",
     company: "Gerakan Nasional 1000 Startup Digital",
+    icon: Rocket,
     period: "Sep 2020 - Feb 2021",
     description:
       "Mentored startup founders in application development, coaching 10 startup teams, with 3 advancing to the finals.",
@@ -102,6 +110,7 @@ export const projects: Experience[] = [
   {
     title: "Fullstack Engineer",
     company: "TiketQ",
+    icon: Code2,
     period: "Jun 2023 - Present",
     description:
       "Founded and developed a ticketing platform in Batam from scratch. Built backend infrastructure using Express.js, optimized with Redis caching for performance.",
@@ -110,6 +119,7 @@ export const projects: Experience[] = [
   {
     title: "GitHub Code Autograder",
     company: "RevoU",
+    icon: Brain,
     period: "Aug 2023 - Mar 2024",
     description:
       "Developed a Python-based AI-powered code quality autograder using OpenAI API, streamlining assignment grading and ensuring consistency.",
@@ -118,6 +128,7 @@ export const projects: Experience[] = [
   {
     title: "Software Engineer",
     company: "Biteship",
+    icon: Server,
     period: "Oct 2023 - Dec 2023",
     description:
       "Built a Node.js service for webhook-based real-time communication and implemented a Chrome extension.",
@@ -126,6 +137,7 @@ export const projects: Experience[] = [
   {
     title: "Lead Instructor",
     company: "RevoU",
+    icon: GraduationCap,
     period: "Jan 2023 - Mar 2023",
     description:
       "Refined curriculum materials, created key answers for advanced assignments, and aligned learning resources with evolving industry standards.",

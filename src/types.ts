@@ -22,6 +22,8 @@ export interface Experience {
   period: string;
   description: string;
   category?: 'technical' | 'soft';
+  logo?: string;
+  icon?: IconDefinition | LucideIcon;
 }
 
 export interface Skill {

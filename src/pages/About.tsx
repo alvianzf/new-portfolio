@@ -7,7 +7,7 @@ import ModernCard from "../components/ModernCard";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-slate-50 pt-20 overflow-x-hidden">
+    <div className="min-h-screen pt-20 overflow-x-hidden">
       <div className="container mx-auto px-6 py-20">
         {/* Hero Section */}
         <section className="mb-16">

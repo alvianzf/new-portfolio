@@ -54,7 +54,7 @@ export default function Blog() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-32 pb-20">
+    <div className="min-h-screen pt-32 pb-20">
       <div className="container mx-auto px-6">
         {/* Page Title */}
         <motion.div

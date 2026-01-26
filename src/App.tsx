@@ -6,15 +6,15 @@ import About from './pages/About';
 import Experience from './pages/Experience';
 import Blog from './pages/Blog';
 import SEO from './components/SEO';
-import Background3D from './components/Background3D';
+import WormBackground from './components/WormBackground';
 
 function App() {
   return (
     <HelmetProvider>
       <Router>
-        <div className="min-h-screen bg-slate-50 text-slate-900 relative">
+        <div className="min-h-screen text-slate-900 relative">
           <Suspense fallback={null}>
-            <Background3D />
+            <WormBackground />
           </Suspense>
           <SEO />
           <Header />
