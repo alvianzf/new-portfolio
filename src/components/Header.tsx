@@ -135,16 +135,19 @@ export default function Header() {
           {/* Social Icons & Hamburger (Mobile and Desktop) */}
           <div className="flex items-center space-x-2 md:space-x-4">
             <div className="hidden sm:flex items-center space-x-2 md:space-x-4">
-              <a href="https://github.com/alvianzf" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-[#990000] transition-colors" title="GitHub">
+              <a href="https://github.com/alvianzf" target="_blank" rel="noopener noreferrer" className="relative group text-slate-400 hover:text-[#990000] transition-colors">
                 <Github className="w-5 h-5" />
+                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">GitHub</span>
               </a>
-              <a href="https://linkedin.com/in/alvianzf" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-[#990000] transition-colors" title="LinkedIn">
+              <a href="https://linkedin.com/in/alvianzf" target="_blank" rel="noopener noreferrer" className="relative group text-slate-400 hover:text-[#990000] transition-colors">
                 <Linkedin className="w-5 h-5" />
+                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">LinkedIn</span>
               </a>
-              <a href="https://medium.com/@alvianzf" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-[#990000] transition-colors" title="Medium">
+              <a href="https://medium.com/@alvianzf" target="_blank" rel="noopener noreferrer" className="relative group text-slate-400 hover:text-[#990000] transition-colors">
                 <FontAwesomeIcon icon={faMedium} className="w-5 h-5" />
+                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Medium</span>
               </a>
-              <a href="mailto:alvianzf@gmail.com" className="hidden lg:block px-4 py-2 text-sm font-medium text-white bg-slate-900 rounded-full hover:bg-[#990000] transition-all shadow-sm hover:shadow-md" title="Send Email">
+              <a href="mailto:alvianzf@gmail.com" className="hidden lg:block px-4 py-2 text-sm font-medium text-white bg-slate-900 rounded-full hover:bg-[#990000] transition-all shadow-sm hover:shadow-md">
                 Contact
               </a>
             </div>
