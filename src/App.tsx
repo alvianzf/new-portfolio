@@ -1,5 +1,4 @@
-import React from 'react';
-import { Analytics } from "@vercel/analytics/react"
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/Header';
@@ -7,12 +6,16 @@ import About from './pages/About';
 import Experience from './pages/Experience';
 import Blog from './pages/Blog';
 import SEO from './components/SEO';
+import Background3D from './components/Background3D';
 
 function App() {
   return (
     <HelmetProvider>
       <Router>
-        <div className="min-h-screen bg-gray-900">
+        <div className="min-h-screen bg-slate-50 text-slate-900 relative">
+          <Suspense fallback={null}>
+            <Background3D />
+          </Suspense>
           <SEO />
           <Header />
           <main>

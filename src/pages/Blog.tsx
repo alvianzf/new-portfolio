@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { format } from 'date-fns';
-import { Calendar } from 'lucide-react';
+import { BookOpen, Calendar } from 'lucide-react';
+import ModernCard from '../components/ModernCard';
 
 export default function Blog() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // Blogger API key and blog ID
         const API_KEY = 'AIzaSyCw9p4Ar_wc9h3zOuaPb7JcdH3Lj8Ail_4';
         const BLOG_ID = '369044396031799467';
-        
-        // Blogger API URL
         const url = `https://www.googleapis.com/blogger/v3/blogs/${BLOG_ID}/posts?key=${API_KEY}`;
-        
+
         const response = await fetch(url);
         if (!response.ok) throw new Error('Failed to fetch posts');
-        
+
         const data = await response.json();
         setPosts(data.items || []);
       } catch (err) {
@@ -35,10 +34,10 @@ export default function Blog() {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-12 bg-gray-900">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400 mx-auto"></div>
-          <p className="mt-4 text-gray-300">Loading posts...</p>
+      <div className="min-h-screen bg-slate-50 pt-32 pb-20 flex justify-center items-center">
+        <div className="animate-pulse flex flex-col items-center">
+          <div className="h-4 w-4 bg-blue-600 rounded-full mb-4 animate-bounce"></div>
+          <span className="text-slate-400 font-medium">Loading contents...</span>
         </div>
       </div>
     );
@@ -46,52 +45,84 @@ export default function Blog() {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-12 bg-gray-900">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-red-400">{error}</p>
-        </div>
+      <div className="min-h-screen bg-slate-50 pt-32 pb-20 justify-center flex">
+        <ModernCard className="bg-red-50 border-red-100 max-w-md w-full text-center p-8">
+          <p className="text-red-600 font-medium">{error}</p>
+        </ModernCard>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
-      <div className="container mx-auto px-4 py-12">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8 text-blue-400">Blog Posts</h1>
-          <div className="space-y-8">
-            {posts.length > 0 ? (
-              posts.map((post) => (
-                <article key={post.id} className="bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-700 hover:border-blue-500 transition-colors duration-300">
-                  <h2 className="text-2xl font-semibold mb-4">
-                    <a href={post.url} className="text-blue-400 hover:text-blue-300 transition-colors">
-                      {post.title}
-                    </a>
-                  </h2>
-                  <div className="flex items-center text-gray-400 mb-4">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    <time>{format(new Date(post.published), 'MMMM d, yyyy')}</time>
-                  </div>
-                  <div
-                    className="prose prose-invert max-w-none text-gray-300"
-                    dangerouslySetInnerHTML={{ 
-                      __html: post.content 
-                        ? post.content.slice(0, 300) + (post.content.length > 300 ? '...' : '')
-                        : ''
-                    }}
-                  />
-                  <a
-                    href={post.url}
-                    className="inline-block mt-4 text-blue-400 hover:text-blue-300 font-medium group"
-                  >
-                    Read more <span className="group-hover:translate-x-1 inline-block transition-transform duration-200">→</span>
-                  </a>
-                </article>
-              ))
-            ) : (
-              <p className="text-center text-gray-400">No posts found.</p>
-            )}
-          </div>
+    <div className="min-h-screen bg-slate-50 pt-32 pb-20">
+      <div className="container mx-auto px-6">
+        {/* Page Title */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+            Latest Thoughts
+          </h1>
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+            Writings on software architecture, leadership, and tech trends.
+          </p>
+        </motion.div>
+
+        {/* Blog Posts Grid */}
+        <div className="max-w-4xl mx-auto space-y-8">
+          {posts.length > 0 ? (
+            posts.map((post, index) => (
+              <motion.div
+                key={post.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <ModernCard className="group hover:border-blue-200 transition-all">
+                  <article className="p-2">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">
+                      <a href={post.url} target="_blank" rel="noopener noreferrer">
+                        {post.title}
+                      </a>
+                    </h2>
+
+                    <div className="flex items-center text-slate-400 mb-6 text-sm font-medium">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      <time>
+                        {format(new Date(post.published), 'MMMM d, yyyy')}
+                      </time>
+                    </div>
+
+                    <div
+                      className="text-slate-600 leading-relaxed mb-6 line-clamp-3"
+                      dangerouslySetInnerHTML={{
+                        __html: post.content
+                          ? post.content.replace(/<[^>]+>/g, '').slice(0, 250) + '...'
+                          : ''
+                      }}
+                    />
+
+                    <div className="flex justify-end">
+                      <a
+                        href={post.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 font-medium hover:text-blue-700 inline-flex items-center"
+                      >
+                        Read Article <BookOpen className="w-4 h-4 ml-2" />
+                      </a>
+                    </div>
+                  </article>
+                </ModernCard>
+              </motion.div>
+            ))
+          ) : (
+            <div className="text-center py-20 bg-white rounded-2xl border border-slate-100">
+              <p className="text-slate-400">No blog posts found at the moment.</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

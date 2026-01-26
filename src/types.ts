@@ -1,5 +1,5 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { DivideIcon as LucideIcon } from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
 
 export interface BlogPost {
   id: number;
@@ -21,6 +21,7 @@ export interface Experience {
   company: string;
   period: string;
   description: string;
+  category?: 'technical' | 'soft';
 }
 
 export interface Skill {
@@ -28,6 +29,7 @@ export interface Skill {
   icon: IconDefinition;
   description: string;
   category: 'technical' | 'soft' | 'languages';
+  level?: number;
 }
 
 export interface Category {

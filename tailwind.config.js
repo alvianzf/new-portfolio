@@ -1,8 +1,35 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        pixel: ['"Press Start 2P"', 'cursive'],
+      },
+      colors: {
+        // 8-bit retro palette
+        'retro': {
+          'cyan': '#00FFFF',
+          'magenta': '#FF00FF',
+          'yellow': '#FFFF00',
+          'lime': '#00FF00',
+          'red': '#FF0000',
+          'blue': '#0000FF',
+        },
+        'pixel': {
+          'dark': '#0F0F1E',
+          'darker': '#0A0A14',
+          'light': '#1A1A2E',
+          'accent': '#16213E',
+        }
+      },
+      spacing: {
+        'pixel': '8px',
+        'pixel-2': '16px',
+        'pixel-3': '24px',
+        'pixel-4': '32px',
+      },
       typography: {
         invert: {
           css: {

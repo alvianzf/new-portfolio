@@ -1,3 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Outfit', sans-serif;
+    @apply tracking-tight;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+
+  /* Modern Card */
+  .card-modern {
+    @apply bg-white rounded-2xl border border-slate-100 shadow-sm transition-all duration-300;
+  }
+
+  .card-modern:hover {
+    @apply shadow-md -translate-y-1 border-slate-200;
+  }
+
+  /* Modern Button */
+  .btn-primary {
+    @apply px-6 py-3 bg-slate-900 text-white font-medium rounded-full transition-all duration-300;
+    @apply hover:bg-slate-800 hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 bg-transparent border border-slate-200 text-slate-900 font-medium rounded-full transition-all duration-300;
+    @apply hover:border-slate-900 hover:bg-slate-50;
+  }
+
+  /* Clean Badge */
+  .badge-modern {
+    @apply px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full border border-slate-200;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600;
+  }
+
+  .text-gradient-blue {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600;
+  }
+}
