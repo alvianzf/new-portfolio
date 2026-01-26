@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { motion } from 'framer-motion';
 import { experiences } from '../data';
 import ModernCard from '../components/ModernCard';

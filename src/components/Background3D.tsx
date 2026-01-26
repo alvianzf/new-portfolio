@@ -45,7 +45,7 @@ function Particles() {
     return temp;
   }, [count]);
 
-  useFrame((state) => {
+  useFrame((_state) => {
     if (meshRef.current) {
       particles.forEach((particle, i) => {
         let { t, factor, speed, xFactor, yFactor, zFactor } = particle;

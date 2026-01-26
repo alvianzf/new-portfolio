@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Skill } from '../types';
 
 interface SkillBarProps {

@@ -14,7 +14,7 @@ import {
   faLightbulb,
   faGlobe,
   faComments,
-  faChartLine,
+
   faChalkboardTeacher,
   faTasks,
   faDatabase,

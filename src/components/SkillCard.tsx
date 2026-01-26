@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Skill } from '../types';
 
@@ -11,8 +11,8 @@ export default function SkillCard({ skill }: SkillCardProps) {
     <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-blue-500 transition-all duration-300 group">
       <div className="flex items-center space-x-4">
         <div className="p-3 bg-blue-900 rounded-lg group-hover:bg-blue-800 transition-colors">
-          <FontAwesomeIcon 
-            icon={skill.icon} 
+          <FontAwesomeIcon
+            icon={skill.icon}
             className="w-6 h-6 text-blue-400"
             fixedWidth
           />
