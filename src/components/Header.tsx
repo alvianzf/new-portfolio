@@ -35,7 +35,7 @@ export default function Header() {
 
           {/* Regular Navigation (Tablet & Desktop) */}
           <nav className="hidden md:flex items-center space-x-8">
-            {['About', 'Experience', 'Blog'].map((item) => (
+            {['About', 'Experience', 'Blog', 'Mentorship'].map((item) => (
               <NavLink
                 key={item}
                 to={item === 'About' ? '/' : `/${item.toLowerCase()}`}
@@ -177,7 +177,7 @@ export default function Header() {
             <div className="container mx-auto px-6 py-8 flex flex-col space-y-8">
               {/* Navigation Links */}
               <div className="flex flex-col space-y-6">
-                {['About', 'Experience', 'Blog'].map((item) => (
+                {['About', 'Experience', 'Blog', 'Mentorship'].map((item) => (
                   <NavLink
                     key={item}
                     to={item === 'About' ? '/' : `/${item.toLowerCase()}`}

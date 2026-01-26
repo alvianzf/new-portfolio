@@ -14,6 +14,8 @@ export default function SEO() {
         return 'Professional Experience - Alvian Zachry Faturrahman';
       case '/blog':
         return 'Blog - Alvian Zachry Faturrahman';
+      case '/mentorship':
+        return 'Tech Interview Mentorship - Learn With Andi | Alvian Zachry';
       default:
         return 'Alvian Zachry Faturrahman Portfolio';
     }
@@ -27,6 +29,8 @@ export default function SEO() {
         return 'Explore the professional journey of Alvian Zachry Faturrahman, from leading technical teams to designing scalable curricula and hiring top engineering talent.';
       case '/blog':
         return 'Articles of what I thougth at the moment, may be a bit random and crude.';
+      case '/mentorship':
+        return 'Get your tech interview skills roasted. Brutal, honest mock interviews to prepare you for the real thing. Book a session at learnwithandi.com.';
       default:
         return 'Portfolio and professional insights of Alvian Zachry Faturrahman, an expert in software engineering, program management, and technical assessment.';
     }
