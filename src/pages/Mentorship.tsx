@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Flame, Target, MessageCircle, Zap, CheckCircle2, ArrowRight } from 'lucide-react';
 import ModernCard from '../components/ModernCard';
+import learnWithAndiLogo from '../assets/learnwithandi.png';
 
 export default function Mentorship() {
   const features = [
@@ -145,15 +146,18 @@ export default function Mentorship() {
           </ModernCard>
         </motion.div>
 
-        {/* Social Proof / Tagline */}
+        {/* Footer with Logo */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="text-center"
+          className="text-center pt-8 border-t border-slate-100"
         >
+          <a href="https://learnwithandi.com" target="_blank" rel="noopener noreferrer" className="inline-block mb-4 hover:opacity-80 transition-opacity">
+            <img src={learnWithAndiLogo} alt="Learn With Andi" className="h-10 mx-auto" />
+          </a>
           <p className="text-slate-400 text-sm">
-            Mentoring aspiring engineers to land their dream jobs at top tech companies.
+            Mentoring aspiring engineers to land their dream jobs.
           </p>
         </motion.div>
       </div>
