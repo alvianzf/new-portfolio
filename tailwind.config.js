@@ -22,7 +22,8 @@ export default {
           'darker': '#0A0A14',
           'light': '#1A1A2E',
           'accent': '#16213E',
-        }
+        },
+        'brand-red': '#990000',
       },
       spacing: {
         'pixel': '8px',

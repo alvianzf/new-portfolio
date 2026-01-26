@@ -7,10 +7,10 @@ import ModernCard from "../components/ModernCard";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-slate-50 pt-20">
+    <div className="min-h-screen bg-slate-50 pt-20 overflow-x-hidden">
       <div className="container mx-auto px-6 py-20">
         {/* Hero Section */}
-        <section className="mb-32">
+        <section className="mb-16">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -27,10 +27,10 @@ export default function About() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <a href="#contact" className="btn-primary flex items-center gap-2">
+                <a href="#contact" className="btn-primary flex items-center gap-2 hover:bg-brand-red transition-colors">
                   Get in touch <ArrowRight className="w-4 h-4" />
                 </a>
-                <a href="/resume.pdf" className="text-slate-600 hover:text-slate-900 font-medium flex items-center gap-2 px-6 py-3 transition-colors">
+                <a href="/resume.pdf" className="text-slate-600 hover:text-brand-red font-medium flex items-center gap-2 px-6 py-3 transition-colors">
                   Download CV <Download className="w-4 h-4" />
                 </a>
               </div>
@@ -42,7 +42,8 @@ export default function About() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="absolute inset-0 bg-blue-100 rounded-full blur-3xl opacity-30 transform translate-x-10 translate-y-10"></div>
+              {/* Updated accent color blob */}
+              <div className="absolute inset-0 bg-brand-red rounded-full blur-3xl opacity-10 transform translate-x-10 translate-y-10"></div>
               <img
                 src={alvian}
                 alt="Alvian Zachry"
@@ -52,8 +53,55 @@ export default function About() {
           </div>
         </section>
 
-        {/* Biography */}
-        <section className="max-w-4xl mx-auto mb-32">
+        {/* Technical Expertise (Infinite Marquee) */}
+        <section className="mb-24 relative space-y-8">
+          {/* Row 1: Development & Frameworks (Right to Left) */}
+          <div className="max-w-[100vw] overflow-hidden mask-linear-gradient">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="flex w-max gap-8 animate-marquee pause-on-hover py-2"
+            >
+              {[...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name)), ...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name)), ...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name))].map((skill, index) => (
+                <div
+                  key={`row1-${skill.name}-${index}`}
+                  className="flex items-center gap-2 px-6 py-3 bg-white rounded-full border border-slate-200 shadow-sm whitespace-nowrap group hover:border-brand-red hover:shadow-md transition-all duration-300"
+                >
+                  <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-slate-400 group-hover:text-brand-red transition-colors" />
+                  <span className="text-sm font-medium text-slate-600 group-hover:text-brand-red transition-colors">{skill.name}</span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Row 2: Infrastructure & Tools (Left to Right) */}
+          <div className="max-w-[100vw] overflow-hidden mask-linear-gradient">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="flex w-max gap-8 animate-marquee-reverse pause-on-hover py-2"
+            >
+              {[...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical'), ...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical'), ...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical')].map((skill, index) => (
+                <div
+                  key={`row2-${skill.name}-${index}`}
+                  className="flex items-center gap-2 px-6 py-3 bg-white rounded-full border border-slate-200 shadow-sm whitespace-nowrap group hover:border-brand-red hover:shadow-md transition-all duration-300"
+                >
+                  <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-slate-400 group-hover:text-brand-red transition-colors" />
+                  <span className="text-sm font-medium text-slate-600 group-hover:text-brand-red transition-colors">{skill.name}</span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Gradient Masks for fading effect */}
+          <div className="absolute top-0 left-0 h-full w-20 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute top-0 right-0 h-full w-20 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
+        </section>
+
+        {/* Biography (About Me) */}
+        <section className="max-w-4xl mx-auto mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -74,46 +122,42 @@ export default function About() {
           </motion.div>
         </section>
 
-        {/* Skills Grid */}
-        <section>
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl font-bold text-slate-900 mb-16 text-center">Technical Expertise</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {categories.map((category, i) => (
+        {/* Soft Skills & Languages (Horizontal Layout) */}
+        <section className="max-w-7xl mx-auto mb-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="grid grid-cols-1 gap-12">
+              {categories.filter(cat => cat.name !== 'Technical Skills').map((category) => (
                 <div key={category.name} className="space-y-6">
-                  <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2">
-                    <category.icon className="w-5 h-5 text-blue-600" />
+                  <h3 className="text-xl font-semibold text-slate-900 flex items-center gap-3 border-b border-slate-200 pb-4">
+                    <category.icon className="w-6 h-6 text-brand-red" />
                     {category.name}
                   </h3>
 
-                  <div className="space-y-4">
+                  <div className="flex flex-wrap gap-4">
                     {skills
                       .filter(skill => skill.category === category.name.toLowerCase().split(' ')[0])
-                      .map((skill, j) => (
-                        <motion.div
-                          key={skill.name}
-                          initial={{ opacity: 0, y: 10 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: i * 0.1 + j * 0.05 }}
-                        >
-                          <ModernCard className="flex items-start gap-4 hover:border-blue-200 group cursor-default">
-                            <div className="p-2 bg-slate-50 rounded-lg text-slate-600 group-hover:text-blue-600 transition-colors">
+                      .map((skill) => (
+                        <div key={skill.name} className="flex-1 min-w-[280px] max-w-[350px]">
+                          <ModernCard className="h-full flex items-center gap-4 p-5 hover:border-brand-red/30 transition-all hover:shadow-md hover:-translate-y-1">
+                            <div className="p-3 bg-slate-50 rounded-xl text-slate-400 group-hover:text-brand-red transition-colors">
                               <FontAwesomeIcon icon={skill.icon} className="w-5 h-5" />
                             </div>
                             <div>
-                              <h4 className="font-medium text-slate-900">{skill.name}</h4>
-                              <p className="text-sm text-slate-500 mt-1">{skill.description}</p>
+                              <h4 className="font-semibold text-slate-900">{skill.name}</h4>
+                              <p className="text-sm text-slate-500 mt-1 leading-snug">{skill.description}</p>
                             </div>
                           </ModernCard>
-                        </motion.div>
+                        </div>
                       ))}
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </section>
       </div>
     </div>

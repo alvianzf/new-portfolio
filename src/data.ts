@@ -6,8 +6,10 @@ import {
   faPython,
   faJs,
   faPhp,
+  faLaravel,
   faAws,
   faVuejs,
+  faLinux,
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faUsers,
@@ -21,6 +23,9 @@ import {
   faCloud,
   faServer,
   faBox,
+  faCat,
+  faFire,
+  faProjectDiagram,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const experiences: Experience[] = [
@@ -150,6 +155,24 @@ export const skills: Skill[] = [
     category: "technical",
   },
   {
+    name: "Laravel",
+    icon: faLaravel,
+    description: "Elegant PHP web framework for artisans",
+    category: "technical",
+  },
+  {
+    name: "CodeIgniter",
+    icon: faFire,
+    description: "Powerful PHP framework with a small footprint",
+    category: "technical",
+  },
+  {
+    name: "n8n",
+    icon: faProjectDiagram,
+    description: "Workflow automation and process orchestration",
+    category: "technical",
+  },
+  {
     name: "SQL & NoSQL Databases",
     icon: faDatabase,
     description:
@@ -179,6 +202,12 @@ export const skills: Skill[] = [
     name: "Node.js & Express.js",
     icon: faNode,
     description: "Backend development and REST API architecture",
+    category: "technical",
+  },
+  {
+    name: "NestJS",
+    icon: faCat,
+    description: "Scalable server-side applications and microservices architecture",
     category: "technical",
   },
   {
@@ -216,6 +245,12 @@ export const skills: Skill[] = [
     icon: faNode,
     description:
       "RESTful & GraphQL APIs, Express.js, NestJS, microservices architecture, and service communication with RabbitMQ & Kafka",
+    category: "technical",
+  },
+  {
+    name: "Linux / Ubuntu",
+    icon: faLinux,
+    description: "Server management, command line proficiency, and shell scripting",
     category: "technical",
   },
 

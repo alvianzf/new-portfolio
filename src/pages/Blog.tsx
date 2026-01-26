@@ -36,7 +36,7 @@ export default function Blog() {
     return (
       <div className="min-h-screen bg-slate-50 pt-32 pb-20 flex justify-center items-center">
         <div className="animate-pulse flex flex-col items-center">
-          <div className="h-4 w-4 bg-blue-600 rounded-full mb-4 animate-bounce"></div>
+          <div className="h-4 w-4 bg-brand-red rounded-full mb-4 animate-bounce"></div>
           <span className="text-slate-400 font-medium">Loading contents...</span>
         </div>
       </div>
@@ -80,9 +80,9 @@ export default function Blog() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <ModernCard className="group hover:border-blue-200 transition-all">
+                <ModernCard className="group hover:border-brand-red/30 transition-all">
                   <article className="p-2">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-brand-red transition-colors">
                       <a href={post.url} target="_blank" rel="noopener noreferrer">
                         {post.title}
                       </a>
@@ -109,7 +109,7 @@ export default function Blog() {
                         href={post.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 font-medium hover:text-blue-700 inline-flex items-center"
+                        className="text-brand-red font-medium hover:text-blue-700 inline-flex items-center"
                       >
                         Read Article <BookOpen className="w-4 h-4 ml-2" />
                       </a>

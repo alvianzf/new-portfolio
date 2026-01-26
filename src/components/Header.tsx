@@ -46,7 +46,7 @@ export default function Header() {
                     <div className="space-y-2">
                       <a href="https://jsonify.alvianzf.id" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
                         <div className="flex items-start gap-3">
-                          <div className="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover/item:text-[#990000] group-hover/item:bg-red-50 transition-colors">
+                          <div className="p-2 bg-red-50 text-brand-red rounded-lg group-hover/item:text-[#990000] group-hover/item:bg-red-50 transition-colors">
                             <FileJson className="w-5 h-5" />
                           </div>
                           <div>

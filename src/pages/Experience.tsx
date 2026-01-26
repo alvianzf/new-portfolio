@@ -30,11 +30,11 @@ export default function Experience() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <ModernCard className="group hover:border-blue-200 transition-colors">
+              <ModernCard className="group hover:border-brand-red/30 transition-colors">
                 <div className="flex flex-col md:flex-row gap-6">
                   {/* Icon & Line */}
                   <div className="hidden md:flex flex-col items-center">
-                    <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-50 group-hover:scale-110 transition-all">
+                    <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-brand-red group-hover:bg-red-50 group-hover:scale-110 transition-all">
                       {exp.category === 'soft' ? <Trophy className="w-6 h-6" /> : <Briefcase className="w-6 h-6" />}
                     </div>
                   </div>
@@ -49,7 +49,7 @@ export default function Experience() {
                       </div>
                     </div>
 
-                    <h4 className="text-blue-600 font-medium mb-4">{exp.company}</h4>
+                    <h4 className="text-brand-red font-medium mb-4">{exp.company}</h4>
 
                     <p className="text-slate-600 leading-relaxed">
                       {exp.description}
