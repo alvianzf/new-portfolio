@@ -13,7 +13,7 @@ export default function SEO() {
       case '/experience':
         return 'Professional Experience - Alvian Zachry Faturrahman';
       case '/blog':
-        return 'Tech Blog - Alvian Zachry Faturrahman';
+        return 'Blog - Alvian Zachry Faturrahman';
       default:
         return 'Alvian Zachry Faturrahman Portfolio';
     }
