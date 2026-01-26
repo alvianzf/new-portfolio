@@ -3,9 +3,9 @@ import { useLocation } from 'react-router-dom';
 
 export default function SEO() {
   const location = useLocation();
-  const baseUrl = 'https://your-domain.com';
+  const baseUrl = 'https://alvianzf.id';
   const currentUrl = `${baseUrl}${location.pathname}`;
-  
+
   const getTitle = () => {
     switch (location.pathname) {
       case '/':
@@ -37,13 +37,13 @@ export default function SEO() {
       <title>{getTitle()}</title>
       <meta name="description" content={getDescription()} />
       <link rel="canonical" href={currentUrl} />
-      
+
       {/* Open Graph */}
       <meta property="og:url" content={currentUrl} />
       <meta property="og:title" content={getTitle()} />
       <meta property="og:description" content={getDescription()} />
       <meta property="og:type" content="website" />
-      
+
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={getTitle()} />
