@@ -23,7 +23,8 @@ export default function About() {
                 <span className="text-slate-400">Zachry.</span>
               </h1>
               <p className="text-xl md:text-2xl text-slate-500 max-w-lg leading-relaxed mb-10">
-                Senior Talent Manager & Software Engineer bridging the gap between people and technology.
+                Senior Talent Manager & Software Engineer <br />
+                <span className="text-slate-400 text-xl">bridging the gap between people and technology.</span>
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -54,14 +55,14 @@ export default function About() {
         </section>
 
         {/* Technical Expertise (Infinite Marquee) */}
-        <section className="mb-24 relative space-y-8">
+        <section className="mb-24 relative space-y-2">
           {/* Row 1: Development & Frameworks (Right to Left) */}
           <div className="max-w-[100vw] overflow-hidden mask-linear-gradient">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
-              className="flex w-max gap-8 animate-marquee pause-on-hover py-2"
+              className="flex w-max gap-4 animate-marquee pause-on-hover py-1"
             >
               {[...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name)), ...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name)), ...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name))].map((skill, index) => (
                 <div
@@ -81,7 +82,7 @@ export default function About() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
-              className="flex w-max gap-8 animate-marquee-reverse pause-on-hover py-2"
+              className="flex w-max gap-4 animate-marquee-reverse pause-on-hover py-1"
             >
               {[...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical'), ...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical'), ...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical')].map((skill, index) => (
                 <div
@@ -108,16 +109,9 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl font-bold text-slate-900 mb-8">About Me</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-8 ">About Me</h2>
             <p className="text-lg text-slate-600 leading-loose">
-              Hi, I'm Ary—a versatile tech enthusiast and talent connector.
-              Whether developing innovative full-stack solutions or mentoring
-              future engineers, I thrive on creating impactful, scalable systems.
-              I bridge Southeast Asian talent with European opportunities while
-              fostering growth through thoughtful software development and
-              tailored education programs. When I'm not working, you'll find me
-              refining Agile methodologies, coaching career transitions, or
-              empowering engineering teams.
+              Hi, I'm Ary! I’m a tech geek at heart who loves bringing people together. I spend my days building full-stack systems and—my favorite part—mentoring the next generation of engineers. I’m really passionate about bridging the gap between talent in Southeast Asia and opportunities in Europe. When I’m not deep in code, I’m usually coaching teams, helping someone pivot their career, or just geeking out on how to make Agile actually work.
             </p>
           </motion.div>
         </section>
