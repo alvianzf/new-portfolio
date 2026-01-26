@@ -15,7 +15,7 @@ export default function Blog() {
       try {
         const API_KEY = 'AIzaSyCw9p4Ar_wc9h3zOuaPb7JcdH3Lj8Ail_4';
         const BLOG_ID = '369044396031799467';
-        const url = `https://www.googleapis.com/blogger/v3/blogs/${BLOG_ID}/posts?key=${API_KEY}&maxResults=50`;
+        const url = `https://www.googleapis.com/blogger/v3/blogs/${BLOG_ID}/posts?key=${API_KEY}&maxResults=500`;
 
         const response = await fetch(url);
         if (!response.ok) throw new Error('Failed to fetch posts');
