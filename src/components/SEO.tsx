@@ -26,7 +26,7 @@ export default function SEO() {
       case '/experience':
         return 'Explore the professional journey of Alvian Zachry Faturrahman, from leading technical teams to designing scalable curricula and hiring top engineering talent.';
       case '/blog':
-        return 'Technical articles covering software engineering, cloud infrastructure, DevOps, technical hiring, and curriculum development.';
+        return 'Articles of what I thougth at the moment, may be a bit random and crude.';
       default:
         return 'Portfolio and professional insights of Alvian Zachry Faturrahman, an expert in software engineering, program management, and technical assessment.';
     }

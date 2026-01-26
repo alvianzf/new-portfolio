@@ -96,3 +96,85 @@
     animation-play-state: paused;
   }
 }
+
+/* Blog Post Content Styles - targets plain HTML tags from Blogger API */
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+  color: #990000;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  border-left: 4px solid #990000;
+  padding-left: 1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.blog-content h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.blog-content h2 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.blog-content h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.blog-content h4 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.blog-content p {
+  color: #475569;
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+
+.blog-content a {
+  color: #990000;
+  text-decoration: none;
+}
+
+.blog-content a:hover {
+  text-decoration: underline;
+}
+
+.blog-content img {
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  margin: 1.5rem 0;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid #990000;
+  background-color: #f8fafc;
+  padding: 1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+  color: #475569;
+}
+
+.blog-content strong {
+  color: #0f172a;
+  font-weight: 600;
+}
