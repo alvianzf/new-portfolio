@@ -1,57 +1,68 @@
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 
-export default function SEO() {
+interface SEOProps {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  schema?: object;
+}
+
+export default function SEO({
+  title,
+  description,
+  image,
+  article = false,
+  publishedTime,
+  modifiedTime,
+  schema
+}: SEOProps) {
   const location = useLocation();
   const baseUrl = 'https://alvianzf.id';
   const currentUrl = `${baseUrl}${location.pathname}`;
+  const defaultImage = `${baseUrl}/favicon.ico`; // Fallback image
 
-  const getTitle = () => {
-    switch (location.pathname) {
-      case '/':
-        return 'Alvian Zachry Faturrahman - Program Manager | Technical Lead | Full Stack Engineer';
-      case '/experience':
-        return 'Professional Experience - Alvian Zachry Faturrahman';
-      case '/blog':
-        return 'Blog - Alvian Zachry Faturrahman';
-      case '/mentorship':
-        return 'Tech Interview Mentorship - Learn With Andi | Alvian Zachry';
-      default:
-        return 'Alvian Zachry Faturrahman Portfolio';
-    }
-  };
+  // Default values
+  const siteTitle = 'Alvian Zachry Faturrahman - Program Manager | Technical Lead | Full Stack Engineer';
+  const siteDescription = 'Program Manager, Technical Lead, and Full Stack Engineer with 13+ years of experience in software engineering, education, and technical hiring.';
 
-  const getDescription = () => {
-    switch (location.pathname) {
-      case '/':
-        return 'Program Manager, Technical Lead, and Full Stack Engineer with 13+ years of experience in software engineering, education, and technical hiring.';
-      case '/experience':
-        return 'Explore the professional journey of Alvian Zachry Faturrahman, from leading technical teams to designing scalable curricula and hiring top engineering talent.';
-      case '/blog':
-        return 'Articles of what I thougth at the moment, may be a bit random and crude.';
-      case '/mentorship':
-        return 'Get your tech interview skills roasted. Brutal, honest mock interviews to prepare you for the real thing. Book a session at learnwithandi.com.';
-      default:
-        return 'Portfolio and professional insights of Alvian Zachry Faturrahman, an expert in software engineering, program management, and technical assessment.';
-    }
-  };
+  const finalTitle = title ? `${title} | Alvian Zachry Faturrahman` : siteTitle;
+  const finalDescription = description || siteDescription;
+  const finalImage = image ? (image.startsWith('http') ? image : `${baseUrl}${image}`) : defaultImage;
 
   return (
     <Helmet>
-      <title>{getTitle()}</title>
-      <meta name="description" content={getDescription()} />
+      {/* Standard Metadata */}
+      <title>{finalTitle}</title>
+      <meta name="description" content={finalDescription} />
       <link rel="canonical" href={currentUrl} />
 
       {/* Open Graph */}
       <meta property="og:url" content={currentUrl} />
-      <meta property="og:title" content={getTitle()} />
-      <meta property="og:description" content={getDescription()} />
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={article ? 'article' : 'website'} />
+      <meta property="og:title" content={finalTitle} />
+      <meta property="og:description" content={finalDescription} />
+      <meta property="og:image" content={finalImage} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={getTitle()} />
-      <meta name="twitter:description" content={getDescription()} />
+      <meta name="twitter:title" content={finalTitle} />
+      <meta name="twitter:description" content={finalDescription} />
+      <meta name="twitter:image" content={finalImage} />
+
+      {/* Article Specifics */}
+      {article && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+      {article && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+
+      {/* JSON-LD Schema */}
+      {schema && (
+        <script type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      )}
     </Helmet>
   );
 }

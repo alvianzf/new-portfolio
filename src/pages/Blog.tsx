@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { Calendar, ChevronRight } from 'lucide-react';
 import ModernCard from '../components/ModernCard';
+import SEO from '../components/SEO';
 
 export default function Blog() {
   const [posts, setPosts] = useState<any[]>([]);
@@ -60,6 +61,10 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen pt-32 pb-20">
+      <SEO
+        title="Blog"
+        description="Articles of what I thought at the moment, may be a bit random and crude."
+      />
       <div className="container mx-auto px-6">
         {/* Page Title */}
         <motion.div

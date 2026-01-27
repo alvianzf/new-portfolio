@@ -2,10 +2,15 @@ import { motion } from 'framer-motion';
 import { experiences } from '../data';
 import ModernCard from '../components/ModernCard';
 import { Calendar, Briefcase } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Experience() {
   return (
     <div className="min-h-screen pt-32 pb-32 relative overflow-hidden">
+      <SEO
+        title="Professional Experience"
+        description="Explore the professional journey of Alvian Zachry Faturrahman, from leading technical teams to designing scalable curricula and hiring top engineering talent."
+      />
       {/* Background Patterns */}
       <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
         <div className="absolute top-0 right-0 w-3/4 h-3/4 bg-brand-red/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>

@@ -4,10 +4,31 @@ import { ArrowRight, Download } from 'lucide-react';
 import alvian from "../assets/potraits.png";
 import { skills, categories } from "../data";
 import ModernCard from "../components/ModernCard";
+import SEO from '../components/SEO';
 
 export default function About() {
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Alvian Zachry Faturrahman",
+    "url": "https://alvianzf.id",
+    "image": "https://alvianzf.id/favicon.ico",
+    "sameAs": [
+      "https://github.com/alvianzf",
+      "https://linkedin.com/in/alvianzf",
+      "https://twitter.com/alvianzf"
+    ],
+    "jobTitle": "Program Manager | Technical Lead | Full Stack Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Independent Consultant"
+    },
+    "description": "Program Manager, Technical Lead, and Full Stack Engineer with 13+ years of experience."
+  };
+
   return (
     <div className="min-h-screen pt-20 overflow-x-hidden">
+      <SEO schema={personSchema} />
       <div className="container mx-auto px-6 py-20">
         {/* Hero Section */}
         <section className="mb-16">

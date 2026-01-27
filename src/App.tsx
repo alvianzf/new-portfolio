@@ -7,7 +7,6 @@ import Experience from './pages/Experience';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Mentorship from './pages/Mentorship';
-import SEO from './components/SEO';
 import WormBackground from './components/WormBackground';
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
           <Suspense fallback={null}>
             <WormBackground />
           </Suspense>
-          <SEO />
           <Header />
           <main>
             <Routes>

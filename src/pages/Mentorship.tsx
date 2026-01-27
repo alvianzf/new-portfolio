@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ExternalLink, Flame, Target, MessageCircle, Zap, CheckCircle2, ArrowRight } from 'lucide-react';
 import ModernCard from '../components/ModernCard';
 import learnWithAndiLogo from '../assets/learnwithandi.png';
+import SEO from '../components/SEO';
 
 export default function Mentorship() {
   const features = [
@@ -38,6 +39,10 @@ export default function Mentorship() {
 
   return (
     <div className="min-h-screen pt-32 pb-20">
+      <SEO
+        title="Tech Interview Mentorship"
+        description="Get your tech interview skills roasted. Brutal, honest mock interviews to prepare you for the real thing. Book a session at learnwithandi.com."
+      />
       <div className="container mx-auto px-6">
         {/* Hero Section */}
         <motion.div

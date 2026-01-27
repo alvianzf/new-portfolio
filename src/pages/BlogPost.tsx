@@ -4,12 +4,14 @@ import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { Calendar, ArrowLeft, Clock } from 'lucide-react';
 import ModernCard from '../components/ModernCard';
+import SEO from '../components/SEO';
 
 interface BlogPost {
   id: string;
   title: string;
   content: string;
   published: string;
+  updated: string;
   url: string;
 }
 
@@ -63,6 +65,14 @@ export default function BlogPost() {
     return `${minutes} min read`;
   };
 
+  // Extract first image from content
+  const extractImage = (content: string) => {
+    const div = document.createElement('div');
+    div.innerHTML = content;
+    const img = div.querySelector('img');
+    return img ? img.src : undefined;
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen pt-32 pb-20 flex justify-center items-center">
@@ -87,8 +97,36 @@ export default function BlogPost() {
     );
   }
 
+  const cleanContent = post.content.replace(/<[^>]+>/g, '');
+  const description = cleanContent.slice(0, 160) + '...';
+  const image = extractImage(post.content);
+
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "image": image || "https://alvianzf.id/favicon.ico",
+    "datePublished": post.published,
+    "dateModified": post.updated || post.published,
+    "author": {
+      "@type": "Person",
+      "name": "Alvian Zachry Faturrahman",
+      "url": "https://alvianzf.id"
+    },
+    "description": description
+  };
+
   return (
     <div className="min-h-screen pt-32 pb-20">
+      <SEO
+        title={post.title}
+        description={description}
+        image={image}
+        article={true}
+        publishedTime={post.published}
+        modifiedTime={post.updated || post.published}
+        schema={blogSchema}
+      />
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Main Content */}
