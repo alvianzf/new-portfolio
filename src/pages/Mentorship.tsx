@@ -38,7 +38,7 @@ export default function Mentorship() {
   ];
 
   return (
-    <div className="min-h-screen pt-32 pb-20">
+    <div className="min-h-screen pt-32 pb-20 bg-[var(--bg-primary)] transition-colors duration-300">
       <SEO
         title="Tech Interview Mentorship"
         description="Get your tech interview skills roasted. Brutal, honest mock interviews to prepare you for the real thing. Book a session at learnwithandi.com."
@@ -50,17 +50,17 @@ export default function Mentorship() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16 max-w-4xl mx-auto"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-brand-red rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 dark:bg-red-900/20 text-brand-red dark:text-red-400 rounded-full text-sm font-medium mb-6">
             <Flame className="w-4 h-4" />
             Now Accepting Students
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-6 tracking-tight leading-tight">
             I'll <span className="text-brand-red">Roast</span> Your Tech Interview Skills
             <span className="text-brand-red">.</span>
           </h1>
 
-          <p className="text-xl text-slate-500 mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-[var(--text-secondary)] mb-8 max-w-2xl mx-auto leading-relaxed">
             No fluff. No hand-holding. Just brutal, honest feedback that'll actually prepare you
             for the real thing. Think you're ready? Let's find out.
           </p>
@@ -92,12 +92,12 @@ export default function Mentorship() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * index }}
             >
-              <ModernCard className="p-6 h-full hover:border-brand-red/30">
-                <div className="p-3 bg-red-50 text-brand-red rounded-xl w-fit mb-4">
+              <ModernCard className="p-6 h-full hover:border-brand-red/30 bg-[var(--card-bg)] border-[var(--border-color)]">
+                <div className="p-3 bg-red-50 dark:bg-red-900/20 text-brand-red rounded-xl w-fit mb-4">
                   {feature.icon}
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{feature.title}</h3>
-                <p className="text-slate-500 text-sm">{feature.description}</p>
+                <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2">{feature.title}</h3>
+                <p className="text-[var(--text-secondary)] text-sm">{feature.description}</p>
               </ModernCard>
             </motion.div>
           ))}
@@ -111,7 +111,7 @@ export default function Mentorship() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16"
         >
           <div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">
+            <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-6">
               What You'll Get <span className="text-brand-red">Grilled</span> On
             </h2>
             <div className="space-y-4">
@@ -124,7 +124,7 @@ export default function Mentorship() {
                   className="flex items-center gap-3"
                 >
                   <CheckCircle2 className="w-5 h-5 text-brand-red flex-shrink-0" />
-                  <span className="text-slate-700 font-medium">{benefit}</span>
+                  <span className="text-[var(--text-secondary)] font-medium">{benefit}</span>
                 </motion.div>
               ))}
             </div>

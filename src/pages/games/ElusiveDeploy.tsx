@@ -32,17 +32,17 @@ export default function ElusiveDeploy() {
   };
 
   return (
-    <div className="min-h-screen pt-20 pb-10 bg-slate-50 dark:bg-slate-900 overflow-hidden relative select-none flex flex-col items-center">
+    <div className="min-h-screen pt-20 pb-10 bg-[var(--bg-primary)] overflow-hidden relative select-none flex flex-col items-center">
       {/* HUD */}
       <div className="absolute top-24 z-30 flex flex-col items-center gap-4">
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Production Deployment</h1>
-        <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+        <h1 className="text-3xl font-bold text-[var(--text-primary)]">Production Deployment</h1>
+        <div className="flex items-center gap-2 text-[var(--text-secondary)]">
           <Lock className="w-4 h-4" />
           <span className="font-mono text-sm">Environment: PROTECTED</span>
         </div>
 
-        <div className="bg-white dark:bg-slate-800 px-6 py-3 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center min-w-[300px]">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Status Log</span>
+        <div className="bg-[var(--card-bg)] px-6 py-3 rounded-xl shadow-lg border border-[var(--border-color)] flex flex-col items-center min-w-[300px]">
+          <span className="text-xs font-bold text-[var(--text-secondary)] uppercase tracking-wider mb-1">Status Log</span>
           <AnimatePresence mode="wait">
             <motion.p
               key={attempts}
@@ -56,8 +56,8 @@ export default function ElusiveDeploy() {
           </AnimatePresence>
         </div>
 
-        <div className="mt-2 text-sm text-slate-400">
-          Attempts: <span className="font-mono font-bold text-slate-600 dark:text-slate-300">{attempts}</span>
+        <div className="mt-2 text-sm text-[var(--text-secondary)]">
+          Attempts: <span className="font-mono font-bold text-[var(--text-primary)]">{attempts}</span>
         </div>
       </div>
 
@@ -72,7 +72,7 @@ export default function ElusiveDeploy() {
           onClick={() => setIsFrozen(!isFrozen)}
           className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${isFrozen
             ? 'bg-red-500 text-white shadow-red-500/30 shadow-lg'
-            : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'
+            : 'bg-[var(--card-bg)] text-[var(--text-secondary)] hover:bg-[var(--bg-primary)] border border-[var(--border-color)]'
             }`}
         >
           {isFrozen ? <Unlock className="w-5 h-5" /> : <Lock className="w-5 h-5" />}
@@ -81,7 +81,7 @@ export default function ElusiveDeploy() {
 
         <button
           onClick={() => setAttempts(0)}
-          className="px-6 py-3 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl shadow-lg font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center gap-2"
+          className="px-6 py-3 bg-[var(--card-bg)] text-[var(--text-primary)] rounded-xl shadow-lg font-bold border border-[var(--border-color)] hover:bg-[var(--bg-primary)] transition-colors flex items-center gap-2"
         >
           <RotateCcw className="w-4 h-4" />
           Reset Shame

@@ -123,22 +123,22 @@ export default function QuickSync() {
 
   return (
     <div
-      className="min-h-screen pt-20 pb-10 bg-slate-100 dark:bg-slate-900 overflow-hidden relative select-none cursor-crosshair touch-none"
+      className="min-h-screen pt-20 pb-10 bg-[var(--bg-primary)] overflow-hidden relative select-none cursor-crosshair touch-none"
       onMouseMove={handleMove}
       onTouchMove={handleMove}
     >
       {/* HUD */}
       <div className="absolute top-24 left-0 right-0 z-40 px-4 pointer-events-none flex flex-col items-center gap-4">
         <div className="flex justify-center gap-8 w-full max-w-2xl">
-          <div className="bg-white/90 dark:bg-slate-800/90 backdrop-blur px-6 py-3 rounded-2xl shadow-xl flex items-center gap-4">
+          <div className="bg-[var(--card-bg)]/90 backdrop-blur px-6 py-3 rounded-2xl shadow-xl flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Timer className="w-5 h-5 text-blue-500" />
-              <span className="text-xl font-bold font-mono text-slate-900 dark:text-white">{score}s</span>
+              <span className="text-xl font-bold font-mono text-[var(--text-primary)]">{score}s</span>
             </div>
-            <div className="w-px h-6 bg-slate-300 dark:bg-slate-700" />
+            <div className="w-px h-6 bg-[var(--border-color)]" />
             <div className="flex items-center gap-2">
               <Trophy className="w-5 h-5 text-yellow-500" />
-              <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Level {level}</span>
+              <span className="text-sm font-bold text-[var(--text-secondary)]">Level {level}</span>
             </div>
           </div>
         </div>
@@ -148,7 +148,7 @@ export default function QuickSync() {
           <div className="pointer-events-auto flex gap-4">
             <button
               onClick={() => setIsPaused(!isPaused)}
-              className="px-4 py-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg shadow-lg font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+              className="px-4 py-2 bg-[var(--card-bg)] text-[var(--text-primary)] rounded-lg shadow-lg font-bold border border-[var(--border-color)] hover:bg-[var(--bg-primary)] transition-colors"
             >
               {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
             </button>
@@ -165,17 +165,17 @@ export default function QuickSync() {
 
       {/* Game Area */}
       {!isPlaying && !gameOver ? (
-        <div className="absolute inset-0 flex items-center justify-center z-40 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm pointer-events-auto">
+        <div className="absolute inset-0 flex items-center justify-center z-40 bg-[var(--bg-primary)]/50 backdrop-blur-sm pointer-events-auto">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl text-center max-w-md border border-slate-200 dark:border-slate-700"
+            className="bg-[var(--card-bg)] p-8 rounded-3xl shadow-2xl text-center max-w-md border border-[var(--border-color)]"
           >
             <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Calendar className="w-10 h-10 text-blue-600" />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Quick Sync Dodge</h1>
-            <p className="text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">
+            <h1 className="text-3xl font-bold text-[var(--text-primary)] mb-4">Quick Sync Dodge</h1>
+            <p className="text-[var(--text-secondary)] mb-8 leading-relaxed">
               Your calendar is filling up. Calls are raining down.
               <br />
               Move your mouse to dodge the "Quick Syncs" and stay in flow state.
@@ -197,19 +197,19 @@ export default function QuickSync() {
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white p-8 rounded-2xl max-w-lg w-full text-center m-4"
+            className="bg-[var(--card-bg)] p-8 rounded-2xl max-w-lg w-full text-center m-4"
           >
-            <h2 className="text-4xl font-bold text-slate-900 mb-2">Meeting Started!</h2>
-            <p className="text-xl text-slate-500 mb-8">You got pulled into a "quick 5 min sync" that lasted an hour.</p>
+            <h2 className="text-4xl font-bold text-[var(--text-primary)] mb-2">Meeting Started!</h2>
+            <p className="text-xl text-[var(--text-secondary)] mb-8">You got pulled into a "quick 5 min sync" that lasted an hour.</p>
 
-            <div className="bg-slate-100 rounded-xl p-6 mb-8">
-              <p className="text-sm text-slate-500 uppercase font-bold tracking-wider mb-2">Time in Flow State</p>
+            <div className="bg-[var(--bg-primary)] rounded-xl p-6 mb-8 text-[var(--text-secondary)]">
+              <p className="text-sm uppercase font-bold tracking-wider mb-2">Time in Flow State</p>
               <p className="text-5xl font-mono font-bold text-blue-600">{score}s</p>
             </div>
 
             <button
               onClick={startGame}
-              className="w-full py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl transition-all"
+              className="w-full py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl transition-all shadow-lg border border-slate-700"
             >
               Decline & Return to Work
             </button>
@@ -230,7 +230,7 @@ export default function QuickSync() {
       </AnimatePresence>
       {/* Pause Overlay */}
       {isPaused && (
-        <div className="absolute inset-0 z-50 bg-white/20 dark:bg-slate-900/20 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+        <div className="absolute inset-0 z-50 bg-[var(--bg-primary)]/20 backdrop-blur-sm flex items-center justify-center pointer-events-none">
           <div className="bg-slate-900 text-white px-8 py-4 rounded-xl shadow-2xl font-bold text-2xl animate-pulse">
             OUT OF OFFICE
           </div>

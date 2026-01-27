@@ -86,10 +86,10 @@ export default function FlexPlayground() {
   return (
     <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl mx-auto">
       {/* Controls */}
-      <div className="w-full md:w-1/3 space-y-6 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
+      <div className="w-full md:w-1/3 space-y-6 bg-[var(--card-bg)] p-6 rounded-2xl shadow-xl border border-[var(--border-color)]">
         <div>
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Level {level.id}</h2>
-          <p className="text-slate-600 dark:text-slate-300 mb-4">{level.instruction}</p>
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-2">Level {level.id}</h2>
+          <p className="text-[var(--text-secondary)] mb-4">{level.instruction}</p>
           <div className="bg-yellow-50 text-yellow-800 p-3 rounded-lg text-sm italic border border-yellow-200">
             Hint: {level.sarcasticHint}
           </div>
@@ -97,11 +97,11 @@ export default function FlexPlayground() {
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">justify-content</label>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">justify-content</label>
             <select
               value={styles.justifyContent}
               onChange={(e) => setStyles(s => ({ ...s, justifyContent: e.target.value }))}
-              className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5"
+              className="w-full bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)] rounded-lg p-2.5 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all"
             >
               {['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly'].map(opt => (
                 <option key={opt} value={opt}>{opt}</option>
@@ -109,11 +109,11 @@ export default function FlexPlayground() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">align-items</label>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">align-items</label>
             <select
               value={styles.alignItems}
               onChange={(e) => setStyles(s => ({ ...s, alignItems: e.target.value }))}
-              className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5"
+              className="w-full bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)] rounded-lg p-2.5 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all"
             >
               {['flex-start', 'flex-end', 'center', 'baseline', 'stretch'].map(opt => (
                 <option key={opt} value={opt}>{opt}</option>
@@ -121,11 +121,11 @@ export default function FlexPlayground() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">flex-direction</label>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">flex-direction</label>
             <select
               value={styles.flexDirection}
               onChange={(e) => setStyles(s => ({ ...s, flexDirection: e.target.value }))}
-              className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5"
+              className="w-full bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)] rounded-lg p-2.5 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all"
             >
               {['row', 'row-reverse', 'column', 'column-reverse'].map(opt => (
                 <option key={opt} value={opt}>{opt}</option>
@@ -155,7 +155,7 @@ export default function FlexPlayground() {
       </div>
 
       {/* Playground */}
-      <div className="flex-1 min-h-[400px] bg-slate-200 dark:bg-slate-900 rounded-2xl border-4 border-slate-300 dark:border-slate-700 relative overflow-hidden">
+      <div className="flex-1 min-h-[400px] bg-[var(--bg-primary)] rounded-2xl border-4 border-[var(--border-color)] relative overflow-hidden">
         <div
           className="absolute inset-0 p-8 flex gap-4 transition-all duration-500"
           style={{

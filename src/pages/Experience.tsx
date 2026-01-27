@@ -30,10 +30,10 @@ export default function Experience() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-24"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-6 tracking-tight">
             Professional Journey
           </h1>
-          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
             A timeline of my career across software engineering, leadership, and education.
           </p>
         </motion.div>
@@ -50,11 +50,11 @@ export default function Experience() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <ModernCard className="group hover:border-brand-red/30 transition-colors p-8 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-slate-200 dark:border-slate-700">
+                <ModernCard className="group hover:border-brand-red/30 transition-colors p-8 bg-[var(--card-bg)] backdrop-blur-sm border-[var(--border-color)]">
                   <div className="flex flex-col md:flex-row gap-8">
                     {/* Icon & Line */}
                     <div className="hidden md:flex flex-col items-center">
-                      <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-brand-red group-hover:bg-red-50/10 group-hover:scale-105 transition-all duration-300 border border-slate-200 dark:border-slate-700 shadow-sm">
+                      <div className="w-16 h-16 rounded-2xl bg-[var(--bg-primary)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-brand-red group-hover:bg-red-50/10 group-hover:scale-105 transition-all duration-300 border border-[var(--border-color)] shadow-sm">
                         {/* @ts-expect-error - Rendering Icon component dynamically */}
                         <IconComponent className="w-7 h-7" />
                       </div>
@@ -64,17 +64,17 @@ export default function Experience() {
                     <div className="flex-1 space-y-4">
                       <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                         <div>
-                          <h3 className="text-xl font-bold text-slate-900 dark:text-white">{exp.title}</h3>
+                          <h3 className="text-xl font-bold text-[var(--text-primary)]">{exp.title}</h3>
                           <h4 className="text-brand-red font-medium text-lg">{exp.company}</h4>
                         </div>
 
-                        <div className="flex items-center text-slate-500 dark:text-slate-400 text-sm font-medium bg-slate-100 dark:bg-slate-900/80 px-4 py-1.5 rounded-full w-fit whitespace-nowrap">
+                        <div className="flex items-center text-[var(--text-secondary)] text-sm font-medium bg-[var(--bg-primary)] px-4 py-1.5 rounded-full w-fit whitespace-nowrap">
                           <Calendar className="w-4 h-4 mr-2" />
                           {exp.period}
                         </div>
                       </div>
 
-                      <p className="text-slate-600 dark:text-slate-300 leading-loose text-base">
+                      <p className="text-[var(--text-secondary)] leading-loose text-base">
                         {exp.description}
                       </p>
                     </div>
