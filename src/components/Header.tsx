@@ -25,7 +25,7 @@ export default function Header() {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-[100] bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -47,6 +47,89 @@ export default function Header() {
                 {item}
               </NavLink>
             ))}
+
+            {/* Games Dropdown (Desktop) */}
+            <div className="relative group">
+              <button className="flex items-center space-x-1 text-sm font-medium text-slate-500 hover:text-[#990000] transition-colors py-2">
+                <span>Games</span>
+                <ChevronDown className="w-4 h-4" />
+              </button>
+
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[600px] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top">
+                <div className="bg-white rounded-xl shadow-xl border border-slate-100 p-6 grid grid-cols-2 gap-8 relative">
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t border-l border-slate-100 transform rotate-45"></div>
+
+                  {/* Category: Waste Time */}
+                  <div>
+                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Waste Time</h3>
+                    <div className="space-y-2">
+                      <NavLink to="/games/bug-squash" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 bg-red-50 text-red-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
+                            <i className="fas fa-bug w-5 h-5 flex items-center justify-center">🐞</i>
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Bug Squash</div>
+                            <div className="text-xs text-slate-500">Whack-a-Bug (Stress Relief)</div>
+                          </div>
+                        </div>
+                      </NavLink>
+                      <NavLink to="/games/quick-sync" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
+                            <i className="fas fa-calendar-minus w-5 h-5 flex items-center justify-center">📅</i>
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Quick Sync Dodge</div>
+                            <div className="text-xs text-slate-500">Avoid the calendar invites</div>
+                          </div>
+                        </div>
+                      </NavLink>
+                      <NavLink to="/games/elusive-deploy" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 bg-orange-50 text-orange-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
+                            <i className="fas fa-rocket w-5 h-5 flex items-center justify-center">🚀</i>
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Elusive Deploy</div>
+                            <div className="text-xs text-slate-500">Try to click the button</div>
+                          </div>
+                        </div>
+                      </NavLink>
+                    </div>
+                  </div>
+
+                  {/* Category: Actually Learn (Sarcastic) */}
+                  <div>
+                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">"Actually" Learn</h3>
+                    <div className="space-y-2">
+                      <NavLink to="/games/learn-flex" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 bg-purple-50 text-purple-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
+                            <div className="w-5 h-5 flex items-center justify-center font-bold border-2 border-current rounded text-[10px]">CSS</div>
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Flexbox Froggy</div>
+                            <div className="text-xs text-slate-500">Center a div correctly</div>
+                          </div>
+                        </div>
+                      </NavLink>
+                      <NavLink to="/games/learn-typescript" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
+                            <div className="w-5 h-5 flex items-center justify-center font-bold text-[10px]">TS</div>
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Type Torture</div>
+                            <div className="text-xs text-slate-500">Fix the red squiggly lines</div>
+                          </div>
+                        </div>
+                      </NavLink>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Tools Dropdown (Desktop) */}
             <div className="relative group">

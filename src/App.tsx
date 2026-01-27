@@ -11,6 +11,11 @@ import Mentorship from './pages/Mentorship';
 import WormBackground from './components/WormBackground';
 import ThemeToggle from './components/ThemeToggle';
 import { ThemeProvider } from './context/ThemeContext';
+import BugSquash from './pages/games/BugSquash';
+import QuickSync from './pages/games/QuickSync';
+import ElusiveDeploy from './pages/games/ElusiveDeploy';
+import LearnFlex from './pages/games/LearnFlex';
+import LearnTypeScript from './pages/games/LearnTypeScript';
 
 function App() {
   return (
@@ -33,6 +38,11 @@ function App() {
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:postId" element={<BlogPost />} />
                   <Route path="/mentorship" element={<Mentorship />} />
+                  <Route path="/games/bug-squash" element={<BugSquash />} />
+                  <Route path="/games/quick-sync" element={<QuickSync />} />
+                  <Route path="/games/elusive-deploy" element={<ElusiveDeploy />} />
+                  <Route path="/games/learn-flex" element={<LearnFlex />} />
+                  <Route path="/games/learn-typescript" element={<LearnTypeScript />} />
                 </Routes>
               </AnimatePresence>
             </main>

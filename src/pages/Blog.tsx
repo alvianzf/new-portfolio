@@ -79,10 +79,10 @@ export default function Blog() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
             Latest Thoughts
           </h1>
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
             Writings on random things I thought at that moment.
           </p>
         </motion.div>
@@ -100,13 +100,13 @@ export default function Blog() {
                     transition={{ delay: index * 0.03 }}
                   >
                     <Link to={`/blog/${post.id}`} className="group block h-full">
-                      <ModernCard className="flex flex-col justify-between p-5 hover:border-brand-red/30 transition-all h-full">
+                      <ModernCard className="flex flex-col justify-between p-5 hover:border-brand-red/30 transition-all h-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
                         <div>
-                          <h2 className="text-base font-bold text-slate-900 mb-2 group-hover:text-brand-red transition-colors line-clamp-2">
+                          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-red transition-colors line-clamp-2">
                             {post.title}
                           </h2>
                           <div
-                            className="text-sm text-slate-500 leading-relaxed line-clamp-3"
+                            className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-3"
                             dangerouslySetInnerHTML={{
                               __html: post.content
                                 ? post.content.replace(/<[^>]+>/g, '').slice(0, 80) + '...'
@@ -114,8 +114,8 @@ export default function Blog() {
                             }}
                           />
                         </div>
-                        <div className="flex items-center justify-between text-xs font-medium mt-4 pt-3 border-t border-slate-100">
-                          <div className="flex items-center text-slate-400">
+                        <div className="flex items-center justify-between text-xs font-medium mt-4 pt-3 border-t border-slate-100 dark:border-slate-700">
+                          <div className="flex items-center text-slate-400 dark:text-slate-500">
                             <Calendar className="w-3 h-3 mr-1" />
                             <time>{format(new Date(post.published), 'MMM d, yyyy')}</time>
                           </div>
@@ -126,7 +126,7 @@ export default function Blog() {
                   </motion.div>
                 ))
               ) : (
-                <div className="col-span-full text-center py-20 bg-white rounded-2xl border border-slate-100">
+                <div className="col-span-full text-center py-20 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700">
                   <p className="text-slate-400">No blog posts found at the moment.</p>
                 </div>
               )}
@@ -141,20 +141,20 @@ export default function Blog() {
             className="lg:col-span-1"
           >
             <div className="sticky top-28">
-              <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center">
                 <span>All Posts</span>
                 <span className="ml-2 text-xs font-normal text-slate-400">({allPosts.length})</span>
               </h2>
-              <div className="bg-white rounded-2xl border border-slate-100 p-4 max-h-[60vh] overflow-y-auto">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-4 max-h-[60vh] overflow-y-auto">
                 <div className="space-y-2">
                   {allPosts.map((post) => (
                     <Link
                       key={post.id}
                       to={`/blog/${post.id}`}
-                      className="group flex items-center p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors"
+                      className="group flex items-center p-2 -mx-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                     >
-                      <ChevronRight className="w-3 h-3 text-slate-300 mr-2 flex-shrink-0" />
-                      <span className="text-sm text-slate-600 group-hover:text-brand-red transition-colors line-clamp-1">
+                      <ChevronRight className="w-3 h-3 text-slate-300 dark:text-slate-600 mr-2 flex-shrink-0" />
+                      <span className="text-sm text-slate-600 dark:text-slate-300 group-hover:text-brand-red transition-colors line-clamp-1">
                         {post.title}
                       </span>
                     </Link>

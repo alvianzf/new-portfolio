@@ -50,6 +50,14 @@ I didn't just add meta tags; I performed a ritual summoning for the search engin
 *   **Prettier**: If I miss a semicolon, the computer yells at me.
 *   **Strict Mode**: `any` is now illegal. I have to type `unknown` and cast it like a wizard.
 
+### 🕹️ The "Stupid Playable Arcade" (Phase 3)
+Because every professional portfolio needs a way to waste the recruiter's time.
+*   **Bug Squash**: Save the production database from actual bugs.
+*   **Quick Sync Dodge**: Simulate the average Tuesday by dodging calendar invites.
+*   **Elusive Deploy**: Try to push to production. Good luck.
+*   **Learn Flex (Sarcastic)**: CSS is hard. We made it harder.
+*   **Type Torture**: Fix `any` types or get roasted.
+
 ## 🔧 Under The Hood (How I Over-Engineered This)
 
 I built this app with a stack that says "I have too much free time."
