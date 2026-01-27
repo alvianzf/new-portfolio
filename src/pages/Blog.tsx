@@ -6,8 +6,15 @@ import { Calendar, ChevronRight } from 'lucide-react';
 import ModernCard from '../components/ModernCard';
 import SEO from '../components/SEO';
 
+interface BlogPost {
+  id: string;
+  title: string;
+  content: string;
+  published: string;
+}
+
 export default function Blog() {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

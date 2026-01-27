@@ -1,13 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --bg-primary: #f8fafc;
+    /* slate-50 */
+    --text-primary: #0f172a;
+    /* slate-900 */
+    --text-secondary: #64748b;
+    /* slate-500 */
+    --accent-primary: #990000;
+    /* brand-red */
+    --accent-secondary: #7f1d1d;
+    /* red-900 */
+    --border-color: #e2e8f0;
+    /* slate-200 */
+    --card-bg: #ffffff;
+    --font-primary: "Inter", sans-serif;
+    --font-heading: "Outfit", sans-serif;
+  }
+
+  /* Dark Mode */
+  .dark {
+    --bg-primary: #0f172a;
+    /* slate-900 */
+    --text-primary: #ffffff;
+    /* white */
+    --text-secondary: #cbd5e1;
+    /* slate-300 */
+    --accent-primary: #ef4444;
+    /* red-500 */
+    --accent-secondary: #f87171;
+    /* red-400 */
+    --border-color: #1e293b;
+    /* slate-800 */
+    --card-bg: #1e293b;
+  }
+
+  /* Cyberpunk Mode */
+  .cyberpunk {
+    --bg-primary: #000000;
+    --text-primary: #00ff41;
+    /* Maxtrix Green bright */
+    --text-secondary: #4ade80;
+    /* Green-400 - much lighter visibility */
+    --accent-primary: #ff00ff;
+    /* Neon Magenta */
+    --accent-secondary: #00ffff;
+    /* Neon Cyan */
+    --border-color: #00ff41;
+    --card-bg: #0a0a0a;
+    --font-primary: "Courier New", monospace;
+    --font-heading: "Courier New", monospace;
+  }
+
   body {
-    @apply bg-slate-50 text-slate-900 antialiased;
-    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    @apply antialiased transition-colors duration-300;
   }
 
   h1,
@@ -16,7 +70,7 @@
   h4,
   h5,
   h6 {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-heading);
     @apply tracking-tight;
   }
 
@@ -27,42 +81,86 @@
 }
 
 @layer components {
-
   /* Modern Card */
   .card-modern {
-    @apply bg-white rounded-2xl border border-slate-100 shadow-sm transition-all duration-300;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    @apply rounded-2xl shadow-sm transition-all duration-300;
   }
 
   .card-modern:hover {
-    @apply shadow-md -translate-y-1 border-slate-200;
+    @apply shadow-md -translate-y-1;
+    border-color: var(--accent-primary);
+  }
+
+  .cyberpunk .card-modern {
+    box-shadow: 4px 4px 0px var(--accent-primary);
+    border-radius: 0;
+  }
+
+  .cyberpunk .card-modern:hover {
+    box-shadow: 6px 6px 0px var(--accent-primary);
+    transform: translate(-2px, -2px);
   }
 
   /* Modern Button */
   .btn-primary {
-    @apply px-6 py-3 bg-slate-900 text-white font-medium rounded-full transition-all duration-300;
-    @apply hover:bg-slate-800 hover:shadow-lg hover:-translate-y-0.5;
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+    @apply px-6 py-3 font-medium rounded-full transition-all duration-300;
+    @apply hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  .cyberpunk .btn-primary {
+    background-color: var(--accent-primary);
+    color: #000000;
+    border-radius: 0;
+    box-shadow: 4px 4px 0px var(--accent-secondary);
+  }
+
+  .cyberpunk .btn-primary:hover {
+    box-shadow: 6px 6px 0px var(--accent-secondary);
   }
 
   .btn-outline {
-    @apply px-6 py-3 bg-transparent border border-slate-200 text-slate-900 font-medium rounded-full transition-all duration-300;
-    @apply hover:border-slate-900 hover:bg-slate-50;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    @apply px-6 py-3 font-medium rounded-full transition-all duration-300;
+    @apply hover:bg-slate-500/10;
+  }
+
+  .cyberpunk .btn-outline {
+    border-radius: 0;
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
   }
 
   /* Clean Badge */
   .badge-modern {
-    @apply px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full border border-slate-200;
+    @apply px-3 py-1 text-xs font-medium rounded-full border;
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    border-color: var(--border-color);
   }
 }
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r;
+    --tw-gradient-from: var(--text-primary);
+    --tw-gradient-to: var(--text-secondary);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
 
   .text-gradient-red {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-red to-red-800;
+    @apply bg-clip-text text-transparent bg-gradient-to-r;
+    --tw-gradient-from: var(--accent-primary);
+    --tw-gradient-to: var(--accent-secondary);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
 
+  /* Marquee Animations */
   @keyframes marquee {
     0% {
       transform: translateX(0);
@@ -97,17 +195,17 @@
   }
 }
 
-/* Blog Post Content Styles - targets plain HTML tags from Blogger API */
+/* Blog Post Content Styles */
 .blog-content h1,
 .blog-content h2,
 .blog-content h3,
 .blog-content h4,
 .blog-content h5,
 .blog-content h6 {
-  color: #990000;
+  color: var(--accent-primary);
   font-weight: 800;
-  font-family: 'Outfit', sans-serif;
-  border-left: 4px solid #990000;
+  font-family: var(--font-heading);
+  border-left: 4px solid var(--accent-primary);
   padding-left: 1rem;
   margin-top: 2.5rem;
   margin-bottom: 1.5rem;
@@ -134,13 +232,13 @@
 }
 
 .blog-content p {
-  color: #475569;
+  color: var(--text-secondary);
   line-height: 1.75;
   margin-bottom: 1.25rem;
 }
 
 .blog-content a {
-  color: #990000;
+  color: var(--accent-primary);
   text-decoration: none;
 }
 
@@ -154,13 +252,22 @@
   margin: 1.5rem 0;
 }
 
+.cyberpunk .blog-content img {
+  border-radius: 0;
+  box-shadow: 4px 4px 0px var(--accent-primary);
+  filter: grayscale(100%) contrast(120%);
+}
+
 .blog-content blockquote {
-  border-left: 4px solid #990000;
-  background-color: #f8fafc;
+  border-left: 4px solid var(--accent-primary);
+  background-color: var(--bg-primary);
+  /* slightly modified from original logic */
+  opacity: 0.9;
   padding: 1rem;
   border-radius: 0 0.5rem 0.5rem 0;
   margin: 1.5rem 0;
   font-style: italic;
+  color: var(--text-primary);
 }
 
 .blog-content ul,
@@ -171,10 +278,10 @@
 
 .blog-content li {
   margin-bottom: 0.5rem;
-  color: #475569;
+  color: var(--text-secondary);
 }
 
 .blog-content strong {
-  color: #0f172a;
+  color: var(--text-primary);
   font-weight: 600;
 }

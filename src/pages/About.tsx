@@ -38,21 +38,21 @@ export default function About() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-6xl md:text-8xl font-bold tracking-tighter text-slate-900 mb-8 leading-tight">
+              <h1 className="text-6xl md:text-8xl font-bold tracking-tighter text-[var(--text-primary)] mb-8 leading-tight">
                 Alvian
                 <br />
-                <span className="text-slate-400">Zachry.</span>
+                <span className="text-[var(--text-secondary)]">Zachry.</span>
               </h1>
-              <p className="text-xl md:text-2xl text-slate-500 max-w-lg leading-relaxed mb-10">
+              <p className="text-xl md:text-2xl text-[var(--text-secondary)] max-w-lg leading-relaxed mb-10">
                 Senior Talent Manager & Software Engineer <br />
-                <span className="text-slate-400 text-xl">bridging the gap between people and technology.</span>
+                <span className="text-[var(--text-secondary)] text-xl">bridging the gap between people and technology.</span>
               </p>
 
               <div className="flex flex-wrap gap-4">
                 <a href="#contact" className="btn-primary flex items-center gap-2 hover:bg-brand-red transition-colors">
                   Get in touch <ArrowRight className="w-4 h-4" />
                 </a>
-                <a href="/resume.pdf" className="text-slate-600 hover:text-brand-red font-medium flex items-center gap-2 px-6 py-3 transition-colors">
+                <a href="/resume.pdf" className="text-[var(--text-secondary)] hover:text-brand-red font-medium flex items-center gap-2 px-6 py-3 transition-colors">
                   Download CV <Download className="w-4 h-4" />
                 </a>
               </div>
@@ -88,10 +88,10 @@ export default function About() {
               {[...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name)), ...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name)), ...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name))].map((skill, index) => (
                 <div
                   key={`row1-${skill.name}-${index}`}
-                  className="flex items-center gap-2 px-6 py-3 bg-white rounded-full border border-slate-200 shadow-sm whitespace-nowrap group hover:border-brand-red hover:shadow-md transition-all duration-300"
+                  className="flex items-center gap-2 px-6 py-3 card-modern border border-[var(--border-color)] shadow-sm whitespace-nowrap group hover:border-brand-red hover:shadow-md transition-all duration-300"
                 >
-                  <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-slate-400 group-hover:text-brand-red transition-colors" />
-                  <span className="text-sm font-medium text-slate-600 group-hover:text-brand-red transition-colors">{skill.name}</span>
+                  <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
+                  <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">{skill.name}</span>
                 </div>
               ))}
             </motion.div>
@@ -108,18 +108,18 @@ export default function About() {
               {[...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical'), ...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical'), ...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical')].map((skill, index) => (
                 <div
                   key={`row2-${skill.name}-${index}`}
-                  className="flex items-center gap-2 px-6 py-3 bg-white rounded-full border border-slate-200 shadow-sm whitespace-nowrap group hover:border-brand-red hover:shadow-md transition-all duration-300"
+                  className="flex items-center gap-2 px-6 py-3 card-modern border border-[var(--border-color)] shadow-sm whitespace-nowrap group hover:border-brand-red hover:shadow-md transition-all duration-300"
                 >
-                  <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-slate-400 group-hover:text-brand-red transition-colors" />
-                  <span className="text-sm font-medium text-slate-600 group-hover:text-brand-red transition-colors">{skill.name}</span>
+                  <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
+                  <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">{skill.name}</span>
                 </div>
               ))}
             </motion.div>
           </div>
 
-          {/* Gradient Masks for fading effect */}
-          <div className="absolute top-0 left-0 h-full w-20 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute top-0 right-0 h-full w-20 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
+          {/* Gradient Masks for fading effect - updated to match theme bg */}
+          <div className="absolute top-0 left-0 h-full w-20 bg-gradient-to-r from-[var(--bg-primary)] to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute top-0 right-0 h-full w-20 bg-gradient-to-l from-[var(--bg-primary)] to-transparent z-10 pointer-events-none"></div>
         </section>
 
         {/* Biography (About Me) */}
@@ -130,8 +130,8 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl font-bold text-slate-900 mb-8 ">About Me</h2>
-            <p className="text-lg text-slate-600 leading-loose">
+            <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-8 ">About Me</h2>
+            <p className="text-lg text-[var(--text-secondary)] leading-loose">
               Hi, I'm Ary! I’m a tech geek at heart who loves bringing people together. I spend my days building full-stack systems and—my favorite part—mentoring the next generation of engineers. I’m really passionate about bridging the gap between talent in Southeast Asia and opportunities in Europe. When I’m not deep in code, I’m usually coaching teams, helping someone pivot their career, or just geeking out on how to make Agile actually work.
             </p>
           </motion.div>
@@ -147,7 +147,7 @@ export default function About() {
             <div className="grid grid-cols-1 gap-12">
               {categories.filter(cat => cat.name !== 'Technical Skills').map((category) => (
                 <div key={category.name} className="space-y-6">
-                  <h3 className="text-xl font-semibold text-slate-900 flex items-center gap-3 border-b border-slate-200 pb-4">
+                  <h3 className="text-xl font-semibold text-[var(--text-primary)] flex items-center gap-3 border-b border-[var(--border-color)] pb-4">
                     <category.icon className="w-6 h-6 text-brand-red" />
                     {category.name}
                   </h3>
@@ -157,13 +157,13 @@ export default function About() {
                       .filter(skill => skill.category === category.name.toLowerCase().split(' ')[0])
                       .map((skill) => (
                         <div key={skill.name} className="flex-1 min-w-[280px] max-w-[350px]">
-                          <ModernCard className="h-full flex items-center gap-4 p-5 hover:border-brand-red/30 transition-all hover:shadow-md hover:-translate-y-1">
-                            <div className="p-3 bg-slate-50 rounded-xl text-slate-400 group-hover:text-brand-red transition-colors">
+                          <ModernCard className="h-full flex items-center gap-4 p-5 hover:border-brand-red/30 transition-all hover:shadow-md hover:-translate-y-1 bg-[var(--card-bg)]">
+                            <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
                               <FontAwesomeIcon icon={skill.icon} className="w-5 h-5" />
                             </div>
                             <div>
-                              <h4 className="font-semibold text-slate-900">{skill.name}</h4>
-                              <p className="text-sm text-slate-500 mt-1 leading-snug">{skill.description}</p>
+                              <h4 className="font-semibold text-[var(--text-primary)]">{skill.name}</h4>
+                              <p className="text-sm text-[var(--text-secondary)] mt-1 leading-snug">{skill.description}</p>
                             </div>
                           </ModernCard>
                         </div>

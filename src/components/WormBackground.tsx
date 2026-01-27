@@ -67,7 +67,7 @@ export default function WormBackground() {
   const wormCount = 50; // Triple the worms
 
   return (
-    <div className="fixed inset-0 -z-10 bg-slate-50 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 -z-10 bg-[var(--bg-primary)] transition-colors duration-300 overflow-hidden pointer-events-none">
       <svg
         width="100%"
         height="100%"
