@@ -21,6 +21,41 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://alvianzf.id/tools/thesis-creator</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alvianzf.id/tools/whatsapp-formatter</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alvianzf.id/games/bug-squash</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alvianzf.id/games/quick-sync</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alvianzf.id/games/elusive-deploy</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alvianzf.id/games/learn-flex</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alvianzf.id/games/learn-typescript</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
   
   <url>
     <loc>https://alvianzf.id/blog/4177481728910489873</loc>

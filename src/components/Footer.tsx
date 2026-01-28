@@ -9,61 +9,16 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 border-t border-slate-800 text-slate-300 py-16 transition-colors duration-300">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand & Description */}
-          <div className="col-span-1 md:col-span-1">
+          <div className="col-span-1 border-b md:border-b-0 border-slate-800 pb-8 md:pb-0">
             <Link to="/" className="text-2xl font-bold tracking-tight text-white hover:text-[#990000] transition-colors mb-4 block">
               azf.
             </Link>
-            <p className="text-slate-400 leading-relaxed text-sm">
+            <p className="text-slate-400 leading-relaxed text-sm mb-6">
               Program Manager, Technical Lead, and Full Stack Engineer bridging the gap between people and technology.
             </p>
-          </div>
-
-          {/* Sitemap */}
-          <div>
-            <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider">Sitemap</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/" className="hover:text-[#990000] transition-colors">About</Link>
-              </li>
-              <li>
-                <Link to="/experience" className="hover:text-[#990000] transition-colors">Experience</Link>
-              </li>
-              <li>
-                <Link to="/blog" className="hover:text-[#990000] transition-colors">Blog</Link>
-              </li>
-              <li>
-                <Link to="/mentorship" className="hover:text-[#990000] transition-colors">Mentorship</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Games */}
-          <div>
-            <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider">Games</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/games/bug-squash" className="hover:text-[#990000] transition-colors">Bug Squash</Link>
-              </li>
-              <li>
-                <Link to="/games/quick-sync" className="hover:text-[#990000] transition-colors">Quick Sync</Link>
-              </li>
-              <li>
-                <Link to="/games/elusive-deploy" className="hover:text-[#990000] transition-colors">Elusive Deploy</Link>
-              </li>
-              <li>
-                <Link to="/games/learn-flex" className="hover:text-[#990000] transition-colors">Flexbox Froggy</Link>
-              </li>
-              <li>
-                <Link to="/games/learn-typescript" className="hover:text-[#990000] transition-colors">Type Torture</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Socials */}
-          <div>
-            <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider">Connect</h3>
+            {/* Socials moved here for better mobile density */}
             <div className="flex gap-4">
               <a
                 href="https://github.com/alvianzf"
@@ -99,6 +54,70 @@ export default function Footer() {
               >
                 <Mail className="w-5 h-5" />
               </a>
+            </div>
+          </div>
+
+          {/* Links Group 1: Site & Games */}
+          <div>
+            <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider text-[#990000]">Explore</h3>
+            <ul className="space-y-2 text-sm text-slate-400">
+              <li><Link to="/" className="hover:text-white transition-colors">About</Link></li>
+              <li><Link to="/experience" className="hover:text-white transition-colors">Experience</Link></li>
+              <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
+              <li><Link to="/mentorship" className="hover:text-white transition-colors">Mentorship</Link></li>
+              <li className="pt-4 font-bold text-white text-xs uppercase tracking-wider">Games</li>
+              <li><Link to="/games/bug-squash" className="hover:text-white transition-colors">Bug Squash</Link></li>
+              <li><Link to="/games/quick-sync" className="hover:text-white transition-colors">Quick Sync</Link></li>
+              <li><Link to="/games/elusive-deploy" className="hover:text-white transition-colors">Elusive Deploy</Link></li>
+              <li><Link to="/games/learn-flex" className="hover:text-white transition-colors">Flexbox Froggy</Link></li>
+              <li><Link to="/games/learn-typescript" className="hover:text-white transition-colors">Type Torture</Link></li>
+            </ul>
+          </div>
+
+          {/* Tools */}
+          <div>
+            <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider text-[#990000]">Tools</h3>
+            <ul className="space-y-2 text-sm text-slate-400">
+              <li className="font-semibold text-slate-500 text-xs uppercase pt-1 pb-1">Internal</li>
+              <li><Link to="/tools/thesis-creator" className="hover:text-white transition-colors">Thesis Procrastinator</Link></li>
+              <li><Link to="/tools/whatsapp-formatter" className="hover:text-white transition-colors">Boomer Text Gen</Link></li>
+
+              <li className="font-semibold text-slate-500 text-xs uppercase pt-4 pb-1">Web Apps</li>
+              <li><a href="https://jsonify.alvianzf.id" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Curly Brace Saver</a></li>
+              <li><a href="https://invoice.alvianzf.id" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Beg For Money</a></li>
+            </ul>
+          </div>
+
+          {/* NPM Packages */}
+          <div className="col-span-1 md:col-span-2 lg:col-span-2">
+            <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider text-[#990000]">NPM Packages</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-slate-400">
+              <a href="https://www.npmjs.com/package/make-it-rain" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors group flex items-center gap-2">
+                Visual Inflation <span className="opacity-0 group-hover:opacity-100 transition-opacity text-xs text-[#990000]">→</span>
+              </a>
+              <a href="https://www.npmjs.com/package/env-validate-sarcastically" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors group flex items-center gap-2">
+                Env Bully <span className="opacity-0 group-hover:opacity-100 transition-opacity text-xs text-[#990000]">→</span>
+              </a>
+              <a href="https://www.npmjs.com/package/a-valid-json" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors group flex items-center gap-2">
+                Trust Issues <span className="opacity-0 group-hover:opacity-100 transition-opacity text-xs text-[#990000]">→</span>
+              </a>
+              <a href="https://www.npmjs.com/package/@alvianzf/squiggly-lines-go-brrr" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors group flex items-center gap-2">
+                CPU Heater <span className="opacity-0 group-hover:opacity-100 transition-opacity text-xs text-[#990000]">→</span>
+              </a>
+            </div>
+
+            <div className="mt-8 bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+              <p className="text-xs text-slate-500 mb-2 font-mono">Run this immediately:</p>
+              <div className="flex items-center gap-2 bg-slate-950 p-2 rounded border border-slate-800">
+                <code className="text-xs text-green-400 font-mono flex-1">npx env-validate-sarcastically</code>
+                <button
+                  onClick={() => navigator.clipboard.writeText('npx env-validate-sarcastically')}
+                  className="text-slate-500 hover:text-white transition-colors"
+                  aria-label="Copy command"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>

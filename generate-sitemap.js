@@ -3,7 +3,19 @@ import fs from 'fs';
 const baseUrl = 'https://alvianzf.id';
 const API_KEY = 'AIzaSyCw9p4Ar_wc9h3zOuaPb7JcdH3Lj8Ail_4';
 const BLOG_ID = '369044396031799467';
-const staticPages = ['/', '/experience', '/blog', '/mentorship'];
+const staticPages = [
+  '/', 
+  '/experience', 
+  '/blog', 
+  '/mentorship', 
+  '/tools/thesis-creator', 
+  '/tools/whatsapp-formatter',
+  '/games/bug-squash',
+  '/games/quick-sync',
+  '/games/elusive-deploy',
+  '/games/learn-flex',
+  '/games/learn-typescript'
+];
 
 async function generateSitemap() {
   try {
