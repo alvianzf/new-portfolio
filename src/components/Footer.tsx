@@ -109,7 +109,7 @@ export default function Footer() {
           </p>
           <div className="flex gap-6 text-xs text-slate-500 font-medium">
             <span>Built with React & Vite</span>
-            <span>Deployed on Netlify</span>
+            <span>Deployed on Vercel</span>
           </div>
         </div>
       </div>
