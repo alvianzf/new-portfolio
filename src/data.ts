@@ -1,4 +1,4 @@
-import { Experience, Skill, Category } from "./types";
+import { Experience, Skill, Category, NpmPackage } from "./types";
 import { Code2, Brain, Languages, UserSearch, Presentation, GraduationCap, Terminal, Rocket, Server, LayoutTemplate } from "lucide-react";
 import {
   faReact,
@@ -157,6 +157,20 @@ export const experiences: Experience[] = [
       "Contributed to the company's recognition as the best company to work for in 2019 by the Singapore Computer Society."
     ],
     techStack: ["PHP", "CodeIgniter", "jQuery", "MySQL", "API Integration"],
+    category: "technical",
+  },
+  {
+    title: "The Freelance Vigilante",
+    company: "Various Government Agencies & Late Night Ideas",
+    icon: Code2,
+    period: "2013 – 2019",
+    description: [
+      "Spent the early years acting as a one-man army for government agencies, building ERPs and dashboards that (surprisingly) didn't crash.",
+      "Learned the hard way that 'fixed price' actually means 'unlimited revisions'.",
+      "Crafted custom solutions for local businesses using whatever tech stack was trendy (or whatever I could make work at 3 AM).",
+      "Mastered the art of translating 'I want it to pop' into actual CSS."
+    ],
+    techStack: ["PHP", "CodeIgniter", "jQuery", "Bootstrap", "MySQL", "Coffee & Prayers"],
     category: "technical",
   },
 ];
@@ -372,4 +386,30 @@ export const categories: Category[] = [
   { name: "Technical Skills", icon: Code2 },
   { name: "Soft Skills", icon: Brain },
   { name: "Languages", icon: Languages },
+];
+export const npmPackages: NpmPackage[] = [
+  {
+    name: "make-it-rain",
+    description: "Visual Inflation. A useless package that makes it rain emojis.",
+    command: "npm i make-it-rain",
+    url: "https://www.npmjs.com/package/make-it-rain",
+  },
+  {
+    name: "env-validate-sarcastically",
+    description: "Env Bully. Validates your environment variables and insults you if they are missing.",
+    command: "npm i env-validate-sarcastically",
+    url: "https://www.npmjs.com/package/env-validate-sarcastically",
+  },
+  {
+    name: "a-valid-json",
+    description: "Trust Issues. Validates JSON, but sarcastically.",
+    command: "npm i a-valid-json",
+    url: "https://www.npmjs.com/package/a-valid-json",
+  },
+  {
+    name: "@alvianzf/squiggly-lines-go-brrr",
+    description: "CPU Heater. Adds squiggly lines to your background to warm up your room.",
+    command: "npm i @alvianzf/squiggly-lines-go-brrr",
+    url: "https://www.npmjs.com/package/@alvianzf/squiggly-lines-go-brrr",
+  },
 ];

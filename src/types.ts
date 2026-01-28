@@ -35,6 +35,13 @@ export interface Skill {
   level?: number;
 }
 
+export interface NpmPackage {
+  name: string;
+  description: string;
+  command: string;
+  url: string;
+}
+
 export interface Category {
   name: string;
   icon: LucideIcon;
