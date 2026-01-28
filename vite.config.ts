@@ -28,7 +28,7 @@ export default defineConfig({
         ]
       },
       workbox: {
-        navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/]
+        navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/Alvian_Zachry_CV\.pdf$/]
       }
     })
   ],
