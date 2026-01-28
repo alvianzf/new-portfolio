@@ -21,6 +21,7 @@ You noticed the squiggly lines? I call them "Worms."
 *   **What it does:** I use complex Bézier curves (`Q` commands, because I'm fancy) and `Math.random()` to generate floating squiggles.
 *   **Paranoid Testing:** I literally wrote **unit tests** for these lines. If a worm is straight, the build fails. I have trust issues with `Math.random()`.
 *   **Tech Spec:** It renders **50** independent SVG paths that fade in and out. Yes, I am personally responsible for your laptop fan spinning up right now. You're welcome.
+*   **Want to steal it?** Of course you do. Install it via npm: `npm install @alvianzf/squiggly-lines-go-brrr`. I even packaged it for you because I'm too nice.
 
 ### 📱 Apocalypse-Ready PWA
 *   **Offline Support**: This website caches itself. If the internet goes down, you can still read my resume while the world burns.
@@ -142,4 +143,4 @@ Need someone to over-engineer your portfolio? Want brutally honest feedback on y
 
 Licensed under **MIT** (Mostly Intense TypeScript).
 
-Feel free to steal `WormBackground.tsx` or the testing infrastructure. I know that's the only reason you're looking at the code anyway.
+Feel free to steal the WormBackground (it's on npm: `@alvianzf/squiggly-lines-go-brrr`) or the testing infrastructure. I know that's the only reason you're looking at the code anyway.

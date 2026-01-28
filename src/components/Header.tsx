@@ -208,6 +208,17 @@ export default function Header() {
                           </div>
                         </div>
                       </a>
+                      <a href="https://www.npmjs.com/package/@alvianzf/squiggly-lines-go-brrr" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 bg-pink-50 text-pink-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
+                            <i className="w-5 h-5 flex items-center justify-center">🪱</i>
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">squiggly-lines</div>
+                            <div className="text-xs text-slate-500">Animated background</div>
+                          </div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -308,6 +319,9 @@ export default function Header() {
                           </a>
                           <a href="https://www.npmjs.com/package/env-validate-sarcastically" className="flex items-center gap-3 text-slate-600 font-medium">
                             <MessageSquareWarning className="w-5 h-5 text-yellow-600" /> env-validate
+                          </a>
+                          <a href="https://www.npmjs.com/package/@alvianzf/squiggly-lines-go-brrr" className="flex items-center gap-3 text-slate-600 font-medium">
+                            <span className="w-5 h-5 flex items-center justify-center">🪱</span> squiggly-lines
                           </a>
                         </div>
                       </motion.div>
