@@ -23,7 +23,13 @@ You noticed the squiggly lines? I call them "Worms."
 *   **Tech Spec:** It renders **50** independent SVG paths that fade in and out. Yes, I am personally responsible for your laptop fan spinning up right now. You're welcome.
 *   **Want to steal it?** Of course you do. Install it via npm: `npm install @alvianzf/squiggly-lines-go-brrr`. I even packaged it for you because I'm too nice.
 
-### 📱 Apocalypse-Ready PWA
+### � The "Experience" Ecosystem
+My career path was too chaotic for a simple timeline, so I built a full-blown dashboard.
+*   **Tabbed Interface:** Separate views for "Roles", "Projects", and "NPM Packages" because I don't want to scroll.
+*   **The "Freelance Vigilante":** A dedicated section for my 2011-2019 era of building government ERPs at 3 AM.
+*   **NPM Integration:** A live list of my sarcastic npm packages with one-click install commands.
+
+### �📱 Apocalypse-Ready PWA
 *   **Offline Support**: This website caches itself. If the internet goes down, you can still read my resume while the world burns.
 *   **Installable**: You can install this portfolio on your phone. Why would you want an app of *me* on your home screen? I don't know, but now you have the option.
 *   **Hand-Crafted Icons**: I manually generated the PWA icons because automated tools failed me.

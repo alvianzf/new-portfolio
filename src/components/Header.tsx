@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Github, Linkedin, ChevronDown, FileJson, Receipt, CloudRain, MessageSquareWarning, CheckCircle2, Menu, X } from 'lucide-react';
+import { Github, Linkedin, ChevronDown, FileJson, Receipt, CloudRain, MessageSquareWarning, CheckCircle2, Menu, X, Terminal } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedium } from '@fortawesome/free-brands-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -29,16 +29,19 @@ export default function Header() {
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <NavLink to="/" className="text-xl font-bold tracking-tight text-slate-900 hover:text-[#990000] transition-colors z-50">
-            azf.
+          <NavLink to="/" className="flex items-center gap-2 text-xl font-bold tracking-tight text-slate-900 hover:text-[#990000] transition-colors z-50">
+            <span className="flex items-center gap-1">
+              <Terminal className="w-5 h-5 text-[#990000]" />
+              azf.
+            </span>
           </NavLink>
 
           {/* Regular Navigation (Tablet & Desktop) */}
           <nav className="hidden md:flex items-center space-x-8">
-            {['About', 'Experience', 'Blog', 'Mentorship'].map((item) => (
+            {['Home', 'Experience', 'Blog', 'Mentorship', 'About'].map((item) => (
               <NavLink
                 key={item}
-                to={item === 'About' ? '/' : `/${item.toLowerCase()}`}
+                to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
                 className={({ isActive }) =>
                   `text-sm font-medium transition-all hover:text-[#990000] ${isActive ? 'text-[#990000]' : 'text-slate-500'
                   }`
@@ -303,10 +306,10 @@ export default function Header() {
             <div className="container mx-auto px-6 py-8 flex flex-col space-y-8">
               {/* Navigation Links */}
               <div className="flex flex-col space-y-6">
-                {['About', 'Experience', 'Blog', 'Mentorship'].map((item) => (
+                {['Home', 'Experience', 'Blog', 'Mentorship', 'About'].map((item) => (
                   <NavLink
                     key={item}
-                    to={item === 'About' ? '/' : `/${item.toLowerCase()}`}
+                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
                     className={({ isActive }) =>
                       `text-2xl font-bold transition-all ${isActive ? 'text-[#990000]' : 'text-slate-900'}`
                     }

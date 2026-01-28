@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
+import Home from './pages/Home';
 import About from './pages/About';
 import Experience from './pages/Experience';
 import Blog from './pages/Blog';
@@ -37,7 +38,8 @@ function App() {
             <main>
               <AnimatePresence mode="wait">
                 <Routes>
-                  <Route path="/" element={<About />} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
                   <Route path="/experience" element={<Experience />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:postId" element={<BlogPost />} />
