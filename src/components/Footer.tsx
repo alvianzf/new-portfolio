@@ -61,10 +61,11 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider text-[#990000]">Explore</h3>
             <ul className="space-y-2 text-sm text-slate-400">
-              <li><Link to="/" className="hover:text-white transition-colors">About</Link></li>
+              <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
               <li><Link to="/experience" className="hover:text-white transition-colors">Experience</Link></li>
               <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
               <li><Link to="/mentorship" className="hover:text-white transition-colors">Mentorship</Link></li>
+              <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
               <li className="pt-4 font-bold text-white text-xs uppercase tracking-wider">Games</li>
               <li><Link to="/games/bug-squash" className="hover:text-white transition-colors">Bug Squash</Link></li>
               <li><Link to="/games/quick-sync" className="hover:text-white transition-colors">Quick Sync</Link></li>
