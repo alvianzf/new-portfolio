@@ -9,6 +9,7 @@ interface SEOProps {
   publishedTime?: string;
   modifiedTime?: string;
   schema?: object;
+  keywords?: string[];
 }
 
 export default function SEO({
@@ -18,7 +19,8 @@ export default function SEO({
   article = false,
   publishedTime,
   modifiedTime,
-  schema
+  schema,
+  keywords = []
 }: SEOProps) {
   const location = useLocation();
   const baseUrl = 'https://alvianzf.id';
@@ -28,16 +30,24 @@ export default function SEO({
   // Default values
   const siteTitle = 'Alvian Zachry Faturrahman - Program Manager | Technical Lead | Full Stack Engineer';
   const siteDescription = 'Program Manager, Technical Lead, and Full Stack Engineer with 13+ years of experience in software engineering, education, and technical hiring.';
+  const defaultKeywords = [
+    "Software Engineer", "Recruiter", "Bootcamp Tech Instructor",
+    "Program Manager", "Technical Lead", "Full Stack Engineer",
+    "Software Engineering", "React", "TypeScript", "Engineering Leadership",
+    "Tech Mentorship", "Southeast Asia Tech Talent", "Hiring"
+  ];
 
   const finalTitle = title ? `${title} | Alvian Zachry Faturrahman` : siteTitle;
   const finalDescription = description || siteDescription;
   const finalImage = image ? (image.startsWith('http') ? image : `${baseUrl}${image}`) : defaultImage;
+  const finalKeywords = keywords.length > 0 ? keywords.join(', ') : defaultKeywords.join(', ');
 
   return (
     <Helmet>
       {/* Standard Metadata */}
       <title>{finalTitle}</title>
       <meta name="description" content={finalDescription} />
+      <meta name="keywords" content={finalKeywords} />
       <link rel="canonical" href={currentUrl} />
 
       {/* Open Graph */}

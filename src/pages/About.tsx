@@ -34,7 +34,14 @@ export default function About() {
 
   return (
     <div className="min-h-screen pt-20 overflow-x-hidden">
-      <SEO schema={personSchema} />
+      <SEO
+        schema={personSchema}
+        keywords={[
+          "Alvian Zachry Faturrahman", "Software Engineer", "Recruiter", "Bootcamp Tech Instructor",
+          "Program Manager", "Technical Lead", "Full Stack Engineer",
+          "React Developer", "Engineering Manager", "Tech Mentorship Indonesia"
+        ]}
+      />
       <div className="container mx-auto px-6 py-20">
         {/* Hero Section */}
         <section className="mb-16">
@@ -50,7 +57,7 @@ export default function About() {
                 <span className="text-[var(--text-secondary)]">Zachry.</span>
               </h1>
               <p className="text-xl md:text-2xl text-[var(--text-secondary)] max-w-lg leading-relaxed mb-10">
-                Senior Talent Manager & Software Engineer <br />
+                Software Engineer, Recruiter, & Bootcamp Tech Instructor <br />
                 <span className="text-[var(--text-secondary)] text-xl">bridging the gap between people and technology.</span>
               </p>
 

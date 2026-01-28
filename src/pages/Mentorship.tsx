@@ -42,6 +42,12 @@ export default function Mentorship() {
       <SEO
         title="Tech Interview Mentorship"
         description="Get your tech interview skills roasted. Brutal, honest mock interviews to prepare you for the real thing. Book a session at learnwithandi.com."
+        keywords={[
+          "Tech Interview Prep", "Mock Interview", "Software Engineer Interview",
+          "Coding Interview", "System Design Interview", "Career Coaching",
+          "Mentorship", "Interview Roasting", "Learn With Andi",
+          "Recruiter Advice", "Bootcamp Instructor"
+        ]}
       />
       <div className="container mx-auto px-6">
         {/* Hero Section */}

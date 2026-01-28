@@ -9,7 +9,12 @@ export default function Experience() {
     <div className="min-h-screen pt-32 pb-32 relative overflow-hidden">
       <SEO
         title="Professional Experience"
-        description="Explore the professional journey of Alvian Zachry Faturrahman, from leading technical teams to designing scalable curricula and hiring top engineering talent."
+        description="Explore the professional journey of Alvian Zachry Faturrahman. 13+ years transforming engineering teams, leading technical projects, and hiring top talent across Southeast Asia and Europe."
+        keywords={[
+          "Career Journey", "Engineering Leadership", "Technical Hiring", "Team Scalability",
+          "Software Engineer", "Recruiter", "Bootcamp Tech Instructor",
+          "Agile Methodology", "Software Architecture", "Remote Work", "Startup Experience"
+        ]}
       />
       {/* Background Patterns */}
       <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">

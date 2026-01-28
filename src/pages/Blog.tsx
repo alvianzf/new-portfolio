@@ -70,7 +70,11 @@ export default function Blog() {
     <div className="min-h-screen pt-32 pb-20">
       <SEO
         title="Blog"
-        description="Articles of what I thought at the moment, may be a bit random and crude."
+        description="Articles on software engineering, leadership, and random musings from a Program Manager & Technical Lead."
+        keywords={[
+          "Tech Blog", "Software Engineering Articles", "Leadership Thoughts",
+          "Programming Tutorials", "Career Advice", "Technology Trends"
+        ]}
       />
       <div className="container mx-auto px-6">
         {/* Page Title */}
