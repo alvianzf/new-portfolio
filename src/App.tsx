@@ -21,12 +21,14 @@ import LatexEditor from './pages/tools/LatexEditor';
 import WhatsAppFormatter from './pages/tools/WhatsAppFormatter';
 import NotFound from './pages/NotFound';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <ThemeProvider>
       <HelmetProvider>
         <Router>
+          <ScrollToTop />
           <div className="min-h-screen relative transition-colors duration-300">
             <div className="fixed bottom-4 right-4 z-50">
               <ThemeToggle />

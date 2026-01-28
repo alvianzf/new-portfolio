@@ -301,7 +301,7 @@ export default function Experience() {
           className="mt-12 text-center"
         >
           <a
-            href="/Alvian_Zachry_CV.pdf"
+            href="/Alvian_Zachry_CV.pdf?v=2"
             download="Alvian_Zachry_CV.pdf"
             target="_blank"
             rel="noopener noreferrer"
