@@ -1,53 +1,77 @@
 import { useState, useEffect, useRef } from 'react';
-import { Download, AlertTriangle, Code, Play } from 'lucide-react';
+import { Download, AlertTriangle, Code, Play, BookOpen } from 'lucide-react';
 import SEO from '../../components/SEO';
+import LatexCheatSheet from './LatexCheatSheet';
 // @ts-expect-error - latex.js likely doesn't have types wrapped nicely for this usage
 import { parse, HtmlGenerator } from 'latex.js';
 
 const DEFAULT_LATEX = `\\documentclass{article}
-\\usepackage{amsmath}
+  \\usepackage{amsmath}
 
-\\title{General Relativity Notes}
-\\author{Alvian's Portfolio User}
-\\date{\\today}
+  \\title{General Relativity Notes}
+  \\author{Alvian Zachry Faturrahman}
+  \\date{\\today}
 
-\\begin{document}
+  \\begin{document}
 
-\\maketitle
+  \\maketitle
 
-\\section{Einstein Field Equations}
-The core of General Relativity is described by the Einstein Field Equations:
+  \\section{Einstein Field Equations}
 
-\\[ R_{\\mu\\nu} - \\frac{1}{2}R g_{\\mu\\nu} + \\Lambda g_{\\mu\\nu} = \\frac{8\\pi G}{c^4} T_{\\mu\\nu} \\]
+  The core of General Relativity is described by the Einstein field equations:
+  \\[
+  R_{\\mu\\nu}
+  - \\frac{1}{2} R g_{\\mu\\nu}
+  + \\Lambda g_{\\mu\\nu}
+  = \\frac{8\\pi G}{c^4} T_{\\mu\\nu}
+  \\]
 
-Where:
-\\begin{itemize}
-  \\item $R_{\\mu\\nu}$ is the Ricci curvature tensor
-  \\item $R$ is the scalar curvature
-  \\item $g_{\\mu\\nu}$ is the metric tensor
-  \\item $\\Lambda$ is the cosmological constant
-  \\item $T_{\\mu\\nu}$ is the stress-energy tensor
-\\end{itemize}
+  where
+  \\begin{itemize}
+    \\item $R_{\\mu\\nu}$ is the Ricci curvature tensor,
+    \\item $R$ is the scalar curvature,
+    \\item $g_{\\mu\\nu}$ is the metric tensor,
+    \\item $\\Lambda$ is the cosmological constant,
+    \\item $T_{\\mu\\nu}$ is the stress-energy tensor.
+  \\end{itemize}
 
-\\section{Geodesic Equation}
-Particles follow geodesics in spacetime, described by:
+  \\section{Geodesic Equation}
 
-\\[ \\frac{d^2x^\\mu}{d\\tau^2} + \\Gamma^\\mu_{\\alpha\\beta} \\frac{dx^\\alpha}{d\\tau} \\frac{dx^\\beta}{d\\tau} = 0 \\]
+  Particles follow geodesics in spacetime, described by
+  \\[
+  \\frac{d^2 x^\\mu}{d\\tau^2}
+  + \\Gamma^\\mu_{\\alpha\\beta}
+  \\frac{dx^\\alpha}{d\\tau}
+  \\frac{dx^\\beta}{d\\tau}
+  = 0
+  \\]
 
-\\section{Schwarzschild Metric}
-For a non-rotating, spherical mass $M$, the metric is:
+  \\section{Schwarzschild Metric}
 
-\\[ ds^2 = -\\left(1 - \\frac{r_s}{r}\\right)c^2dt^2 + \\left(1 - \\frac{r_s}{r}\\right)^{-1}dr^2 + r^2d\\Omega^2 \\]
+  For a non-rotating, spherically symmetric mass $M$, the metric is
+  \\[
+  ds^2
+  = -\\left(1 - \\frac{r_s}{r}\\right)c^2 dt^2
+  + \\left(1 - \\frac{r_s}{r}\\right)^{-1} dr^2
+  + r^2 d\\Omega^2
+  \\]
 
-Values like $r_s = \\frac{2GM}{c^2}$ represent the Schwarzschild radius.
+  The quantity
+  \\[
+  r_s = \\frac{2GM}{c^2}
+  \\]
+  is known as the Schwarzschild radius.
 
-\\end{document}`;
+  \\end{document}
+`;
 
 export default function LatexEditor() {
   const [code, setCode] = useState(DEFAULT_LATEX);
   const [error, setError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isCheatSheetOpen, setIsCheatSheetOpen] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Mobile detection
   useEffect(() => {
@@ -122,6 +146,26 @@ export default function LatexEditor() {
     }
   };
 
+  const handleInsert = (snippet: string) => {
+    if (!textareaRef.current) return;
+
+    const start = textareaRef.current.selectionStart;
+    const end = textareaRef.current.selectionEnd;
+
+    // Insert text
+    const newCode = code.substring(0, start) + snippet + code.substring(end);
+    setCode(newCode);
+
+    // Restore focus and move cursor
+    setTimeout(() => {
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+        textareaRef.current.selectionStart = start + snippet.length;
+        textareaRef.current.selectionEnd = start + snippet.length;
+      }
+    }, 0);
+  };
+
   if (isMobile) {
     return (
       <div className="min-h-screen pt-32 pb-20 px-6 bg-slate-50 flex items-center justify-center">
@@ -150,6 +194,12 @@ export default function LatexEditor() {
         keywords={["LaTeX Editor", "Online LaTeX", "Thesis Creator", "PDF Generator", "React Tool"]}
       />
 
+      <LatexCheatSheet
+        isOpen={isCheatSheetOpen}
+        onClose={() => setIsCheatSheetOpen(false)}
+        onInsert={handleInsert}
+      />
+
       {/* Tool Header */}
       <div className="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-6 shrink-0 z-10">
         <div className="flex items-center gap-3">
@@ -169,19 +219,28 @@ export default function LatexEditor() {
               {error}
             </span>
           )}
+
+          <button
+            onClick={() => setIsCheatSheetOpen(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-slate-700 text-white text-sm font-medium rounded-lg hover:bg-slate-600 transition-colors border border-slate-600"
+          >
+            <BookOpen className="w-4 h-4" />
+            Cheat Sheet
+          </button>
+
           <button
             onClick={compileLatex}
             className="flex items-center gap-2 px-4 py-2 bg-slate-700 text-white text-sm font-medium rounded-lg hover:bg-slate-600 transition-colors"
           >
             <Play className="w-4 h-4" />
-            Refresh Preview
+            Refresh
           </button>
           <button
             onClick={handleDownload}
             className="flex items-center gap-2 px-4 py-2 bg-brand-red text-white text-sm font-bold rounded-lg hover:bg-red-700 transition-colors shadow-lg hover:shadow-red-500/20"
           >
             <Download className="w-4 h-4" />
-            Download PDF
+            Export PDF
           </button>
         </div>
       </div>
@@ -195,6 +254,7 @@ export default function LatexEditor() {
             <span>Character Count: {code.length}</span>
           </div>
           <textarea
+            ref={textareaRef}
             value={code}
             onChange={(e) => setCode(e.target.value)}
             className="flex-1 w-full bg-[#1e1e1e] text-slate-300 p-6 font-mono text-sm resize-none focus:outline-none leading-relaxed"
