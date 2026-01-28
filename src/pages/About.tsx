@@ -109,31 +109,45 @@ const generatePath = (width, height, variant) => {
             <h3 className="text-2xl font-bold text-[var(--text-primary)]">The "Indecisive" Theme Engine</h3>
             <Zap className="w-5 h-5 text-yellow-500" />
           </div>
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <p className="text-[var(--text-secondary)] mb-4">
-                I couldn't decide on a color scheme, so I built a complex context provider to support all of them.
-              </p>
-              <ul className="space-y-2 text-[var(--text-secondary)] mb-6">
-                <li className="flex items-center gap-2">
-                  <Coffee className="w-4 h-4" /> <strong>Light Mode</strong>: For people who enjoy burning their retinas.
-                </li>
-                <li className="flex items-center gap-2">
-                  <Code2 className="w-4 h-4" /> <strong>Dark Mode</strong>: The standard developer experience.
-                </li>
-                <li className="flex items-center gap-2">
-                  <Terminal className="w-4 h-4" /> <strong>Cyberpunk Mode</strong>: A high-contrast, neon-infused seizure warning that I added because I watched <em>Blade Runner</em> once. It changes the font to <CodeSpan>Courier New</CodeSpan> because "hacking".
-                </li>
-              </ul>
-            </div>
-            <div className="rounded-xl overflow-hidden border border-[var(--border-color)] shadow-xl rotate-1 hover:rotate-0 transition-transform duration-300">
-              <div className="bg-[#1e1e1e] px-4 py-2 border-b border-white/10">
-                <span className="text-xs text-gray-500 font-mono">src/components/ThemeToggle.tsx</span>
+
+          <p className="text-[var(--text-secondary)] mb-6">
+            I couldn't decide on a color scheme, so I built a complex context provider to support all of them.
+          </p>
+
+          <ul className="space-y-4 text-[var(--text-secondary)] mb-8">
+            <li className="flex items-start gap-3">
+              <div className="mt-1 bg-yellow-100 dark:bg-yellow-900/30 p-1 rounded text-yellow-600 dark:text-yellow-400">
+                <Coffee className="w-4 h-4" />
               </div>
-              <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0 }}>
-                {themeSnippet}
-              </SyntaxHighlighter>
+              <span>
+                <strong>Light Mode</strong>: For people who enjoy burning their retinas.
+              </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="mt-1 bg-blue-100 dark:bg-blue-900/30 p-1 rounded text-blue-600 dark:text-blue-400">
+                <Code2 className="w-4 h-4" />
+              </div>
+              <span>
+                <strong>Dark Mode</strong>: The standard developer experience.
+              </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="mt-1 bg-green-100 dark:bg-green-900/30 p-1 rounded text-green-600 dark:text-green-400">
+                <Terminal className="w-4 h-4" />
+              </div>
+              <span>
+                <strong>Cyberpunk Mode</strong>: A high-contrast, neon-infused seizure warning that I added because I watched <em>Blade Runner</em> once. It changes the font to <CodeSpan>Courier New</CodeSpan> because "hacking".
+              </span>
+            </li>
+          </ul>
+
+          <div className="rounded-xl overflow-hidden border border-[var(--border-color)] shadow-xl rotate-1 hover:rotate-0 transition-transform duration-300">
+            <div className="bg-[#1e1e1e] px-4 py-2 border-b border-white/10">
+              <span className="text-xs text-gray-500 font-mono">src/components/ThemeToggle.tsx</span>
             </div>
+            <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0 }}>
+              {themeSnippet}
+            </SyntaxHighlighter>
           </div>
         </motion.section>
 
