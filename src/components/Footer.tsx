@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMedium } from '@fortawesome/free-brands-svg-icons';
+import { faMedium, faReact, faCloudflare } from '@fortawesome/free-brands-svg-icons';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -107,9 +107,16 @@ export default function Footer() {
           <p className="text-slate-500 text-sm">
             © {currentYear} Alvian Zachry Faturrahman. All rights reserved.
           </p>
-          <div className="flex gap-6 text-xs text-slate-500 font-medium">
-            <span>Built with React & Vite</span>
-            <span>Deployed on Vercel</span>
+          <div className="flex flex-wrap gap-4 text-xs text-slate-500 font-medium items-center">
+            <span className="flex items-center gap-1.5">
+              Built with
+              <FontAwesomeIcon icon={faReact} className="text-[#61DAFB] w-3.5 h-3.5" /> React
+              &
+              <img src="https://vitejs.dev/logo.svg" alt="Vite" className="w-3.5 h-3.5" /> Vite
+            </span>
+            <span className="flex items-center gap-1.5">
+              Secured by <FontAwesomeIcon icon={faCloudflare} className="text-[#F38020] w-3.5 h-3.5" /> Cloudflare
+            </span>
           </div>
         </div>
       </div>
