@@ -105,20 +105,6 @@ export default function Footer() {
                 CPU Heater <span className="opacity-0 group-hover:opacity-100 transition-opacity text-xs text-[#990000]">→</span>
               </a>
             </div>
-
-            <div className="mt-8 bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
-              <p className="text-xs text-slate-500 mb-2 font-mono">Run this immediately:</p>
-              <div className="flex items-center gap-2 bg-slate-950 p-2 rounded border border-slate-800">
-                <code className="text-xs text-green-400 font-mono flex-1">npx env-validate-sarcastically</code>
-                <button
-                  onClick={() => navigator.clipboard.writeText('npx env-validate-sarcastically')}
-                  className="text-slate-500 hover:text-white transition-colors"
-                  aria-label="Copy command"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg>
-                </button>
-              </div>
-            </div>
           </div>
         </div>
 
