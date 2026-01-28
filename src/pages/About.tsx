@@ -144,41 +144,7 @@ async function generateSitemap() {
 22:3 error  'unusedVariable' is defined but never used. Just like me.      no-unused-vars
 `;
 
-  {/* Fun Police */ }
-  <motion.section
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    className="mb-16"
-  >
-    <div className="flex items-center gap-3 mb-6 text-red-600">
-      <Siren className="w-6 h-6" />
-      <h3 className="text-2xl font-bold text-[var(--text-primary)]">The Fun Police (Strict Linting)</h3>
-    </div>
-    <p className="text-[var(--text-secondary)] mb-4">
-      I cannot commit code if it's ugly. The pre-commit hook literally runs tests.
-    </p>
-    <ul className="list-disc pl-5 space-y-2 text-[var(--text-secondary)] mb-6">
-      <li><strong>Husky & Lint-Staged:</strong> My git hooks reject my code more often than recruiters reject my application.</li>
-      <li><strong>Prettier:</strong> If I miss a semicolon, the computer yells at me.</li>
-      <li><strong>Strict ESLint:</strong> <CodeSpan>any</CodeSpan> is now illegal. I have to type <CodeSpan>unknown</CodeSpan> and cast it like a wizard.</li>
-      <li><strong>TypeScript Strict Mode:</strong> The compiler is more judgmental than my code reviewer.</li>
-    </ul>
 
-    <div className="rounded-xl overflow-hidden border border-[var(--border-color)] shadow-xl bg-[#1e1e1e]">
-      <div className="px-4 py-2 border-b border-white/10 flex items-center justify-between">
-        <span className="text-xs text-gray-400 font-mono">TERMINAL - PROBLEMS</span>
-        <div className="flex gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
-          <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
-        </div>
-      </div>
-      <SyntaxHighlighter language="bash" style={vscDarkPlus} customStyle={{ margin: 0, background: 'transparent' }}>
-        {lintSnippet}
-      </SyntaxHighlighter>
-    </div>
-  </motion.section>
 
   return (
     <div className="min-h-screen pt-32 pb-20 transition-colors duration-300">
@@ -517,14 +483,30 @@ async function generateSitemap() {
             <Siren className="w-6 h-6" />
             <h3 className="text-2xl font-bold text-[var(--text-primary)]">The Fun Police (Strict Linting)</h3>
           </div>
-          <ul className="list-disc pl-5 space-y-2 text-[var(--text-secondary)]">
-            <li><strong>Husky & Lint-Staged:</strong> I cannot commit code if it's ugly. The pre-commit hook literally runs tests.</li>
+          <p className="text-[var(--text-secondary)] mb-4">
+            I cannot commit code if it's ugly. The pre-commit hook literally runs tests.
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-[var(--text-secondary)] mb-6">
+            <li><strong>Husky & Lint-Staged:</strong> My git hooks reject my code more often than recruiters reject my application.</li>
             <li><strong>Prettier:</strong> If I miss a semicolon, the computer yells at me.</li>
             <li><strong>Strict ESLint:</strong> <CodeSpan>any</CodeSpan> is now illegal. I have to type <CodeSpan>unknown</CodeSpan> and cast it like a wizard.</li>
             <li><strong>TypeScript Strict Mode:</strong> The compiler is more judgmental than my code reviewer.</li>
           </ul>
-        </motion.section>
 
+          <div className="rounded-xl overflow-hidden border border-[var(--border-color)] shadow-xl bg-[#1e1e1e]">
+            <div className="px-4 py-2 border-b border-white/10 flex items-center justify-between">
+              <span className="text-xs text-gray-400 font-mono">TERMINAL - PROBLEMS</span>
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+              </div>
+            </div>
+            <SyntaxHighlighter language="bash" style={vscDarkPlus} customStyle={{ margin: 0, background: 'transparent' }}>
+              {lintSnippet}
+            </SyntaxHighlighter>
+          </div>
+        </motion.section>
         {/* Arcade */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
