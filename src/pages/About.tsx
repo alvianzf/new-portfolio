@@ -82,6 +82,9 @@ const generatePath = (width, height, variant) => {
             <p className="text-lg">
               This isn't just a portfolio; it's a <strong>React-Vite-TypeScript-Tailwind-FramerMotion</strong> masterpiece with more testing than a paranoid QA engineer's fever dream. I built it to make myself feel better about all the <CodeSpan>create-react-app</CodeSpan> projects I abandoned in 2019.
             </p>
+            <p className="text-lg mt-4 border-l-4 border-slate-300 dark:border-slate-700 pl-4 italic">
+              Want to see the full code and the absolute mess behind it? It's all open-source on <a href="https://github.com/alvianzf/new-portfolio/" target="_blank" rel="noopener noreferrer" className="text-[#990000] hover:underline font-bold">GitHub</a>.
+            </p>
           </div>
         </motion.section>
 
