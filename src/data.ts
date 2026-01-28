@@ -35,17 +35,42 @@ export const experiences: Experience[] = [
     company: "Devshore Partners, s.r.o.",
     icon: UserSearch,
     period: "Oct 2023 – Present",
-    description:
-      "Recruited and assessed senior developers for European companies, achieving a 60% shortlist-to-interview efficiency. Enhanced hiring assessment processes for precision and effectiveness.",
+    description: [
+      "Recruited senior developers for placement in European partner companies, achieving a 60% shortlist-to-interview efficiency in the first quarter.",
+      "Evaluated incoming profiles to determine their compatibility with client companies.",
+      "Fostered collaboration with local hiring partners in Indonesia and Vietnam to identify potential candidates.",
+      "Continuously enhanced and iterated upon the hiring assessment processes to ensure effectiveness and precision in candidate selection.",
+      "Developed and iterated technical assessment processes, achieving a 50% interview-to-offer rate."
+    ],
+    techStack: ["Technical Hiring", "Assessment Design", "Team Management", "Recruitment"],
     category: "soft",
+  },
+  {
+    title: "Fullstack Engineer",
+    company: "TiketQ",
+    icon: Code2,
+    period: "Jun 2023 - Present",
+    description: [
+      "Founded and currently serves as the Fullstack Engineer at TiketQ, a Batam-based ticketing platform. Responsible for architecting and developing the entire technology stack from scratch.",
+      "Engineered the Back End infrastructure with Express.js, optimising performance and scalability.",
+      "Utilised Redis for efficient caching mechanisms, improving system performance and response times."
+    ],
+    techStack: ["Express.js", "Redis", "Node.js", "System Architecture", "React.js"],
+    category: "technical",
   },
   {
     title: "Program Manager",
     company: "RevoU",
     icon: GraduationCap,
     period: "Feb 2023 – Apr 2024",
-    description:
-      "Led and managed software engineering programs, designing scalable curricula, integrating real-world projects, and aligning training with industry standards.",
+    description: [
+      "Lead and manage a dedicated team to continuously improve the Software Engineering program.",
+      "Oversee the design and development of scalable programs and curricula, integrating daily lectures, assignments, and projects to enhance students' skills.",
+      "Create an experiential learning environment that empowers students to apply their knowledge through simulated real-life projects (RevoU Next).",
+      "Ensure the effective delivery of the curriculum and code reviews by industry instructors and team leads.",
+      "Collaborate with external hiring managers to align the curriculum with industry standards, optimising student preparation for the job market."
+    ],
+    techStack: ["Curriculum Design", "Education Management", "Team Leadership", "Software Engineering Education"],
     category: "soft",
   },
   {
@@ -53,8 +78,13 @@ export const experiences: Experience[] = [
     company: "Glints",
     icon: Presentation,
     period: "Jan 2022 – Apr 2023",
-    description:
-      "Developed assessment systems to evaluate software engineers, refining hiring processes and ensuring a strong match between candidates and companies.",
+    description: [
+      "Design and implement a comprehensive assessment system to accurately evaluate and filter high-quality Southeast Asian engineers.",
+      "Enhance the speed and accuracy of matching international employers with top-tier engineering talent.",
+      "Develop fool-proof testing methodologies to ensure candidates meet the rigorous standards of the Glints Ecosystem.",
+      "Collaborate with hiring managers and industry experts to continuously refine and improve the assessment criteria."
+    ],
+    techStack: ["Assessment Design", "Hiring Standards", "Technical Evaluation"],
     category: "soft",
   },
   {
@@ -62,37 +92,29 @@ export const experiences: Experience[] = [
     company: "Glints Academy",
     icon: Brain,
     period: "Nov 2020 – Dec 2021",
-    description:
-      "Designed industry-standard curricula, implemented mentorship programs, and transitioned bootcamp models to self-paced learning formats.",
+    description: [
+      "Implemented an Industry Trainers system, providing students with personalised mentorship and guidance.",
+      "Designed and developed curricula for various core products, ensuring comprehensive skill acquisition.",
+      "Successfully transitioned Bootcamp models to hybrid self-paced learning formats with personalised support.",
+      "Achieved high employment rates for graduates with competitive salaries through targeted curriculum design, with an 90%+ hire rate within 6 months."
+    ],
+    techStack: ["Curriculum Development", "Mentorship", "EdTech", "Bootcamp Management"],
     category: "soft",
   },
 
   // Software Engineering & Technical Roles
   {
-    title: "Full Stack Engineer",
-    company: "Talent Tribe Asia",
-    icon: LayoutTemplate,
-    period: "Feb 2020 – Nov 2020",
-    description:
-      "Developed and maintained career platform components using AWS, Next.js, Express.js, and Firestore. Managed WordPress deployment and SSL configuration.",
-    category: "technical",
-  },
-  {
-    title: "Software Developer",
-    company: "Webimp, pte. ltd.",
-    icon: Code2,
-    period: "Mar 2019 – Feb 2020",
-    description:
-      "Developed web applications with PHP, CodeIgniter, and jQuery. Enhanced business processes through software solutions.",
-    category: "technical",
-  },
-  {
     title: "Technical Lead",
     company: "PT. Mitra Kuadran Teknologi",
     icon: Terminal,
     period: "Nov 2021 - Dec 2021",
-    description:
-      "Led a team in developing ERP solutions for government entities using Vue.js, React.js, Express.js, Laravel, and PostgreSQL. Managed hiring processes and DevOps deployments on AWS/GCP.",
+    description: [
+      "Led a small team at Kuadran Teknologi Indonesia, specialising in crafting ERP solutions for government entities including BP Batam, Customs Office, and the Municipality Office.",
+      "Successfully guided the team in delivering tailored ERP products that met the specific needs of government clients.",
+      "Managed technical hiring processes, ensuring the acquisition of skilled talent to strengthen the team's capabilities.",
+      "Utilised a diverse technology stack including Vue.js, React.js, Express.js, Laravel, PostgreSQL, MongoDB, and AWS/GCP."
+    ],
+    techStack: ["Vue.js", "React.js", "Express.js", "Laravel", "PostgreSQL", "MongoDB", "AWS", "GCP"],
     category: "technical",
   },
   {
@@ -100,8 +122,41 @@ export const experiences: Experience[] = [
     company: "Gerakan Nasional 1000 Startup Digital",
     icon: Rocket,
     period: "Sep 2020 - Feb 2021",
-    description:
-      "Mentored startup founders in application development, coaching 10 startup teams, with 3 advancing to the finals.",
+    description: [
+      "Played a pivotal role in a startup development program backed by the Ministry of Communication and Informatics in Indonesia.",
+      "Guided and mentored aspiring founders in shaping their ideas into industry-ready applications.",
+      "Provided technical mentorship to future CTOs, supporting them in application development.",
+      "Successfully coached 10 startup teams, with 3 teams advancing to the finals."
+    ],
+    techStack: ["Startup Coaching", "Product Management", "MVP Development"],
+    category: "technical",
+  },
+  {
+    title: "Full Stack Engineer",
+    company: "Talent Tribe Asia",
+    icon: LayoutTemplate,
+    period: "Feb 2020 – Nov 2020",
+    description: [
+      "Develop and maintain components for TalentTribe, a career platform targeting millennials.",
+      "Enhance existing products by implementing new features and fixing bugs to ensure optimal performance and user experience.",
+      "Utilise a variety of technologies in development, including AWS, Next.js, Express.js, Firestore, Algolia, and Nginx.",
+      "Set up and manage a WordPress application on AWS, including SSL configuration to ensure secure connections."
+    ],
+    techStack: ["AWS", "Next.js", "Express.js", "Firestore", "Algolia", "WordPress", "Nginx"],
+    category: "technical",
+  },
+  {
+    title: "Software Developer",
+    company: "Webimp, pte. ltd.",
+    icon: Code2,
+    period: "Mar 2019 – Feb 2020",
+    description: [
+      "Developed web applications using PHP with the CodeIgniter Framework.",
+      "Utilised jQuery to manage front-end behaviours, consume APIs, and map data on the front-end side.",
+      "Translated business processes into effective software logic, ensuring seamless operation and functionality.",
+      "Contributed to the company's recognition as the best company to work for in 2019 by the Singapore Computer Society."
+    ],
+    techStack: ["PHP", "CodeIgniter", "jQuery", "MySQL", "API Integration"],
     category: "technical",
   },
 ];

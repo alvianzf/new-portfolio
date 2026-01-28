@@ -20,7 +20,8 @@ export interface Experience {
   title: string;
   company: string;
   period: string;
-  description: string;
+  description: string | string[];
+  techStack?: string[];
   category?: 'technical' | 'soft';
   logo?: string;
   icon?: IconDefinition | LucideIcon;
