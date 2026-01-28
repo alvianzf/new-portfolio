@@ -12,23 +12,34 @@ const CodeSpan = ({ children }: { children: React.ReactNode }) => (
 );
 
 export default function About() {
-  const wormSnippet = `// The math behind the wiggle
-const generateWorm = () => {
-  const points = [];
-  for (let i = 0; i < 50; i++) {
-    const x = Math.random() * window.innerWidth;
-    const y = Math.random() * window.innerHeight;
-    points.push({ x, y });
+  const wormSnippet = `// The actual math behind the wiggle (from my npm package)
+const generatePath = (width, height, variant) => {
+  const startX = Math.random() * width;
+  const startY = Math.random() * height;
+  switch (variant) {
+    case "worms": {
+      const cp1X = startX + (Math.random() - 0.5) * 400;
+      const cp1Y = startY + (Math.random() - 0.5) * 400;
+      const endX = cp1X + (Math.random() - 0.5) * 400;
+      const endY = cp1Y + (Math.random() - 0.5) * 400;
+      return \`M \${startX} \${startY} Q \${cp1X} \${cp1Y} \${endX} \${endY}\`;
+    }
+    case "thunder": {
+      // Zap zap!
+      const cp1X = startX + (Math.random() - 0.5) * 500;
+      const cp1Y = startY + (Math.random() - 0.5) * 100;
+      return \`M \${startX} \${startY} L \${cp1X} \${cp1Y} ...\`;
+    }
+    // ... more bugs ...
   }
-  return points; // Trust me, it moves.
 };`;
 
   const themeSnippet = `// How I handle your retinas
-const toggleTheme = () => {
-  if (theme === 'light') setTheme('dark');
-  else if (theme === 'dark') setTheme('cyberpunk'); // Yes, really.
-  else setTheme('light');
-};`;
+  const toggleTheme = () => {
+    if (theme === 'light') setTheme('dark');
+    else if (theme === 'dark') setTheme('cyberpunk'); // Yes, really.
+    else setTheme('light');
+  }; `;
 
   return (
     <div className="min-h-screen pt-32 pb-20 transition-colors duration-300">
