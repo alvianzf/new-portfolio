@@ -91,7 +91,7 @@ export default function Footer() {
           {/* NPM Packages */}
           <div className="col-span-1 md:col-span-2 lg:col-span-2">
             <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider text-[#990000]">NPM Packages</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-slate-400">
+            <div className="flex flex-col gap-2 text-sm text-slate-400">
               <a href="https://www.npmjs.com/package/make-it-rain" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors group flex items-center gap-2">
                 Visual Inflation <span className="opacity-0 group-hover:opacity-100 transition-opacity text-xs text-[#990000]">→</span>
               </a>
