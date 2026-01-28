@@ -230,7 +230,7 @@ export default function Header() {
                 <FontAwesomeIcon icon={faMedium} className="w-5 h-5" />
                 <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Medium</span>
               </a>
-              <a href="mailto:alvianzf@gmail.com" className="hidden lg:block px-4 py-2 text-sm font-medium text-white bg-slate-900 rounded-full hover:bg-[#990000] transition-all shadow-sm hover:shadow-md">
+              <a href="mailto:hello@alvianzf.id" className="hidden lg:block px-4 py-2 text-sm font-medium text-white bg-slate-900 rounded-full hover:bg-[#990000] transition-all shadow-sm hover:shadow-md">
                 Contact
               </a>
             </div>
@@ -330,7 +330,7 @@ export default function Header() {
                   </a>
                 </div>
                 <a
-                  href="mailto:alvianzf@gmail.com"
+                  href="mailto:hello@alvianzf.id"
                   className="block w-full text-center px-6 py-4 text-lg font-bold text-white bg-slate-900 rounded-2xl hover:bg-[#990000] transition-all shadow-lg"
                 >
                   Get in Touch

@@ -50,7 +50,7 @@ I didn't just add meta tags; I performed a ritual summoning for the search engin
 *   **Prettier**: If I miss a semicolon, the computer yells at me.
 *   **Strict Mode**: `any` is now illegal. I have to type `unknown` and cast it like a wizard.
 
-### 🕹️ The "Stupid Playable Arcade" (Phase 3)
+### 🕹️ The "Stupid Playable Arcade"
 Because every professional portfolio needs a way to waste the recruiter's time.
 *   **Bug Squash**: Save the production database from actual bugs.
 *   **Quick Sync Dodge**: Simulate the average Tuesday by dodging calendar invites.

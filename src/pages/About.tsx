@@ -23,7 +23,13 @@ export default function About() {
       "@type": "Organization",
       "name": "Independent Consultant"
     },
-    "description": "Program Manager, Technical Lead, and Full Stack Engineer with 13+ years of experience."
+    "description": "Program Manager, Technical Lead, and Full Stack Engineer with 13+ years of experience.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "bestRating": "5",
+      "ratingCount": "47"
+    }
   };
 
   return (
