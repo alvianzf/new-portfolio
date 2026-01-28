@@ -29,4 +29,13 @@ describe('About Page', () => {
     expect(button).toBeInTheDocument();
     expect(button.closest('a')).toHaveAttribute('href', '#contact');
   });
+
+  it('renders contact section', () => {
+    renderWithProviders(<About />);
+    expect(screen.getByText('Get in Touch')).toBeInTheDocument();
+    expect(screen.getByText('hello@alvianzf.id')).toBeInTheDocument();
+    expect(screen.getByText('Book a time')).toBeInTheDocument();
+    expect(screen.getByText('linkedin.com/in/alvianzf')).toBeInTheDocument();
+    expect(screen.getByText('github.com/alvianzf')).toBeInTheDocument();
+  });
 });

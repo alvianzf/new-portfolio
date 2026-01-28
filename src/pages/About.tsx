@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, Download, Mail, Calendar, Linkedin, Github } from 'lucide-react';
 import alvian from "../assets/potraits.png";
 import { skills, categories } from "../data";
 import ModernCard from "../components/ModernCard";
@@ -55,7 +55,14 @@ export default function About() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <a href="#contact" className="btn-primary flex items-center gap-2 hover:bg-brand-red transition-colors">
+                <a
+                  href="#contact"
+                  className="btn-primary flex items-center gap-2 hover:bg-brand-red transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
                   Get in touch <ArrowRight className="w-4 h-4" />
                 </a>
                 <a href="/resume.pdf" className="text-[var(--text-secondary)] hover:text-brand-red font-medium flex items-center gap-2 px-6 py-3 transition-colors">
@@ -177,6 +184,101 @@ export default function About() {
                   </div>
                 </div>
               ))}
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="max-w-4xl mx-auto mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-8">Get in Touch</h2>
+            <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-10">
+              Whether you're looking to collaborate on a project, need consulting, or just want to chat about tech and talent—I'd love to hear from you!
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Email */}
+              <ModernCard className="p-6 hover:border-brand-red/30 transition-all hover:shadow-lg hover:-translate-y-1 group">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[var(--text-primary)] mb-2">Email</h3>
+                    <a
+                      href="mailto:hello@alvianzf.id"
+                      className="text-[var(--text-secondary)] hover:text-brand-red transition-colors"
+                    >
+                      hello@alvianzf.id
+                    </a>
+                  </div>
+                </div>
+              </ModernCard>
+
+              {/* Schedule a Call */}
+              <ModernCard className="p-6 hover:border-brand-red/30 transition-all hover:shadow-lg hover:-translate-y-1 group">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
+                    <Calendar className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[var(--text-primary)] mb-2">Schedule a Call</h3>
+                    <a
+                      href="https://calendar.app.google/J3gjDH8fv98BjSHz7"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[var(--text-secondary)] hover:text-brand-red transition-colors"
+                    >
+                      Book a time
+                    </a>
+                  </div>
+                </div>
+              </ModernCard>
+
+              {/* LinkedIn */}
+              <ModernCard className="p-6 hover:border-brand-red/30 transition-all hover:shadow-lg hover:-translate-y-1 group">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
+                    <Linkedin className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[var(--text-primary)] mb-2">LinkedIn</h3>
+                    <a
+                      href="https://linkedin.com/in/alvianzf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[var(--text-secondary)] hover:text-brand-red transition-colors"
+                    >
+                      linkedin.com/in/alvianzf
+                    </a>
+                  </div>
+                </div>
+              </ModernCard>
+
+              {/* GitHub */}
+              <ModernCard className="p-6 hover:border-brand-red/30 transition-all hover:shadow-lg hover:-translate-y-1 group">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
+                    <Github className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[var(--text-primary)] mb-2">GitHub</h3>
+                    <a
+                      href="https://github.com/alvianzf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[var(--text-secondary)] hover:text-brand-red transition-colors"
+                    >
+                      github.com/alvianzf
+                    </a>
+                  </div>
+                </div>
+              </ModernCard>
             </div>
           </motion.div>
         </section>
