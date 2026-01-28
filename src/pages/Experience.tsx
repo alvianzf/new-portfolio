@@ -301,7 +301,7 @@ export default function Experience() {
           className="mt-12 text-center"
         >
           <a
-            href="/Alvian_Zachry_CV.pdf?v=3"
+            href="/Alvian_Zachry_CV.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-4 bg-[#990000] text-white font-bold rounded-full shadow-lg hover:shadow-red-900/30 hover:-translate-y-1 transition-all"

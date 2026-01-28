@@ -70,7 +70,7 @@ export default function Home() {
                 >
                   See my work <ArrowRight className="w-4 h-4" />
                 </a>
-                <a href="/Alvian_Zachry_CV.pdf?v=3" target="_blank" rel="noopener noreferrer" className="text-[var(--text-secondary)] hover:text-brand-red font-medium flex items-center gap-2 px-6 py-3 transition-colors">
+                <a href="/Alvian_Zachry_CV.pdf" target="_blank" rel="noopener noreferrer" className="text-[var(--text-secondary)] hover:text-brand-red font-medium flex items-center gap-2 px-6 py-3 transition-colors">
                   Download CV <Download className="w-4 h-4" />
                 </a>
               </div>
