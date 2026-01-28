@@ -16,6 +16,8 @@ import QuickSync from './pages/games/QuickSync';
 import ElusiveDeploy from './pages/games/ElusiveDeploy';
 import LearnFlex from './pages/games/LearnFlex';
 import LearnTypeScript from './pages/games/LearnTypeScript';
+import LatexEditor from './pages/tools/LatexEditor';
+import WhatsAppFormatter from './pages/tools/WhatsAppFormatter';
 import NotFound from './pages/NotFound';
 import Footer from './components/Footer';
 
@@ -45,6 +47,8 @@ function App() {
                   <Route path="/games/elusive-deploy" element={<ElusiveDeploy />} />
                   <Route path="/games/learn-flex" element={<LearnFlex />} />
                   <Route path="/games/learn-typescript" element={<LearnTypeScript />} />
+                  <Route path="/tools/thesis-creator" element={<LatexEditor />} />
+                  <Route path="/tools/whatsapp-formatter" element={<WhatsAppFormatter />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </AnimatePresence>

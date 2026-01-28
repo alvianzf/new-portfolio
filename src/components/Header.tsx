@@ -142,9 +142,41 @@ export default function Header() {
                 <div className="bg-white rounded-xl shadow-xl border border-slate-100 p-6 grid grid-cols-2 gap-6 relative">
                   <div className="absolute -top-2 right-6 w-4 h-4 bg-white border-t border-l border-slate-100 transform rotate-45"></div>
 
+                  {/* Internal Tools Category */}
+                  <div className="col-span-2 border-b border-slate-100 pb-4 mb-2">
+                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Productivity Killers</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      {/* Latex Editor - Desktop Only */}
+                      <NavLink to="/tools/thesis-creator" className="hidden md:block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item relative overflow-hidden">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 bg-slate-100 text-slate-700 rounded-lg group-hover/item:text-[#990000] transition-colors">
+                            <Receipt className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Thesis Procrastinator</div>
+                            <div className="text-xs text-slate-500">Solve relativity instead of working</div>
+                          </div>
+                        </div>
+                      </NavLink>
+
+                      {/* WhatsApp Formatter */}
+                      <NavLink to="/tools/whatsapp-formatter" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 bg-green-50 text-green-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
+                            <MessageSquareWarning className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Boomer Text Gen</div>
+                            <div className="text-xs text-slate-500">Formatting for family group chats</div>
+                          </div>
+                        </div>
+                      </NavLink>
+                    </div>
+                  </div>
+
                   {/* Web Apps Category */}
                   <div>
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Web Apps</h3>
+                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Over-Engineered</h3>
                     <div className="space-y-2">
                       <a href="https://jsonify.alvianzf.id" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
                         <div className="flex items-start gap-3">
@@ -152,8 +184,8 @@ export default function Header() {
                             <FileJson className="w-5 h-5" />
                           </div>
                           <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">JSON Formatter</div>
-                            <div className="text-xs text-slate-500">Beautify & debug JSON</div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Curly Brace Saver</div>
+                            <div className="text-xs text-slate-500">Make ugly APIs look pretty</div>
                           </div>
                         </div>
                       </a>
@@ -163,8 +195,8 @@ export default function Header() {
                             <Receipt className="w-5 h-5" />
                           </div>
                           <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Invoice Gen</div>
-                            <div className="text-xs text-slate-500">Create professional invoices</div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Beg For Money</div>
+                            <div className="text-xs text-slate-500">PDFs for clients who won't pay</div>
                           </div>
                         </div>
                       </a>
@@ -173,7 +205,7 @@ export default function Header() {
 
                   {/* NPM Packages Category */}
                   <div>
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">NPM Packages</h3>
+                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Node_Modules Bloat</h3>
                     <div className="space-y-2">
                       <a href="https://www.npmjs.com/package/make-it-rain" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
                         <div className="flex items-start gap-3">
@@ -181,8 +213,8 @@ export default function Header() {
                             <CloudRain className="w-5 h-5" />
                           </div>
                           <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">make-it-rain</div>
-                            <div className="text-xs text-slate-500">Currency symbols</div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Visual Inflation</div>
+                            <div className="text-xs text-slate-500">Fake rich currency formats</div>
                           </div>
                         </div>
                       </a>
@@ -192,8 +224,8 @@ export default function Header() {
                             <MessageSquareWarning className="w-5 h-5" />
                           </div>
                           <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">env-validate</div>
-                            <div className="text-xs text-slate-500">Sarcastic validation</div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Env Bully</div>
+                            <div className="text-xs text-slate-500">Yells at you for missing keys</div>
                           </div>
                         </div>
                       </a>
@@ -203,8 +235,8 @@ export default function Header() {
                             <CheckCircle2 className="w-5 h-5" />
                           </div>
                           <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">a-valid-json</div>
-                            <div className="text-xs text-slate-500">JSON validation</div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Trust Issues</div>
+                            <div className="text-xs text-slate-500">Paranoid JSON validation</div>
                           </div>
                         </div>
                       </a>
@@ -214,8 +246,8 @@ export default function Header() {
                             <i className="w-5 h-5 flex items-center justify-center">🪱</i>
                           </div>
                           <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">squiggly-lines</div>
-                            <div className="text-xs text-slate-500">Animated background</div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">CPU Heater</div>
+                            <div className="text-xs text-slate-500">Laggy background lines</div>
                           </div>
                         </div>
                       </a>
@@ -304,24 +336,31 @@ export default function Header() {
                         className="overflow-hidden space-y-4 pl-4 border-l-2 border-slate-100"
                       >
                         <div className="space-y-4 pt-2">
-                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Web Apps</p>
+                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Productivity Killers</p>
+                          <NavLink to="/tools/whatsapp-formatter" className="flex items-center gap-3 text-slate-600 font-medium">
+                            <MessageSquareWarning className="w-5 h-5 text-green-600" /> Boomer Text Gen
+                          </NavLink>
+                          {/* Latex Editor is hidden on mobile */}
+                        </div>
+                        <div className="space-y-4 pt-2">
+                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Over-Engineered</p>
                           <a href="https://jsonify.alvianzf.id" className="flex items-center gap-3 text-slate-600 font-medium">
-                            <FileJson className="w-5 h-5 text-[#990000]" /> JSON Formatter
+                            <FileJson className="w-5 h-5 text-[#990000]" /> Curly Brace Saver
                           </a>
                           <a href="https://invoice.alvianzf.id" className="flex items-center gap-3 text-slate-600 font-medium">
-                            <Receipt className="w-5 h-5 text-green-600" /> Invoice Gen
+                            <Receipt className="w-5 h-5 text-green-600" /> Beg For Money
                           </a>
                         </div>
                         <div className="space-y-4 pt-2">
-                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">NPM Packages</p>
+                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Node_Modules Bloat</p>
                           <a href="https://www.npmjs.com/package/make-it-rain" className="flex items-center gap-3 text-slate-600 font-medium">
-                            <CloudRain className="w-5 h-5 text-purple-600" /> make-it-rain
+                            <CloudRain className="w-5 h-5 text-purple-600" /> Visual Inflation
                           </a>
                           <a href="https://www.npmjs.com/package/env-validate-sarcastically" className="flex items-center gap-3 text-slate-600 font-medium">
-                            <MessageSquareWarning className="w-5 h-5 text-yellow-600" /> env-validate
+                            <MessageSquareWarning className="w-5 h-5 text-yellow-600" /> Env Bully
                           </a>
                           <a href="https://www.npmjs.com/package/@alvianzf/squiggly-lines-go-brrr" className="flex items-center gap-3 text-slate-600 font-medium">
-                            <span className="w-5 h-5 flex items-center justify-center">🪱</span> squiggly-lines
+                            <span className="w-5 h-5 flex items-center justify-center">🪱</span> CPU Heater
                           </a>
                         </div>
                       </motion.div>
