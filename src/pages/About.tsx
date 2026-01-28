@@ -56,14 +56,10 @@ export default function About() {
 
               <div className="flex flex-wrap gap-4">
                 <a
-                  href="#contact"
+                  href="/experience"
                   className="btn-primary flex items-center gap-2 hover:bg-brand-red transition-colors"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
                 >
-                  Get in touch <ArrowRight className="w-4 h-4" />
+                  See my work <ArrowRight className="w-4 h-4" />
                 </a>
                 <a href="/resume.pdf" className="text-[var(--text-secondary)] hover:text-brand-red font-medium flex items-center gap-2 px-6 py-3 transition-colors">
                   Download CV <Download className="w-4 h-4" />

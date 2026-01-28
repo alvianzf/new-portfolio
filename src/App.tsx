@@ -17,6 +17,7 @@ import ElusiveDeploy from './pages/games/ElusiveDeploy';
 import LearnFlex from './pages/games/LearnFlex';
 import LearnTypeScript from './pages/games/LearnTypeScript';
 import NotFound from './pages/NotFound';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
                 </Routes>
               </AnimatePresence>
             </main>
+            <Footer />
           </div>
         </Router>
       </HelmetProvider>

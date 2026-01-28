@@ -66,7 +66,7 @@ export default function Mentorship() {
           </p>
 
           <motion.a
-            href="https://learnwithandi.com"
+            href="https://learnwithandi.com?utm_source=alvianzf.id"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.02 }}
@@ -139,7 +139,7 @@ export default function Mentorship() {
                 The more you sweat in training, the less you bleed in battle.
               </p>
               <a
-                href="https://learnwithandi.com"
+                href="https://learnwithandi.com?utm_source=alvianzf.id"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 font-bold rounded-full hover:bg-brand-red hover:text-white transition-colors"
@@ -158,7 +158,7 @@ export default function Mentorship() {
           transition={{ delay: 0.6 }}
           className="text-center pt-8 border-t border-slate-100"
         >
-          <a href="https://learnwithandi.com" target="_blank" rel="noopener noreferrer" className="inline-block mb-4 hover:opacity-80 transition-opacity">
+          <a href="https://learnwithandi.com?utm_source=alvianzf.id" target="_blank" rel="noopener noreferrer" className="inline-block mb-4 hover:opacity-80 transition-opacity">
             <img src={learnWithAndiLogo} alt="Learn With Andi" className="h-10 mx-auto" />
           </a>
           <p className="text-slate-400 text-sm">

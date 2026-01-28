@@ -84,6 +84,27 @@ export default function Experience() {
             );
           })}
         </div>
+
+        {/* Mentorship CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-24 text-center max-w-2xl mx-auto"
+        >
+          <div className="p-8 rounded-2xl bg-[var(--card-bg)] border border-[var(--border-color)]">
+            <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-4">Want to land a role like these?</h3>
+            <p className="text-[var(--text-secondary)] mb-6">
+              I mentor aspiring engineers to help them crack technical interviews and level up their careers.
+            </p>
+            <a
+              href="/mentorship"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-bold rounded-full hover:bg-brand-red transition-all shadow-lg hover:shadow-xl"
+            >
+              Explore Mentorship
+            </a>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
