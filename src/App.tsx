@@ -16,6 +16,7 @@ import QuickSync from './pages/games/QuickSync';
 import ElusiveDeploy from './pages/games/ElusiveDeploy';
 import LearnFlex from './pages/games/LearnFlex';
 import LearnTypeScript from './pages/games/LearnTypeScript';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
                   <Route path="/games/elusive-deploy" element={<ElusiveDeploy />} />
                   <Route path="/games/learn-flex" element={<LearnFlex />} />
                   <Route path="/games/learn-typescript" element={<LearnTypeScript />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </AnimatePresence>
             </main>
