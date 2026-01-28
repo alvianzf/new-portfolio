@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
-import { Calendar, ChevronRight } from 'lucide-react';
+import { Calendar, ChevronRight, Sparkles } from 'lucide-react';
 import ModernCard from '../components/ModernCard';
 import SEO from '../components/SEO';
 
@@ -83,6 +83,10 @@ export default function Blog() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
+          <div className="inline-flex items-center gap-2 p-2 px-4 rounded-full bg-red-500/10 text-[#990000] font-bold text-xs uppercase tracking-wider mb-4 border border-red-500/20">
+            <Sparkles className="w-3 h-3" />
+            Engineering & Musings
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-6 tracking-tight">
             Latest Thoughts
           </h1>

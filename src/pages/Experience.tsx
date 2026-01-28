@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { experiences, projects, npmPackages } from '../data';
 import ModernCard from '../components/ModernCard';
-import { Calendar, Building, Briefcase, Wrench, Code, Terminal, Copy, Check } from 'lucide-react';
+import { Calendar, Building, Briefcase, Wrench, Code, Terminal, Copy, Check, History } from 'lucide-react';
 import SEO from '../components/SEO';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -82,7 +82,8 @@ export default function Experience() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <div className="inline-block p-2 px-4 rounded-full bg-red-500/10 text-[#990000] font-bold text-xs uppercase tracking-wider mb-4 border border-red-500/20">
+          <div className="inline-flex items-center gap-2 p-2 px-4 rounded-full bg-red-500/10 text-[#990000] font-bold text-xs uppercase tracking-wider mb-4 border border-red-500/20">
+            <History className="w-3 h-3" />
             Career Timeline
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-6 tracking-tight">
