@@ -163,7 +163,7 @@ export const experiences: Experience[] = [
     title: "The Freelance Vigilante",
     company: "Various Government Agencies & Late Night Ideas",
     icon: Code2,
-    period: "2013 – 2019",
+    period: "2011 – 2019",
     description: [
       "Spent the early years acting as a one-man army for government agencies, building ERPs and dashboards that (surprisingly) didn't crash.",
       "Learned the hard way that 'fixed price' actually means 'unlimited revisions'.",
