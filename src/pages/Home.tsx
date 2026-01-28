@@ -6,6 +6,7 @@ import alvian from '../assets/potraits.png';
 import { skills, categories } from "../data";
 import ModernCard from "../components/ModernCard";
 import SEO from '../components/SEO';
+import PromoPopup from '../components/PromoPopup';
 
 export default function Home() {
   const personSchema = {
@@ -286,6 +287,7 @@ export default function Home() {
             </div>
           </motion.div>
         </section>
+        <PromoPopup />
       </div>
     </div>
   );
