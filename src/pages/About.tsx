@@ -41,6 +41,16 @@ const generatePath = (width, height, variant) => {
     else setTheme('light');
   }; `;
 
+  const testSnippet = `// confirm existence of reality
+test('should probably work', async () => {
+  const me = await Developer.wakeUp();
+  expect(me.caffeineLevel).toBeGreaterThan(0);
+  
+  // The most critical test in the suite
+  expect(true).toBe(true); 
+  expect(undefined).not.toBeDefined();
+});`;
+
   return (
     <div className="min-h-screen pt-32 pb-20 transition-colors duration-300">
       <SEO
@@ -307,11 +317,20 @@ const generatePath = (width, height, variant) => {
           <div className="grid gap-6">
             <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
               <h4 className="font-bold text-[var(--text-primary)] mb-2">Unit & Integration Tests (Vitest)</h4>
-              <ul className="list-disc pl-5 space-y-1 text-[var(--text-secondary)] text-sm">
+              <ul className="list-disc pl-5 space-y-1 text-[var(--text-secondary)] text-sm mb-4">
                 <li><strong>Component Testing:</strong> Every component has tests. Yes, even the <CodeSpan>ModernCard</CodeSpan> that just wraps a div.</li>
                 <li><strong>Browser Mode:</strong> Vitest runs in Playwright to test actual browser behavior because mocking the DOM is apparently "not good enough."</li>
                 <li><strong>Coverage Reports:</strong> I track code coverage like a stock portfolio. 80%+ or it didn't happen.</li>
               </ul>
+
+              <div className="rounded-lg overflow-hidden border border-[var(--border-color)] mt-4">
+                <div className="bg-[#1e1e1e] px-3 py-1.5 border-b border-white/10">
+                  <span className="text-[10px] text-gray-500 font-mono">src/tests/sanity.test.ts</span>
+                </div>
+                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem' }}>
+                  {testSnippet}
+                </SyntaxHighlighter>
+              </div>
             </ModernCard>
             <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
               <h4 className="font-bold text-[var(--text-primary)] mb-2">End-to-End Tests (Playwright)</h4>
