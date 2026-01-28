@@ -13,7 +13,7 @@ export default function Footer() {
           {/* Brand & Description */}
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="text-2xl font-bold tracking-tight text-white hover:text-[#990000] transition-colors mb-4 block">
-              AZF.
+              azf.
             </Link>
             <p className="text-slate-400 leading-relaxed text-sm">
               Program Manager, Technical Lead, and Full Stack Engineer bridging the gap between people and technology.

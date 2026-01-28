@@ -30,7 +30,7 @@ export default function Header() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <NavLink to="/" className="text-xl font-bold tracking-tight text-slate-900 hover:text-[#990000] transition-colors z-50">
-            AZF.
+            azf.
           </NavLink>
 
           {/* Regular Navigation (Tablet & Desktop) */}
