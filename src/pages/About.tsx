@@ -51,6 +51,90 @@ test('should probably work', async () => {
   expect(undefined).not.toBeDefined();
 });`;
 
+  const playwrightSnippet = `test('recruiters can find the contact button', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: /hire me/i }).click();
+  
+  // Ensure the salary negotiation modal opens
+  await expect(page.getByText('Enter High Salary')).toBeVisible();
+  
+  // If this fails, I starve.
+  expect(await page.screenshot()).toMatchSnapshot('career-success.png');
+});`;
+
+  const storybookSnippet = `export const ImpossibleToClick: Story = {
+  args: {
+    label: 'Deploy to Prod',
+    velocity: 9000, // It's over 9000
+    onCatch: () => console.log('Nice try, QA.'),
+  },
+  play: async ({ canvasElement }) => {
+    // Simulating a user trying to click the button
+    // Spoiler: They fail.
+    await userEvent.hover(canvasElement);
+  }
+};`;
+
+  const gameSnippet = `// Logic for the runaway button
+  const handleHover = () => {
+    onAttempt();
+    if (frozen) return;
+    
+    // Randomize movement: calculated to be annoying
+    let newX = (Math.random() - 0.5) * window.innerWidth * 0.8;
+    let newY = (Math.random() - 0.5) * window.innerHeight * 0.6;
+
+    // Ensure it moves at least some distance so you can't click it
+    if (Math.abs(newX - position.x) < 100) newX += 100 * Math.sign(newX - position.x);
+    
+    setPosition({ x: newX, y: newY }); // Good luck.
+  };`;
+
+  const flexSnippet = `// The "win" condition for the Flexbox game
+  const checkWin = (styles, level) => {
+    const isJustifyMatch = styles.justifyContent === level.targetStyle.justifyContent;
+    const isAlignMatch = styles.alignItems === level.targetStyle.alignItems;
+    
+    // The most complex part: handling direction
+    const isDirectionMatch = (level.targetStyle.flexDirection || 'row') === styles.flexDirection;
+
+    if (isJustifyMatch && isAlignMatch && isDirectionMatch) {
+      return "Finally. Moving on...";
+    }
+    return "Wrong. Try again.";
+  };`;
+
+  const latexSnippet = `// The "Lazy Man's Thesis Creator"
+  const compileLatex = () => {
+    try {
+      const generator = new HtmlGenerator({ hyphenate: false });
+      const doc = parse(code, { generator: generator });
+      
+      // Yes, I'm compiling LaTeX in the browser using JavaScript.
+      // Why? Because installing TeX Live takes 4 hours.
+      iframeRef.current.contentDocument.write(doc.htmlDocument().outerHTML);
+    } catch (err) {
+      setError("You missed a bracket. Classic.");
+    }
+  };`;
+
+  const sitemapSnippet = `// Yes, I fetch my blog posts from Google to generate the sitemap.
+async function generateSitemap() {
+  const response = await fetch(
+    \`https://www.googleapis.com/blogger/v3/blogs/\${BLOG_ID}/posts?key=\${API_KEY}\`
+  );
+  
+  // Checking if Google is awake
+  if (!response.ok) throw new Error("Google is down, or I am.");
+
+  const sitemap = \`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  \${posts.map(post => \`<url><loc>\${baseUrl}/blog/\${post.id}</loc></url>\`).join('')}
+</urlset>\`;
+
+  fs.writeFileSync('public/sitemap.xml', sitemap);
+}`;
+
   return (
     <div className="min-h-screen pt-32 pb-20 transition-colors duration-300">
       <SEO
@@ -299,6 +383,15 @@ test('should probably work', async () => {
             <li><strong>JSON-LD Schema with Star Ratings:</strong> I injected structured data with a 5-star aggregateRating so Google's AI knows <em>exactly</em> who I am and that people apparently love me. I am feeding the basilisk directly.</li>
             <li><strong>OpenGraph:</strong> My links look so good on Slack that my coworkers might actually click them for once.</li>
           </ul>
+
+          <div className="rounded-xl overflow-hidden border border-[var(--border-color)] mt-6 shadow-xl">
+            <div className="bg-[#1e1e1e] px-4 py-2 border-b border-white/10">
+              <span className="text-xs text-gray-500 font-mono">generate-sitemap.js</span>
+            </div>
+            <SyntaxHighlighter language="javascript" style={vscDarkPlus} customStyle={{ margin: 0 }}>
+              {sitemapSnippet}
+            </SyntaxHighlighter>
+          </div>
         </motion.section>
 
         {/* Testing Pyramid */}
@@ -334,18 +427,36 @@ test('should probably work', async () => {
             </ModernCard>
             <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
               <h4 className="font-bold text-[var(--text-primary)] mb-2">End-to-End Tests (Playwright)</h4>
-              <ul className="list-disc pl-5 space-y-1 text-[var(--text-secondary)] text-sm">
+              <ul className="list-disc pl-5 space-y-1 text-[var(--text-secondary)] text-sm mb-4">
                 <li><strong>18 Tests Across 3 Browsers:</strong> Chromium, Firefox, and WebKit. Because if it works in Chrome but not Safari, did you really build it?</li>
                 <li><strong>Real User Flows:</strong> Testing navigation, mobile menus, theme toggles, and everything a recruiter might accidentally click.</li>
               </ul>
+
+              <div className="rounded-lg overflow-hidden border border-[var(--border-color)] mt-4">
+                <div className="bg-[#1e1e1e] px-3 py-1.5 border-b border-white/10">
+                  <span className="text-[10px] text-gray-500 font-mono">tests/e2e/recruiter.spec.ts</span>
+                </div>
+                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem' }}>
+                  {playwrightSnippet}
+                </SyntaxHighlighter>
+              </div>
             </ModernCard>
             <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
               <h4 className="font-bold text-[var(--text-primary)] mb-2">Component Documentation (Storybook)</h4>
-              <ul className="list-disc pl-5 space-y-1 text-[var(--text-secondary)] text-sm">
+              <ul className="list-disc pl-5 space-y-1 text-[var(--text-secondary)] text-sm mb-4">
                 <li><strong>Interactive Component Library:</strong> Every component documented with multiple states and variations.</li>
                 <li><strong>Visual Testing:</strong> Because "it looks fine on my machine" is not a deployment strategy.</li>
                 <li><strong>Accessibility Checks:</strong> Making sure my components pass a11y standards (because lawsuits are expensive).</li>
               </ul>
+
+              <div className="rounded-lg overflow-hidden border border-[var(--border-color)] mt-4">
+                <div className="bg-[#1e1e1e] px-3 py-1.5 border-b border-white/10">
+                  <span className="text-[10px] text-gray-500 font-mono">stories/RunawayButton.stories.tsx</span>
+                </div>
+                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem' }}>
+                  {storybookSnippet}
+                </SyntaxHighlighter>
+              </div>
             </ModernCard>
           </div>
         </motion.section>
@@ -381,13 +492,87 @@ test('should probably work', async () => {
             <h3 className="text-2xl font-bold text-[var(--text-primary)]">The "Stupid Playable Arcade"</h3>
           </div>
           <p className="text-[var(--text-secondary)] mb-4">Because every professional portfolio needs a way to waste the recruiter's time.</p>
-          <ul className="list-disc pl-5 space-y-2 text-[var(--text-secondary)]">
-            <li><strong>Bug Squash:</strong> Save the production database from actual bugs.</li>
-            <li><strong>Quick Sync Dodge:</strong> Simulate the average Tuesday by dodging calendar invites.</li>
-            <li><strong>Elusive Deploy:</strong> Try to push to production. The button runs away. Good luck.</li>
-            <li><strong>Learn Flex (Sarcastic):</strong> CSS is hard. We made it harder.</li>
-            <li><strong>Type Torture:</strong> Fix <CodeSpan>any</CodeSpan> types or get roasted.</li>
-          </ul>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
+              <h4 className="font-bold text-[var(--text-primary)] mb-2">The "Runaway" Button</h4>
+              <p className="text-sm text-[var(--text-secondary)] mb-4">
+                Attempts to deploy to production. It moves when you hover. It springs away when you click. It is a metaphor for my career goals.
+              </p>
+              <div className="rounded-lg overflow-hidden border border-[var(--border-color)]">
+                <div className="bg-[#1e1e1e] px-3 py-1.5 border-b border-white/10">
+                  <span className="text-[10px] text-gray-500 font-mono">src/components/games/RunawayButton.tsx</span>
+                </div>
+                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem' }}>
+                  {gameSnippet}
+                </SyntaxHighlighter>
+              </div>
+            </ModernCard>
+
+            <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
+              <h4 className="font-bold text-[var(--text-primary)] mb-2">CSS Flexbox Torture</h4>
+              <p className="text-sm text-[var(--text-secondary)] mb-4">
+                A game where you fix broken layouts. Or break them further. I don't judge.
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-[var(--text-secondary)] text-sm mb-4">
+                <li><strong>Bug Squash:</strong> Save the production database from actual bugs.</li>
+                <li><strong>Quick Sync Dodge:</strong> Simulate the average Tuesday by dodging calendar invites.</li>
+                <li><strong>Type Torture:</strong> Fix <CodeSpan>any</CodeSpan> types or get roasted.</li>
+              </ul>
+
+              <div className="rounded-lg overflow-hidden border border-[var(--border-color)]">
+                <div className="bg-[#1e1e1e] px-3 py-1.5 border-b border-white/10">
+                  <span className="text-[10px] text-gray-500 font-mono">src/components/games/FlexPlayground.tsx</span>
+                </div>
+                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem' }}>
+                  {flexSnippet}
+                </SyntaxHighlighter>
+              </div>
+            </ModernCard>
+          </div>
+        </motion.section>
+
+        {/* Internal Tools */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <div className="flex items-center gap-3 mb-6 text-cyan-500">
+            <Wrench className="w-6 h-6" />
+            <h3 className="text-2xl font-bold text-[var(--text-primary)]">Internal Developer Tools</h3>
+          </div>
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            <div className="flex-1">
+              <p className="text-[var(--text-secondary)] mb-4">
+                I built actual tools into this website because opening VS Code is too much effort sometimes.
+              </p>
+              <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)] mb-6">
+                <h4 className="font-bold text-[var(--text-primary)] flex items-center gap-2 mb-2">
+                  <FileText className="w-4 h-4" />
+                  The "Lazy Man's Thesis Creator"
+                </h4>
+                <p className="text-sm text-[var(--text-secondary)] mb-4">
+                  A fully functional **LaTeX Editor** that compiles in the browser using `latex.js`.
+                </p>
+                <ul className="list-disc pl-5 space-y-1 text-[var(--text-secondary)] text-sm">
+                  <li><strong>Live Preview:</strong> See your academic nonsense render in real-time.</li>
+                  <li><strong>Cheat Sheet:</strong> For when you forget how to make a Greek letter.</li>
+                  <li><strong>PDF Export:</strong> Prints directly to PDF so you can submit your homework.</li>
+                </ul>
+              </ModernCard>
+            </div>
+
+            <div className="flex-1 w-full rounded-xl overflow-hidden border border-[var(--border-color)] shadow-xl">
+              <div className="bg-[#1e1e1e] px-4 py-2 border-b border-white/10">
+                <span className="text-xs text-gray-500 font-mono">src/pages/tools/LatexEditor.tsx</span>
+              </div>
+              <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0 }}>
+                {latexSnippet}
+              </SyntaxHighlighter>
+            </div>
+          </div>
         </motion.section>
 
         {/* Under The Hood */}
