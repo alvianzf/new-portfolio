@@ -214,7 +214,7 @@ export default function Header() {
                           </div>
                           <div>
                             <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Visual Inflation</div>
-                            <div className="text-xs text-slate-500">Fake rich currency formats</div>
+                            <div className="text-xs text-slate-500">Handles the tough job of making your numbers actually readable</div>
                           </div>
                         </div>
                       </a>
