@@ -43,6 +43,8 @@ const getTechIcon = (tech: string): IconDefinition | null => {
 // Import solid icons for fallback/manual mapping
 import { faFire, faHashtag } from '@fortawesome/free-solid-svg-icons';
 
+import WormBackground from '../components/WormBackground';
+
 export default function Experience() {
   const [activeTab, setActiveTab] = useState<'roles' | 'projects' | 'npm'>('roles');
   const [copiedPkg, setCopiedPkg] = useState<string | null>(null);
@@ -60,7 +62,8 @@ export default function Experience() {
   ] as const;
 
   return (
-    <div className="min-h-screen pt-32 pb-32 relative overflow-hidden bg-[var(--bg-primary)] transition-colors duration-300">
+    <div className="min-h-screen pt-32 pb-32 relative overflow-hidden transition-colors duration-300">
+      <WormBackground />
       <SEO
         title="Professional Experience"
         description="A timeline of 13+ years of managing chaos, fixing bugs caused by others, and judging code for a living."

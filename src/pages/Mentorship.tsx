@@ -4,6 +4,8 @@ import ModernCard from '../components/ModernCard';
 import learnWithAndiLogo from '../assets/learnwithandi.png';
 import SEO from '../components/SEO';
 
+import WormBackground from '../components/WormBackground';
+
 export default function Mentorship() {
   const features = [
     {
@@ -38,7 +40,8 @@ export default function Mentorship() {
   ];
 
   return (
-    <div className="min-h-screen pt-32 pb-20 bg-[var(--bg-primary)] transition-colors duration-300">
+    <div className="min-h-screen pt-32 pb-20 transition-colors duration-300">
+      <WormBackground />
       <SEO
         title="Tech Interview Mentorship"
         description="Get your tech interview skills roasted. Brutal, honest mock interviews to prepare you for the real thing. Book a session at learnwithandi.com."

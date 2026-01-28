@@ -390,7 +390,7 @@ export const categories: Category[] = [
 export const npmPackages: NpmPackage[] = [
   {
     name: "make-it-rain",
-    description: "Visual Inflation. A useless package that handles the tough job of making your numbers actually readable..",
+    description: "Visual Inflation. A useless package that handles the tough job of making your numbers actually readable.",
     command: "npm i make-it-rain",
     url: "https://www.npmjs.com/package/make-it-rain",
   },
