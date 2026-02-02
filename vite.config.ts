@@ -33,6 +33,7 @@ export default defineConfig({
     })
   ],
   optimizeDeps: {
-    exclude: ['lucide-react'],
+    exclude: ['lucide-react', 'latex.js'],
   },
+  assetsInclude: ['**/*.keep'],
 });
