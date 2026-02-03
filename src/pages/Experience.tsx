@@ -213,9 +213,19 @@ export default function Experience() {
                       </div>
                       <h3 className="text-lg font-bold text-[var(--text-primary)] mb-1 group-hover:text-[#990000] transition-colors">{proj.title}</h3>
                       <p className="text-sm text-[#990000] font-medium mb-3">{proj.company}</p>
-                      <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-auto">
+                      <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-4">
                         {Array.isArray(proj.description) ? proj.description[0] : proj.description}
                       </p>
+                      {proj.link && (
+                        <a
+                          href={proj.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-auto inline-flex items-center text-xs font-bold text-[#990000] hover:underline"
+                        >
+                          View Project →
+                        </a>
+                      )}
                     </ModernCard>
                   )
                 })}

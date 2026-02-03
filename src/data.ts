@@ -177,6 +177,15 @@ export const experiences: Experience[] = [
 
 export const projects: Experience[] = [
   {
+    title: "Tick PHP Framework",
+    company: "Open Source",
+    icon: faPhp,
+    period: "2025 - Present",
+    description: "A brand new PHP Framework. Because why not? Features auto-discovery routing, dependency injection, and a built-in CLI.",
+    link: "https://github.com/alvianzf/tick-php-framework",
+    category: "technical",
+  },
+  {
     title: "Fullstack Engineer",
     company: "TiketQ",
     icon: Code2,

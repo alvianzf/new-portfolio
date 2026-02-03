@@ -24,6 +24,7 @@ export interface Experience {
   techStack?: string[];
   category?: 'technical' | 'soft';
   logo?: string;
+  link?: string;
   icon?: IconDefinition | LucideIcon;
 }
 
