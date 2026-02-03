@@ -134,8 +134,11 @@ export default function Experience() {
                       <div className="flex flex-col md:flex-row gap-6">
                         <div className="shrink-0">
                           <div className="w-14 h-14 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-[#990000] group-hover:scale-105 transition-all">
-                            {/* @ts-expect-error icon rendering */}
-                            <IconComponent className="w-6 h-6" />
+                            {typeof IconComponent === 'object' ? (
+                              <FontAwesomeIcon icon={IconComponent as IconDefinition} className="w-6 h-6" />
+                            ) : (
+                              <IconComponent className="w-6 h-6" />
+                            )}
                           </div>
                         </div>
                         <div className="flex-1">
@@ -204,8 +207,11 @@ export default function Experience() {
                     <ModernCard key={index} className="group flex flex-col h-full p-6 bg-[var(--card-bg)] border-[var(--border-color)] hover:border-red-500/30 transition-all rounded-2xl relative">
                       <div className="flex items-start justify-between mb-4">
                         <div className="p-3 rounded-lg bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-secondary)] group-hover:text-[#990000] transition-colors">
-                          {/* @ts-expect-error icon rendering */}
-                          <IconComponent className="w-6 h-6" />
+                          {typeof IconComponent === 'object' ? (
+                            <FontAwesomeIcon icon={IconComponent as IconDefinition} className="w-6 h-6" />
+                          ) : (
+                            <IconComponent className="w-6 h-6" />
+                          )}
                         </div>
                         <div className="text-xs font-bold text-[var(--text-secondary)] bg-[var(--bg-primary)] px-2 py-1 rounded border border-[var(--border-color)]">
                           {proj.period}
