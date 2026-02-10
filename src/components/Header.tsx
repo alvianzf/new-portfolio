@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Github, Linkedin, ChevronDown, FileJson, Receipt, CloudRain, MessageSquareWarning, CheckCircle2, Menu, X, Terminal } from 'lucide-react';
+import { Github, Linkedin, ChevronDown, FileJson, Receipt, CloudRain, MessageSquareWarning, CheckCircle2, Menu, X, Terminal, Coins } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedium } from '@fortawesome/free-brands-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -200,6 +200,17 @@ export default function Header() {
                           <div>
                             <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Beg For Money</div>
                             <div className="text-xs text-slate-500">PDFs for clients who won't pay</div>
+                          </div>
+                        </div>
+                      </a>
+                      <a href="https://hitungpajak.alvianzf.id" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 bg-green-50 text-green-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
+                            <Coins className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Tax Calculator</div>
+                            <div className="text-xs text-slate-500">Want to know how much you're actually paying?</div>
                           </div>
                         </div>
                       </a>
