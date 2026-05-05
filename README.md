@@ -1,5 +1,8 @@
 # The Alvian Zachry Faturrahman Portfolio Experience™
 
+> [!TIP]
+> Check out our comprehensive [**Project Wiki**](wiki/index.md) for detailed information on architecture, features, and the full project history.
+
 > *Warning: Contains excessive amounts of "Regional Manager" energy, mathematically generated worms, and an unnecessarily comprehensive testing infrastructure. Proceed with caution.*
 
 Hi, I'm **Alvian Zachry**. I collect job titles like other people collect Pokémon cards (Program Manager, Technical Lead, Full Stack Engineer, Talent Acquisition Specialist... look, I just really like working, okay?).
