@@ -102,7 +102,11 @@ export default function Home() {
                   key={`row1-${skill.name}-${index}`}
                   className="flex items-center gap-2 px-6 py-3 card-modern border border-[var(--border-color)] shadow-sm whitespace-nowrap group hover:border-brand-red hover:shadow-md transition-all duration-300"
                 >
-                  <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
+                  {skill.icon && typeof skill.icon === 'object' && 'prefix' in skill.icon ? (
+                    <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
+                  ) : skill.icon ? (
+                    <skill.icon className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
+                  ) : null}
                   <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">{skill.name}</span>
                 </div>
               ))}
@@ -122,7 +126,11 @@ export default function Home() {
                   key={`row2-${skill.name}-${index}`}
                   className="flex items-center gap-2 px-6 py-3 card-modern border border-[var(--border-color)] shadow-sm whitespace-nowrap group hover:border-brand-red hover:shadow-md transition-all duration-300"
                 >
-                  <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
+                  {skill.icon && typeof skill.icon === 'object' && 'prefix' in skill.icon ? (
+                    <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
+                  ) : skill.icon ? (
+                    <skill.icon className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
+                  ) : null}
                   <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">{skill.name}</span>
                 </div>
               ))}
@@ -171,7 +179,11 @@ export default function Home() {
                         <div key={skill.name} className="flex-1 min-w-[280px] max-w-[350px]">
                           <ModernCard className="h-full flex items-center gap-4 p-5 hover:border-brand-red/30 transition-all hover:shadow-md hover:-translate-y-1 bg-[var(--card-bg)]">
                             <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
-                              <FontAwesomeIcon icon={skill.icon} className="w-5 h-5" />
+                              {skill.icon && typeof skill.icon === 'object' && 'prefix' in skill.icon ? (
+                                <FontAwesomeIcon icon={skill.icon} className="w-5 h-5" />
+                              ) : skill.icon ? (
+                                <skill.icon className="w-5 h-5" />
+                              ) : null}
                             </div>
                             <div>
                               <h4 className="font-semibold text-[var(--text-primary)]">{skill.name}</h4>

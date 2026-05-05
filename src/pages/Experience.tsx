@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faReact, faNode, faPython, faJs, faPhp, faLaravel, faAws, faVuejs, faDocker, faWordpress, faGoogle
 } from '@fortawesome/free-brands-svg-icons';
-import { faDatabase, faServer } from '@fortawesome/free-solid-svg-icons';
+import { faDatabase, faServer, faFire, faHashtag } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 // Helper to map string tech to icons
@@ -40,8 +40,6 @@ const getTechIcon = (tech: string): IconDefinition | null => {
   return map[tech] || null;
 };
 
-// Import solid icons for fallback/manual mapping
-import { faFire, faHashtag } from '@fortawesome/free-solid-svg-icons';
 
 import WormBackground from '../components/WormBackground';
 
@@ -95,18 +93,18 @@ export default function Experience() {
         </motion.div>
 
         {/* Tabs */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <div className="flex justify-center gap-4 bg-[var(--card-bg)] p-2 rounded-2xl border border-[var(--border-color)] w-fit mx-auto shadow-sm">
+        <div className="max-w-4xl mx-auto mb-12 px-2 md:px-4">
+          <div className="flex justify-center overflow-x-auto no-scrollbar gap-1 md:gap-4 bg-[var(--card-bg)] p-1 md:p-2 rounded-2xl border border-[var(--border-color)] w-fit mx-auto shadow-sm whitespace-nowrap">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${activeTab === tab.id
+                className={`flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 md:px-6 md:py-3 rounded-xl text-xs md:text-base font-medium transition-all shrink-0 ${activeTab === tab.id
                   ? 'bg-[#990000] text-white shadow-lg'
                   : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-primary)]'
                   }`}
               >
-                <tab.icon className="w-4 h-4" />
+                <tab.icon className="w-3.5 h-3.5 md:w-4 md:h-4" />
                 {tab.label}
               </button>
             ))}
@@ -134,11 +132,11 @@ export default function Experience() {
                       <div className="flex flex-col md:flex-row gap-6">
                         <div className="shrink-0">
                           <div className="w-14 h-14 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-[#990000] group-hover:scale-105 transition-all">
-                            {typeof IconComponent === 'object' ? (
+                            {IconComponent && typeof IconComponent === 'object' && 'prefix' in IconComponent ? (
                               <FontAwesomeIcon icon={IconComponent as IconDefinition} className="w-6 h-6" />
-                            ) : (
+                            ) : IconComponent ? (
                               <IconComponent className="w-6 h-6" />
-                            )}
+                            ) : null}
                           </div>
                         </div>
                         <div className="flex-1">
@@ -173,7 +171,7 @@ export default function Experience() {
                             <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-[var(--border-color)]">
                               {exp.techStack.map((tech) => (
                                 <span key={tech} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[var(--bg-primary)] text-[var(--text-secondary)] text-xs font-medium border border-[var(--border-color)]">
-                                  {getTechIcon(tech) ? (
+                                  {getTechIcon(tech) && typeof getTechIcon(tech) === 'object' && 'prefix' in (getTechIcon(tech) as any) ? (
                                     <FontAwesomeIcon icon={getTechIcon(tech)!} className="w-3 h-3 opacity-70" />
                                   ) : (
                                     <Wrench className="w-3 h-3 opacity-70" />
@@ -207,11 +205,11 @@ export default function Experience() {
                     <ModernCard key={index} className="group flex flex-col h-full p-6 bg-[var(--card-bg)] border-[var(--border-color)] hover:border-red-500/30 transition-all rounded-2xl relative">
                       <div className="flex items-start justify-between mb-4">
                         <div className="p-3 rounded-lg bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-secondary)] group-hover:text-[#990000] transition-colors">
-                          {typeof IconComponent === 'object' ? (
+                          {IconComponent && typeof IconComponent === 'object' && 'prefix' in IconComponent ? (
                             <FontAwesomeIcon icon={IconComponent as IconDefinition} className="w-6 h-6" />
-                          ) : (
+                          ) : IconComponent ? (
                             <IconComponent className="w-6 h-6" />
-                          )}
+                          ) : null}
                         </div>
                         <div className="text-xs font-bold text-[var(--text-secondary)] bg-[var(--bg-primary)] px-2 py-1 rounded border border-[var(--border-color)]">
                           {proj.period}

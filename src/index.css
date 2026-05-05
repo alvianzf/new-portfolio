@@ -193,6 +193,15 @@
   .pause-on-hover:hover .animate-marquee-reverse {
     animation-play-state: paused;
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 /* Blog Post Content Styles */
