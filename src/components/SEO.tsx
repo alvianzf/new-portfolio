@@ -25,7 +25,7 @@ export default function SEO({
   const location = useLocation();
   const baseUrl = 'https://alvianzf.id';
   const currentUrl = `${baseUrl}${location.pathname}`;
-  const defaultImage = `${baseUrl}/favicon.ico`; // Fallback image
+  const defaultImage = `${baseUrl}/potraits.png`;
 
   // Default values
   const siteTitle = 'Alvian Zachry Faturrahman - Program Manager | Technical Lead | Full Stack Engineer';
