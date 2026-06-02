@@ -82,7 +82,7 @@ export default function Experience() {
   ] as const;
 
   return (
-    <div className="min-h-screen pt-32 pb-32 relative overflow-hidden transition-colors duration-300">
+    <div className="min-h-screen pt-20 pb-20 md:pt-32 md:pb-32 relative overflow-hidden transition-colors duration-300">
       <WormBackground />
       <SEO
         title="Professional Experience"

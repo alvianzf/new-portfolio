@@ -76,7 +76,7 @@ export default function Home() {
           "React Developer", "Engineering Manager", "Tech Mentorship Indonesia"
         ]}
       />
-      <div className="container mx-auto px-6 py-20">
+      <div className="container mx-auto px-6 py-10 md:py-20">
         {/* Hero Section */}
         <section className="mb-16">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
@@ -85,7 +85,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-6xl md:text-8xl font-bold tracking-tighter text-[var(--text-primary)] mb-8 leading-tight">
+              <h1 className="text-5xl md:text-8xl font-bold tracking-tighter text-[var(--text-primary)] mb-6 leading-tight">
                 Alvian
                 <br />
                 <span className="text-[var(--text-secondary)]">Zachry.</span>
@@ -126,7 +126,7 @@ export default function Home() {
         </section>
 
         {/* Technical Expertise (Infinite Marquee) */}
-        <section className="mb-24 relative space-y-2">
+        <section className="mb-12 md:mb-24 relative space-y-2">
           {/* Row 1: Development & Frameworks (Right to Left) */}
           <div className="max-w-[100vw] overflow-hidden mask-linear-gradient">
             <motion.div
@@ -181,7 +181,7 @@ export default function Home() {
         </section>
 
         {/* Biography (About Me) */}
-        <section className="max-w-4xl mx-auto mb-24">
+        <section className="max-w-4xl mx-auto mb-12 md:mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -196,7 +196,7 @@ export default function Home() {
         </section>
 
         {/* Soft Skills & Languages (Horizontal Layout) */}
-        <section className="max-w-7xl mx-auto mb-32">
+        <section className="max-w-7xl mx-auto mb-16 md:mb-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -214,7 +214,7 @@ export default function Home() {
                     {skills
                       .filter(skill => skill.category === category.name.toLowerCase().split(' ')[0])
                       .map((skill) => (
-                        <div key={skill.name} className="flex-1 min-w-[280px] max-w-[350px]">
+                        <div key={skill.name} className="flex-1 min-w-[240px] sm:min-w-[280px] max-w-[350px]">
                           <ModernCard className="h-full flex items-center gap-4 p-5 hover:border-brand-red/30 transition-all hover:shadow-md hover:-translate-y-1 bg-[var(--card-bg)]">
                             <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
                               {skill.icon && typeof skill.icon === 'object' && 'prefix' in skill.icon ? (
@@ -238,7 +238,7 @@ export default function Home() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="max-w-4xl mx-auto mb-24">
+        <section id="contact" className="max-w-4xl mx-auto mb-12 md:mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

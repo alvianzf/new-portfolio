@@ -147,7 +147,7 @@ async function generateSitemap() {
 
 
   return (
-    <div className="min-h-screen pt-32 pb-20 transition-colors duration-300">
+    <div className="min-h-screen pt-20 md:pt-32 pb-20 transition-colors duration-300 overflow-x-hidden">
       <SEO
         title="About (The README)"
         description="The technical documentation of Alvian Zachry. Contains sarcastic remarks and code snippets."
@@ -249,11 +249,11 @@ async function generateSitemap() {
             </li>
           </ul>
 
-          <div className="rounded-xl overflow-hidden border border-[var(--border-color)] shadow-xl rotate-1 hover:rotate-0 transition-transform duration-300">
+          <div className="rounded-xl overflow-hidden border border-[var(--border-color)] shadow-xl md:rotate-1 hover:rotate-0 transition-transform duration-300">
             <div className="bg-[#1e1e1e] px-4 py-2 border-b border-white/10">
               <span className="text-xs text-gray-500 font-mono">src/components/ThemeToggle.tsx</span>
             </div>
-            <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0 }}>
+            <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, overflowX: 'auto' }}>
               {themeSnippet}
             </SyntaxHighlighter>
           </div>
@@ -287,7 +287,7 @@ async function generateSitemap() {
               <div className="w-3 h-3 rounded-full bg-green-500" />
               <span className="ml-2 text-xs text-gray-500 font-mono">src/components/WormBackground.tsx</span>
             </div>
-            <SyntaxHighlighter language="typescript" style={vscDarkPlus} showLineNumbers customStyle={{ margin: 0, borderRadius: 0 }}>
+            <SyntaxHighlighter language="typescript" style={vscDarkPlus} showLineNumbers customStyle={{ margin: 0, borderRadius: 0, overflowX: 'auto' }}>
               {wormSnippet}
             </SyntaxHighlighter>
           </div>
@@ -399,7 +399,7 @@ async function generateSitemap() {
             <div className="bg-[#1e1e1e] px-4 py-2 border-b border-white/10">
               <span className="text-xs text-gray-500 font-mono">generate-sitemap.js</span>
             </div>
-            <SyntaxHighlighter language="javascript" style={vscDarkPlus} customStyle={{ margin: 0 }}>
+            <SyntaxHighlighter language="javascript" style={vscDarkPlus} customStyle={{ margin: 0, overflowX: 'auto' }}>
               {sitemapSnippet}
             </SyntaxHighlighter>
           </div>
@@ -431,7 +431,7 @@ async function generateSitemap() {
                 <div className="bg-[#1e1e1e] px-3 py-1.5 border-b border-white/10">
                   <span className="text-[10px] text-gray-500 font-mono">src/tests/sanity.test.ts</span>
                 </div>
-                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem' }}>
+                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem', overflowX: 'auto' }}>
                   {testSnippet}
                 </SyntaxHighlighter>
               </div>
@@ -447,7 +447,7 @@ async function generateSitemap() {
                 <div className="bg-[#1e1e1e] px-3 py-1.5 border-b border-white/10">
                   <span className="text-[10px] text-gray-500 font-mono">tests/e2e/recruiter.spec.ts</span>
                 </div>
-                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem' }}>
+                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem', overflowX: 'auto' }}>
                   {playwrightSnippet}
                 </SyntaxHighlighter>
               </div>
@@ -464,7 +464,7 @@ async function generateSitemap() {
                 <div className="bg-[#1e1e1e] px-3 py-1.5 border-b border-white/10">
                   <span className="text-[10px] text-gray-500 font-mono">stories/RunawayButton.stories.tsx</span>
                 </div>
-                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem' }}>
+                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem', overflowX: 'auto' }}>
                   {storybookSnippet}
                 </SyntaxHighlighter>
               </div>
@@ -502,7 +502,7 @@ async function generateSitemap() {
                 <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
               </div>
             </div>
-            <SyntaxHighlighter language="bash" style={vscDarkPlus} customStyle={{ margin: 0, background: 'transparent' }}>
+            <SyntaxHighlighter language="bash" style={vscDarkPlus} customStyle={{ margin: 0, background: 'transparent', overflowX: 'auto' }}>
               {lintSnippet}
             </SyntaxHighlighter>
           </div>
@@ -520,7 +520,7 @@ async function generateSitemap() {
           </div>
           <p className="text-[var(--text-secondary)] mb-4">Because every professional portfolio needs a way to waste the recruiter's time.</p>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
             <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
               <h4 className="font-bold text-[var(--text-primary)] mb-2">The "Runaway" Button</h4>
               <p className="text-sm text-[var(--text-secondary)] mb-4">
@@ -530,7 +530,7 @@ async function generateSitemap() {
                 <div className="bg-[#1e1e1e] px-3 py-1.5 border-b border-white/10">
                   <span className="text-[10px] text-gray-500 font-mono">src/components/games/RunawayButton.tsx</span>
                 </div>
-                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem' }}>
+                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem', overflowX: 'auto' }}>
                   {gameSnippet}
                 </SyntaxHighlighter>
               </div>
@@ -551,7 +551,7 @@ async function generateSitemap() {
                 <div className="bg-[#1e1e1e] px-3 py-1.5 border-b border-white/10">
                   <span className="text-[10px] text-gray-500 font-mono">src/components/games/FlexPlayground.tsx</span>
                 </div>
-                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem' }}>
+                <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '0.75rem', overflowX: 'auto' }}>
                   {flexSnippet}
                 </SyntaxHighlighter>
               </div>
@@ -595,7 +595,7 @@ async function generateSitemap() {
               <div className="bg-[#1e1e1e] px-4 py-2 border-b border-white/10">
                 <span className="text-xs text-gray-500 font-mono">src/pages/tools/LatexEditor.tsx</span>
               </div>
-              <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0 }}>
+              <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, overflowX: 'auto' }}>
                 {latexSnippet}
               </SyntaxHighlighter>
             </div>
@@ -661,7 +661,7 @@ async function generateSitemap() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-center p-12 bg-slate-900 rounded-3xl text-white relative overflow-hidden"
+          className="text-center p-6 md:p-12 bg-slate-900 rounded-3xl text-white relative overflow-hidden"
         >
           <div className="relative z-10">
             <h2 className="text-3xl font-bold mb-4">Need someone to over-engineer your portfolio?</h2>
@@ -674,8 +674,8 @@ async function generateSitemap() {
           </div>
 
           {/* Decorative elements */}
-          <div className="absolute top-0 right-0 p-32 bg-red-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 p-32 bg-blue-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+          <div className="absolute top-0 right-0 p-16 md:p-32 bg-red-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 p-16 md:p-32 bg-blue-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
         </motion.div>
 
       </div>

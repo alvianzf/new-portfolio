@@ -66,7 +66,7 @@ export default function Mentorship() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20 transition-colors duration-300">
+    <div className="min-h-screen pt-20 md:pt-32 pb-20 transition-colors duration-300">
       <WormBackground />
       <SEO
         title="Tech Interview Mentorship"

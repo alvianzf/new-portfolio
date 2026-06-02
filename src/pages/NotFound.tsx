@@ -38,13 +38,13 @@ export default function NotFound() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-500 mb-4 font-mono">
+          <h1 className="text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-500 mb-4 font-mono">
             404
           </h1>
-          <h2 className="text-3xl font-bold text-slate-100 mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-100 mb-6">
             Well, this is awkward.
           </h2>
-          <p className="text-xl text-slate-400 leading-relaxed mb-8 max-w-lg mx-auto">
+          <p className="text-lg md:text-xl text-slate-400 leading-relaxed mb-8 max-w-lg mx-auto">
             {randomMessage}
           </p>
         </motion.div>
