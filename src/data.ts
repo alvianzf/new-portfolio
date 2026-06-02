@@ -1,5 +1,5 @@
 import { Experience, Skill, Category, NpmPackage } from "./types";
-import { Code2, Brain, Languages, UserSearch, Presentation, GraduationCap, Terminal, Rocket, Server, LayoutTemplate } from "lucide-react";
+import { Code2, Brain, Languages, UserSearch, Presentation, GraduationCap, Terminal, Rocket, Server, LayoutTemplate, Flame, Bot } from "lucide-react";
 import {
   faReact,
   faNode,
@@ -29,63 +29,112 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export const experiences: Experience[] = [
-  // Leadership & Management Roles
+  // Part-time / Contract — most recent first
+  {
+    title: "Technical Mock Interviewer",
+    company: "LearnWithAndi",
+    icon: Flame,
+    period: "Aug 2025 – Present",
+    description: [
+      "Conduct high-stakes technical mock interviews, specialising in rigorous pressure-test scenarios to evaluate a candidate's resilience, technical depth, and problem-solving under stress.",
+      "Deliver unfiltered, high-impact technical feedback, transforming 'mild' conceptual understanding into industry-ready expertise through direct and honest critique.",
+      "Tailor assessment intensity based on candidate seniority, ranging from fundamental logic checks to complex system design challenges.",
+      "Championed a 'Radical Candor' approach to mentorship, resulting in candidates significantly better prepared for real-world high-pressure hiring cycles.",
+    ],
+    techStack: ["Technical Vetting", "System Design", "Radical Candor", "Performance Coaching", "Candidate Calibration"],
+    category: "soft",
+  },
+
+  // Main Roles
   {
     title: "Talent Acquisition Specialist & Regional Manager",
     company: "Devshore Partners, s.r.o.",
     icon: UserSearch,
     period: "Oct 2023 – Present",
     description: [
-      "Recruited senior developers for placement in European partner companies, achieving a 60% shortlist-to-interview efficiency in the first quarter.",
-      "Evaluated incoming profiles to determine their compatibility with client companies.",
-      "Fostered collaboration with local hiring partners in Indonesia and Vietnam to identify potential candidates.",
-      "Continuously enhanced and iterated upon the hiring assessment processes to ensure effectiveness and precision in candidate selection.",
-      "Developed and iterated technical assessment processes, achieving a 50% interview-to-offer rate."
+      "Engineered and iterated an AI-driven sourcing and automated outreach system using Anthropic (Opus 4.6, Sonnet 4.6, and Haiku) to scale talent acquisition across global markets.",
+      "Architected a recruitment dashboard and custom matching algorithm using Next.js, Apify, n8n, and OpenClaw to bridge the gap between high-intent job openings and the talent pool.",
+      "Implemented advanced Token and Memory Optimisation strategies, reducing AI operating costs by 45% while maintaining high-performance output quality.",
+      "Designed a comprehensive technical assessment framework evaluating senior developers across algorithms and system design; achieved a 60% shortlist-to-interview conversion (2× the industry average).",
+      "Optimised interview-to-offer pipeline through iterative A/B testing of assessment criteria; increased offer acceptance rate to 50%.",
+      "Strengthened strategic partnerships across Indonesia and Vietnam, expanding the talent pipeline by 200% and managing coordination for senior placements in European companies.",
+      "Led end-to-end recruitment for 30+ senior roles (Backend, Frontend, DevOps) with a streamlined average time-to-hire of 45 days.",
     ],
-    techStack: ["Technical Hiring", "Assessment Design", "Team Management", "Recruitment"],
+    techStack: ["AI Automation", "Next.js", "n8n", "Prompt Engineering", "Technical Assessment Design", "Recruitment Strategy", "Stakeholder Management"],
     category: "soft",
   },
   {
     title: "Fullstack Engineer",
     company: "TiketQ",
     icon: Code2,
-    period: "Jun 2023 - Present",
+    period: "Jun 2023 – Present",
     description: [
       "Founded and currently serves as the Fullstack Engineer at TiketQ, a Batam-based ticketing platform. Responsible for architecting and developing the entire technology stack from scratch.",
       "Engineered the Back End infrastructure with Express.js, optimising performance and scalability.",
-      "Utilised Redis for efficient caching mechanisms, improving system performance and response times."
+      "Utilised Redis for efficient caching mechanisms, improving system performance and response times.",
     ],
-    techStack: ["Express.js", "Redis", "Node.js", "System Architecture", "React.js"],
+    techStack: ["Express.js", "Redis", "Node.js", "React.js", "System Architecture"],
     category: "technical",
   },
   {
-    title: "Program Manager",
+    title: "Program Manager – Software Engineering",
     company: "RevoU",
     icon: GraduationCap,
     period: "Feb 2023 – Apr 2024",
     description: [
-      "Lead and manage a dedicated team to continuously improve the Software Engineering program.",
-      "Oversee the design and development of scalable programs and curricula, integrating daily lectures, assignments, and projects to enhance students' skills.",
-      "Create an experiential learning environment that empowers students to apply their knowledge through simulated real-life projects (RevoU Next).",
-      "Ensure the effective delivery of the curriculum and code reviews by industry instructors and team leads.",
-      "Collaborate with external hiring managers to align the curriculum with industry standards, optimising student preparation for the job market."
+      "Led a team to optimise RevoU's Software Engineering programme structure and content.",
+      "Built scalable curricula with daily lectures, assignments, and real-life project simulations.",
+      "Created RevoU Next to bridge academic learning and practical job skills.",
+      "Oversaw code reviews and instructor delivery to ensure quality outcomes.",
+      "Partnered with hiring managers to align training with real-world job market demands.",
+      "Refined applicant assessments and career support systems with internal teams.",
     ],
-    techStack: ["Curriculum Design", "Education Management", "Team Leadership", "Software Engineering Education"],
+    techStack: ["Curriculum Development", "Team Leadership", "Stakeholder Management", "Quality Assurance"],
+    category: "soft",
+  },
+  {
+    title: "Lead Instructor",
+    company: "RevoU",
+    icon: Presentation,
+    period: "Jan 2023 – Mar 2023",
+    description: [
+      "Modified and refined student assignment briefs to align with evolving educational objectives.",
+      "Developed comprehensive key answers for advanced assignments to enhance learning outcomes.",
+      "Conducted a thorough review of the current curriculum including Students Study Resources, Group Project Briefs, Team Lead Simulation briefs, Grading Rubric, and Syllabus.",
+      "Proposed and implemented improvements; submitted new syllabi, master decks, and updated links for study resources.",
+    ],
+    techStack: ["NestJS", "PostgreSQL", "Supabase", "Docker", "Stakeholder Management", "Quality Assurance"],
     category: "soft",
   },
   {
     title: "Technical Assessment Designer",
     company: "Glints",
-    icon: Presentation,
+    icon: Bot,
     period: "Jan 2022 – Apr 2023",
     description: [
-      "Design and implement a comprehensive assessment system to accurately evaluate and filter high-quality Southeast Asian engineers.",
-      "Enhance the speed and accuracy of matching international employers with top-tier engineering talent.",
-      "Develop fool-proof testing methodologies to ensure candidates meet the rigorous standards of the Glints Ecosystem.",
-      "Collaborate with hiring managers and industry experts to continuously refine and improve the assessment criteria."
+      "Designed robust assessments to filter top-tier Southeast Asian engineering talent.",
+      "Cut employer-candidate mismatch by improving evaluation accuracy and rigour.",
+      "Built fool-proof testing methodologies to uphold Glints' ecosystem quality standards.",
+      "Collaborated with industry experts to iterate and refine evaluation criteria.",
+      "Analysed assessment data to enhance process effectiveness and alignment with hiring trends.",
     ],
-    techStack: ["Assessment Design", "Hiring Standards", "Technical Evaluation"],
+    techStack: ["Assessment Design", "Data Analytics", "Process Optimisation", "Cross-Cultural Communication"],
     category: "soft",
+  },
+  {
+    title: "Technical Lead",
+    company: "PT. Mitra Kuadran Teknologi",
+    icon: Terminal,
+    period: "Nov 2021 – Dec 2021",
+    description: [
+      "Led a small team specialising in crafting ERP solutions for government entities including BP Batam, Customs Office, and the Municipality Office.",
+      "Successfully guided the team in delivering tailored ERP products that met the specific needs of government clients.",
+      "Managed technical hiring processes, ensuring the acquisition of skilled talent to strengthen team capabilities.",
+      "Utilised a diverse technology stack including Vue.js, React.js, Express.js, Laravel, PostgreSQL, MongoDB, and AWS/GCP.",
+      "Implemented efficient project management practices using Trello for seamless coordination and project tracking.",
+    ],
+    techStack: ["Vue.js", "React.js", "Express.js", "Laravel", "PostgreSQL", "MongoDB", "AWS", "GCP"],
+    category: "technical",
   },
   {
     title: "Technical Curriculum Lead",
@@ -93,42 +142,26 @@ export const experiences: Experience[] = [
     icon: Brain,
     period: "Nov 2020 – Dec 2021",
     description: [
-      "Implemented an Industry Trainers system, providing students with personalised mentorship and guidance.",
-      "Designed and developed curricula for various core products, ensuring comprehensive skill acquisition.",
-      "Successfully transitioned Bootcamp models to hybrid self-paced learning formats with personalised support.",
-      "Achieved high employment rates for graduates with competitive salaries through targeted curriculum design, with an 90%+ hire rate within 6 months."
+      "Launched the Industry Trainers system to deliver tailored mentorship.",
+      "Developed core curricula across multiple programmes, improving student outcomes.",
+      "Transitioned bootcamps to hybrid formats, maintaining personalisation and flexibility.",
+      "Achieved 90%+ graduate employment rate within 6 months, with median salary of IDR 5M/month.",
     ],
-    techStack: ["Curriculum Development", "Mentorship", "EdTech", "Bootcamp Management"],
+    techStack: ["Instructional Design", "Educational Technology", "Metrics-Driven Improvement", "Scaling Programs"],
     category: "soft",
-  },
-
-  // Software Engineering & Technical Roles
-  {
-    title: "Technical Lead",
-    company: "PT. Mitra Kuadran Teknologi",
-    icon: Terminal,
-    period: "Nov 2021 - Dec 2021",
-    description: [
-      "Led a small team at Kuadran Teknologi Indonesia, specialising in crafting ERP solutions for government entities including BP Batam, Customs Office, and the Municipality Office.",
-      "Successfully guided the team in delivering tailored ERP products that met the specific needs of government clients.",
-      "Managed technical hiring processes, ensuring the acquisition of skilled talent to strengthen the team's capabilities.",
-      "Utilised a diverse technology stack including Vue.js, React.js, Express.js, Laravel, PostgreSQL, MongoDB, and AWS/GCP."
-    ],
-    techStack: ["Vue.js", "React.js", "Express.js", "Laravel", "PostgreSQL", "MongoDB", "AWS", "GCP"],
-    category: "technical",
   },
   {
     title: "Technical Facilitator",
     company: "Gerakan Nasional 1000 Startup Digital",
     icon: Rocket,
-    period: "Sep 2020 - Feb 2021",
+    period: "Sep 2020 – Feb 2021",
     description: [
-      "Played a pivotal role in a startup development program backed by the Ministry of Communication and Informatics in Indonesia.",
+      "Played a pivotal role in Batam's chapter of GN 1000 Startup Digital, a program backed by the Ministry of Communication and Informatics of Indonesia.",
       "Guided and mentored aspiring founders in shaping their ideas into industry-ready applications.",
       "Provided technical mentorship to future CTOs, supporting them in application development.",
-      "Successfully coached 10 startup teams, with 3 teams advancing to the finals."
+      "Successfully coached 10 startup teams, with 3 teams advancing to the finals.",
     ],
-    techStack: ["Startup Coaching", "Product Management", "MVP Development"],
+    techStack: ["Startup Coaching", "Product Management", "MVP Development", "Technical Mentorship"],
     category: "technical",
   },
   {
@@ -137,12 +170,12 @@ export const experiences: Experience[] = [
     icon: LayoutTemplate,
     period: "Feb 2020 – Nov 2020",
     description: [
-      "Develop and maintain components for TalentTribe, a career platform targeting millennials.",
-      "Enhance existing products by implementing new features and fixing bugs to ensure optimal performance and user experience.",
-      "Utilise a variety of technologies in development, including AWS, Next.js, Express.js, Firestore, Algolia, and Nginx.",
-      "Set up and manage a WordPress application on AWS, including SSL configuration to ensure secure connections."
+      "Maintained and enhanced platform components for a millennial-focused career site.",
+      "Deployed features and fixed bugs using Next.js, Express.js, and Firestore.",
+      "Managed WordPress app on AWS, including SSL and performance configs.",
+      "Collaborated with teams to deliver scalable, production-ready solutions.",
     ],
-    techStack: ["AWS", "Next.js", "Express.js", "Firestore", "Algolia", "WordPress", "Nginx"],
+    techStack: ["Next.js", "Express.js", "Firestore", "Algolia", "AWS", "Nginx", "WordPress"],
     category: "technical",
   },
   {
@@ -151,75 +184,92 @@ export const experiences: Experience[] = [
     icon: Code2,
     period: "Mar 2019 – Feb 2020",
     description: [
-      "Developed web applications using PHP with the CodeIgniter Framework.",
-      "Utilised jQuery to manage front-end behaviours, consume APIs, and map data on the front-end side.",
-      "Translated business processes into effective software logic, ensuring seamless operation and functionality.",
-      "Contributed to the company's recognition as the best company to work for in 2019 by the Singapore Computer Society."
+      "Built web applications using PHP (CodeIgniter) and jQuery for dynamic UI behaviour.",
+      "Converted business processes into effective backend logic and clean user flows.",
+      "Helped the company clinch the 'Best Company to Work For 2019' by Singapore Computer Society.",
     ],
-    techStack: ["PHP", "CodeIgniter", "jQuery", "MySQL", "API Integration"],
+    techStack: ["PHP", "CodeIgniter", "jQuery", "MySQL", "RESTful APIs"],
     category: "technical",
   },
   {
     title: "The Freelance Vigilante",
-    company: "Various Government Agencies & Late Night Ideas",
+    company: "Various Government & Private Clients",
     icon: Code2,
     period: "2011 – 2019",
     description: [
-      "Spent the early years acting as a one-man army for government agencies, building ERPs and dashboards that (surprisingly) didn't crash.",
+      "Built 20+ custom ERP systems and operational dashboards for Indonesian government agencies and SMEs.",
+      "Delivered end-to-end solutions managing requirements gathering, development, deployment, and client training.",
+      "Specialised in PHP/CodeIgniter stack with jQuery frontends and MySQL databases.",
       "Learned the hard way that 'fixed price' actually means 'unlimited revisions'.",
-      "Crafted custom solutions for local businesses using whatever tech stack was trendy (or whatever I could make work at 3 AM).",
-      "Mastered the art of translating 'I want it to pop' into actual CSS."
     ],
-    techStack: ["PHP", "CodeIgniter", "jQuery", "Bootstrap", "MySQL", "Coffee & Prayers"],
+    techStack: ["PHP", "CodeIgniter", "jQuery", "Bootstrap", "MySQL"],
     category: "technical",
   },
 ];
 
 export const projects: Experience[] = [
   {
-    title: "Tick PHP Framework",
-    company: "Open Source",
-    icon: faPhp,
-    period: "2025 - Present",
-    description: "A brand new PHP Framework. Because why not? Features auto-discovery routing, dependency injection, and a built-in CLI.",
-    link: "https://github.com/alvianzf/tick-php-framework",
+    title: "Full-Stack Product Engineer",
+    company: "LearnWithAndi",
+    icon: Rocket,
+    period: "Feb 2026 – Present",
+    description:
+      "Architected and deployed the full LearnWithAndi ecosystem — Landing Page, Job Tracker, Mentorship platform, Talent Market, and Internal Dashboards. Applied Product Owner principles, SEO/GEO strategies, and expert Prompt Engineering to achieve 10/10 code quality with minimal token expenditure. Owns the complete DevOps and Security lifecycle maintaining 99.9% uptime.",
+    link: "https://learnwithandi.com",
+    techStack: ["React.js", "Prompt Engineering", "SEO/GEO", "DevOps", "Product Ownership"],
     category: "technical",
   },
   {
-    title: "Fullstack Engineer",
-    company: "TiketQ",
-    icon: Code2,
-    period: "Jun 2023 - Present",
+    title: "Tick PHP Framework",
+    company: "Open Source",
+    icon: faPhp,
+    period: "Apr 2022 – Present",
     description:
-      "Founded and developed a ticketing platform in Batam from scratch. Built backend infrastructure using Express.js, optimized with Redis caching for performance.",
+      "Architected a lightweight PHP framework with auto-discovery routing, dependency injection, and zero-dependency JWT auth. Implemented a database-agnostic ORM supporting MySQL, PostgreSQL, SQLite, and MongoDB. Built automatic Swagger documentation generator and CLI scaffolding tools.",
+    link: "https://github.com/alvianzf/tick-php-framework",
+    techStack: ["PHP 8+", "OOP Design Patterns", "Dependency Injection", "JWT", "CLI Development"],
+    category: "technical",
+  },
+  {
+    title: "LearnWithAndi Landing Page",
+    company: "learnwithandi.com",
+    icon: LayoutTemplate,
+    period: "Feb 2026",
+    description:
+      "Rebuilt career accelerator landing page achieving 95+ PageSpeed score. Implemented Generative Engine Optimization (ai.txt, llm.txt). Architected using Next.js 16 App Router with a server-first approach and Framer Motion for SEO-safe animations.",
+    link: "https://learnwithandi.com",
+    techStack: ["Next.js 16", "TypeScript", "Framer Motion", "CSS Modules", "Vercel", "GEO Standards"],
     category: "technical",
   },
   {
     title: "GitHub Code Autograder",
     company: "RevoU",
     icon: Brain,
-    period: "Aug 2023 - Mar 2024",
+    period: "Aug 2023 – Mar 2024",
     description:
-      "Developed a Python-based AI-powered code quality autograder using OpenAI API, streamlining assignment grading and ensuring consistency.",
+      "Developed a GitHub Code Quality Autograder for RevoU's Software Engineering program. Built with Python and integrated with OpenAI API to evaluate code directly from GitHub repositories. Automated assessment of code quality focusing on best practices, readability, and maintainability. Reduced instructor workload while enhancing evaluation consistency.",
+    techStack: ["Python", "OpenAI API", "GitHub API", "Automation"],
     category: "technical",
   },
   {
     title: "Software Engineer",
     company: "Biteship",
     icon: Server,
-    period: "Oct 2023 - Dec 2023",
+    period: "Oct 2023 – Dec 2023",
     description:
-      "Built a Node.js service for webhook-based real-time communication and implemented a Chrome extension.",
+      "Developed a Node.js service to ensure optimal performance in a freelance capacity. Created a webhook system for real-time communication requirements. Designed and implemented a Chrome extension integrated with the Node.js service.",
+    techStack: ["Node.js", "Redis", "WebSockets", "MongoDB", "React", "Chrome Extension API"],
     category: "technical",
   },
   {
-    title: "Lead Instructor",
-    company: "RevoU",
-    icon: GraduationCap,
-    period: "Jan 2023 - Mar 2023",
+    title: "Harry Trans Beton Landing Page",
+    company: "Client Project",
+    icon: Code2,
+    period: "Feb 2025",
     description:
-      "Refined curriculum materials, created key answers for advanced assignments, and aligned learning resources with evolving industry standards.",
-    category: "soft",
+      "Developed a modern React landing page for a concrete manufacturing company with SEO optimisation. Achieved 90+ PageSpeed score with mobile-first responsive design.",
+    techStack: ["React.js", "SEO Best Practices", "Responsive Design"],
+    category: "technical",
   },
 ];
 

@@ -18,14 +18,22 @@ He bridges the gap between people and technology — building software products,
 
 ## Current Roles
 
+- **Technical Mock Interviewer** — LearnWithAndi (Aug 2025–Present), conducting high-stakes pressure-test mock interviews
 - **Talent Acquisition Specialist & Regional Manager** — Devshore Partners, s.r.o. (Oct 2023–Present)
 - **Fullstack Engineer** — TiketQ (Jun 2023–Present), a Batam-based ticketing platform built from scratch
+- **Full-Stack Product Engineer** — LearnWithAndi (Feb 2026–Present), full ecosystem including Job Tracker, Mentorship platform, Talent Market
 
 ## Career History (Selected)
 
-- Fullstack Engineer at TiketQ — built entire tech stack with Express.js, Redis, and React
-- Program Manager & Technical Lead at Hacktiv8 — managed bootcamp cohorts, taught full-stack curriculum
-- Various senior engineering roles across fintech, e-commerce, and SaaS products in Indonesia and Southeast Asia
+- Program Manager – Software Engineering at RevoU (Feb 2023–Apr 2024) — led SE programme, built RevoU Next
+- Lead Instructor at RevoU (Jan 2023–Mar 2023) — curriculum review and syllabus refinement
+- Technical Assessment Designer at Glints (Jan 2022–Apr 2023) — built assessment framework for SE Asian talent
+- Technical Lead at PT. Mitra Kuadran Teknologi (Nov–Dec 2021) — ERP solutions for BP Batam, Customs, Municipality
+- Technical Curriculum Lead at Glints Academy (Nov 2020–Dec 2021) — 90%+ graduate employment rate
+- Technical Facilitator, GN 1000 Startup Digital (Sep 2020–Feb 2021) — mentored 10 startup teams
+- Full Stack Engineer at Talent Tribe Asia, Singapore (Feb–Nov 2020)
+- Software Developer at Webimp pte. ltd., Singapore (Mar 2019–Feb 2020)
+- Freelance — built 20+ ERP systems for Indonesian government agencies (2011–2019)
 
 ## Technical Skills
 
