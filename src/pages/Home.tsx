@@ -13,7 +13,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Alvian Zachry Faturrahman",
-    "alternateName": ["Alvian", "Andi", "alvianzf"],
+    "alternateName": ["Alvian", "Ary", "alvianzf"],
     "url": "https://alvianzf.id",
     "image": "https://alvianzf.id/potraits.png",
     "sameAs": [
