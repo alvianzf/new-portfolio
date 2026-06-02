@@ -1,0 +1,57 @@
+# Alvian Zachry Faturrahman
+
+> Full Stack Engineer, Program Manager, Technical Lead, and Bootcamp Instructor based in Batam, Indonesia.
+
+## Who I Am
+
+Alvian Zachry Faturrahman (also known as Alvian or Andi) is a software engineer with 13+ years of experience spanning full-stack development, engineering leadership, technical hiring, and developer education.
+
+He bridges the gap between people and technology — building software products, mentoring junior developers, and placing senior engineers with European tech companies.
+
+## What I Do
+
+- **Full Stack Engineering**: React, TypeScript, Node.js, Express.js, Laravel, Python, PostgreSQL, Redis, AWS, GCP, Docker
+- **Program Management**: Leading cross-functional engineering teams, roadmap planning, sprint facilitation
+- **Technical Hiring**: Recruiting senior developers for European partner companies via Devshore Partners; 60% shortlist-to-interview efficiency, 50% interview-to-offer rate
+- **Mentorship & Education**: Mock technical interviews, fundamentals coaching, and bootcamp instruction at Hacktiv8 and LearnWithAndi
+- **Open Source**: Published npm packages including `make-it-rain` and `react-worm-background`
+
+## Current Roles
+
+- **Talent Acquisition Specialist & Regional Manager** — Devshore Partners, s.r.o. (Oct 2023–Present)
+- **Fullstack Engineer** — TiketQ (Jun 2023–Present), a Batam-based ticketing platform built from scratch
+
+## Career History (Selected)
+
+- Fullstack Engineer at TiketQ — built entire tech stack with Express.js, Redis, and React
+- Program Manager & Technical Lead at Hacktiv8 — managed bootcamp cohorts, taught full-stack curriculum
+- Various senior engineering roles across fintech, e-commerce, and SaaS products in Indonesia and Southeast Asia
+
+## Technical Skills
+
+**Languages**: JavaScript, TypeScript, Python, PHP, SQL
+**Frontend**: React.js, Next.js, Vue.js, Tailwind CSS
+**Backend**: Node.js, Express.js, Laravel, CodeIgniter
+**Databases**: PostgreSQL, MySQL, MongoDB, Redis, Firestore
+**Cloud & DevOps**: AWS, GCP, Docker, Nginx, Linux
+**Other**: System architecture, REST API design, technical assessment design, Agile/Scrum
+
+## Soft Skills
+
+Leadership, Mentorship, Technical Hiring, Cross-cultural Collaboration, Public Speaking, Curriculum Design
+
+## Mentorship
+
+Alvian offers mock technical interviews and career coaching at [learnwithandi.com](https://learnwithandi.com). The sessions focus on:
+- Interview communication
+- Fundamentals deep-dive
+- Problem-solving approach
+- Brutally honest feedback
+
+## Contact & Links
+
+- Website: https://alvianzf.id
+- GitHub: https://github.com/alvianzf
+- LinkedIn: https://linkedin.com/in/alvianzf
+- Email: Available on site
+- CV: https://alvianzf.id/Alvian_Zachry_CV.pdf

@@ -67,6 +67,14 @@ export default function SEO({
       {article && publishedTime && <meta property="article:published_time" content={publishedTime} />}
       {article && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
 
+      {/* Author & Geo */}
+      <meta name="author" content="Alvian Zachry Faturrahman" />
+      <meta name="geo.region" content="ID-RI" />
+      <meta name="geo.placename" content="Batam, Riau Islands, Indonesia" />
+
+      {/* AI / LLM discoverability */}
+      <link rel="llms" href="/llms.txt" type="text/plain" />
+
       {/* JSON-LD Schema */}
       {schema && (
         <script type="application/ld+json">

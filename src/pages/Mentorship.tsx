@@ -39,18 +39,45 @@ export default function Mentorship() {
     "Self-awareness building"
   ];
 
+  const mentorshipSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Tech Interview Mentorship by Alvian Zachry Faturrahman",
+    "url": "https://alvianzf.id/mentorship",
+    "provider": {
+      "@type": "Person",
+      "name": "Alvian Zachry Faturrahman",
+      "url": "https://alvianzf.id"
+    },
+    "serviceType": "Technical Interview Coaching",
+    "description": "Brutal, honest mock technical interviews to prepare software engineers for real job interviews. Covers interview communication, fundamentals, problem-solving, and self-awareness.",
+    "areaServed": "Worldwide",
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://learnwithandi.com",
+      "serviceType": "Online"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://learnwithandi.com",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
   return (
     <div className="min-h-screen pt-32 pb-20 transition-colors duration-300">
       <WormBackground />
       <SEO
         title="Tech Interview Mentorship"
-        description="Get your tech interview skills roasted. Brutal, honest mock interviews to prepare you for the real thing. Book a session at learnwithandi.com."
+        description="Brutal, honest mock technical interviews with a recruiter who's been on both sides of the table. Book at learnwithandi.com."
         keywords={[
           "Tech Interview Prep", "Mock Interview", "Software Engineer Interview",
           "Coding Interview", "System Design Interview", "Career Coaching",
           "Mentorship", "Interview Roasting", "Learn With Andi",
-          "Recruiter Advice", "Bootcamp Instructor"
+          "Recruiter Advice", "Bootcamp Instructor", "Alvian Zachry Faturrahman"
         ]}
+        schema={mentorshipSchema}
       />
       <div className="container mx-auto px-6">
         {/* Hero Section */}

@@ -13,19 +13,57 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Alvian Zachry Faturrahman",
+    "alternateName": ["Alvian", "Andi", "alvianzf"],
     "url": "https://alvianzf.id",
-    "image": "https://alvianzf.id/favicon.ico",
+    "image": "https://alvianzf.id/potraits.png",
     "sameAs": [
       "https://github.com/alvianzf",
       "https://linkedin.com/in/alvianzf",
       "https://twitter.com/alvianzf"
     ],
-    "jobTitle": "Program Manager | Technical Lead | Full Stack Engineer",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Independent Consultant"
+    "jobTitle": "Full Stack Engineer",
+    "description": "Full Stack Engineer, Program Manager, Technical Lead, and Bootcamp Instructor with 13+ years of experience in software engineering, education, and technical hiring. Based in Batam, Indonesia.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Batam",
+      "addressRegion": "Riau Islands",
+      "addressCountry": "ID"
     },
-    "description": "Program Manager, Technical Lead, and Full Stack Engineer with 13+ years of experience."
+    "worksFor": [
+      {
+        "@type": "Organization",
+        "name": "Devshore Partners, s.r.o.",
+        "url": "https://devshore.io"
+      },
+      {
+        "@type": "Organization",
+        "name": "TiketQ"
+      }
+    ],
+    "hasOccupation": [
+      {
+        "@type": "Occupation",
+        "name": "Full Stack Engineer",
+        "skills": "React, TypeScript, Node.js, Express.js, PostgreSQL, Redis, AWS, Docker"
+      },
+      {
+        "@type": "Occupation",
+        "name": "Technical Lead & Program Manager",
+        "skills": "Engineering Leadership, Agile, Roadmap Planning, Team Management"
+      },
+      {
+        "@type": "Occupation",
+        "name": "Talent Acquisition Specialist",
+        "skills": "Technical Hiring, Assessment Design, Recruitment"
+      }
+    ],
+    "knowsAbout": [
+      "Full Stack Development", "React", "TypeScript", "Node.js", "Python",
+      "PHP", "Laravel", "PostgreSQL", "Redis", "AWS", "Docker",
+      "Engineering Leadership", "Technical Hiring", "Bootcamp Instruction",
+      "Software Architecture", "Agile", "Mentorship"
+    ],
+    "knowsLanguage": ["Indonesian", "English"]
   };
 
   return (

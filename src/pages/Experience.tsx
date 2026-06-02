@@ -47,6 +47,28 @@ export default function Experience() {
   const [activeTab, setActiveTab] = useState<'roles' | 'projects' | 'npm'>('roles');
   const [copiedPkg, setCopiedPkg] = useState<string | null>(null);
 
+  const experienceSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Alvian Zachry Faturrahman",
+      "url": "https://alvianzf.id",
+      "hasCredential": experiences.map(exp => ({
+        "@type": "EducationalOccupationalCredential",
+        "name": exp.title,
+        "recognizedBy": { "@type": "Organization", "name": exp.company }
+      })),
+      "hasOccupation": experiences.map(exp => ({
+        "@type": "Role",
+        "roleName": exp.title,
+        "worksFor": { "@type": "Organization", "name": exp.company },
+        "startDate": exp.period.split("–")[0].trim(),
+        "description": Array.isArray(exp.description) ? exp.description[0] : exp.description
+      }))
+    }
+  };
+
   const handleCopy = (command: string) => {
     navigator.clipboard.writeText(command);
     setCopiedPkg(command);
@@ -64,8 +86,9 @@ export default function Experience() {
       <WormBackground />
       <SEO
         title="Professional Experience"
-        description="A timeline of 13+ years of managing chaos, fixing bugs caused by others, and judging code for a living."
-        keywords={["Experience", "Resume", "CV", "Software Engineer", "Program Manager", "Tech Lead"]}
+        description="13+ years of full-stack engineering, program management, technical leadership, and developer hiring. Roles at Devshore Partners, TiketQ, Hacktiv8, and more."
+        keywords={["Experience", "Resume", "CV", "Software Engineer", "Program Manager", "Tech Lead", "Alvian Zachry Faturrahman", "Indonesia", "Batam"]}
+        schema={experienceSchema}
       />
 
       {/* Background Decor */}
