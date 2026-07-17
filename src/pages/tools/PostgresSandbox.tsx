@@ -3,7 +3,7 @@ import {
   Box, Button, Card, Chip, CircularProgress, Paper, Table, TableBody,
   TableCell, TableContainer, TableHead, TableRow, Typography,
 } from '@mui/material';
-import { Play, RotateCcw, Database, History } from 'lucide-react';
+import { Play, RotateCcw, Database, History, Table2 } from 'lucide-react';
 import type { PGlite, Results } from '@electric-sql/pglite';
 import SEO from '../../components/SEO';
 import { SEED_SQL, EXAMPLE_QUERIES, DEFAULT_QUERY } from '../../components/tools/pg/seed';
@@ -20,6 +20,42 @@ interface HistoryEntry {
   sql: string;
   ok: boolean;
   at: string;
+}
+
+interface TableInfo {
+  schema: string;
+  name: string;
+  rows: number;
+  isTemp: boolean;
+}
+
+const quoteIdent = (s: string) => `"${s.replace(/"/g, '""')}"`;
+
+async function listTables(db: PGlite): Promise<TableInfo[]> {
+  const res = await db.query<{ schemaname: string; tablename: string }>(
+    `SELECT schemaname, tablename FROM pg_catalog.pg_tables
+     WHERE schemaname NOT IN ('pg_catalog', 'information_schema')
+     ORDER BY tablename;`
+  );
+  const tables: TableInfo[] = [];
+  for (const t of res.rows) {
+    let rows = 0;
+    try {
+      const c = await db.query<{ c: number }>(
+        `SELECT count(*)::int AS c FROM ${quoteIdent(t.schemaname)}.${quoteIdent(t.tablename)};`
+      );
+      rows = c.rows[0]?.c ?? 0;
+    } catch {
+      // table may have vanished between queries; skip the count
+    }
+    tables.push({
+      schema: t.schemaname,
+      name: t.tablename,
+      rows,
+      isTemp: t.schemaname.startsWith('pg_temp'),
+    });
+  }
+  return tables;
 }
 
 function formatCell(value: unknown): string {
@@ -121,6 +157,17 @@ export function PostgresSandboxTool({ initialSql }: PostgresSandboxToolProps) {
   const [running, setRunning] = useState(false);
   const [outcome, setOutcome] = useState<Outcome | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [tables, setTables] = useState<TableInfo[]>([]);
+
+  const refreshTables = useCallback(async () => {
+    const db = dbRef.current;
+    if (!db) return;
+    try {
+      setTables(await listTables(db));
+    } catch {
+      // schema browsing is best-effort; the editor still works without it
+    }
+  }, []);
 
   const bootDb = useCallback(async () => {
     const gen = ++genRef.current;
@@ -138,6 +185,11 @@ export function PostgresSandboxTool({ initialSql }: PostgresSandboxToolProps) {
       }
       dbRef.current = db;
       setBoot('ready');
+      try {
+        setTables(await listTables(db));
+      } catch {
+        // best-effort
+      }
     } catch (err) {
       if (gen === genRef.current) {
         setBootError(err instanceof Error ? err.message : String(err));
@@ -184,8 +236,9 @@ export function PostgresSandboxTool({ initialSql }: PostgresSandboxToolProps) {
       ].slice(0, 50));
     } finally {
       setRunning(false);
+      refreshTables();
     }
-  }, [sql]);
+  }, [sql, refreshTables]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
@@ -337,8 +390,62 @@ export function PostgresSandboxTool({ initialSql }: PostgresSandboxToolProps) {
         </Box>
       </Box>
 
-      {/* Side column: examples + history */}
+      {/* Side column: tables + examples + history */}
       <Box sx={{ minWidth: 0, display: 'grid', gap: 3 }}>
+        <Card elevation={4} sx={{ borderRadius: 4, p: 2 }} data-testid="table-browser">
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
+            <Table2 size={16} />
+            <Typography sx={{ fontWeight: 'bold', color: 'text.primary' }}>
+              Your tables
+            </Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary', ml: 'auto' }}>
+              click to peek
+            </Typography>
+          </Box>
+          {tables.length === 0 ? (
+            <Typography variant="body2" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
+              No tables. A database in its purest, most useless form.
+            </Typography>
+          ) : (
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75, maxHeight: 280, overflowY: 'auto' }}>
+              {tables.map((t) => (
+                <Paper
+                  key={`${t.schema}.${t.name}`}
+                  variant="outlined"
+                  onClick={() => {
+                    const peek = `SELECT * FROM ${quoteIdent(t.schema)}.${quoteIdent(t.name)} LIMIT 100;`;
+                    setSql(peek);
+                    run(peek);
+                  }}
+                  sx={{
+                    p: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    cursor: 'pointer',
+                    '&:hover': { borderColor: 'primary.main' },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontFamily: 'monospace', fontSize: 13, color: 'text.primary',
+                      overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', mr: 'auto',
+                    }}
+                  >
+                    {t.name}
+                  </Typography>
+                  {t.isTemp && (
+                    <Chip label="temp" size="small" sx={{ height: 18, fontSize: 10 }} />
+                  )}
+                  <Typography variant="caption" sx={{ color: 'text.secondary', whiteSpace: 'nowrap' }}>
+                    {t.rows} row{t.rows === 1 ? '' : 's'}
+                  </Typography>
+                </Paper>
+              ))}
+            </Box>
+          )}
+        </Card>
+
         <Card elevation={4} sx={{ borderRadius: 4, p: 2 }}>
           <Typography sx={{ fontWeight: 'bold', color: 'text.primary', mb: 1.5 }}>
             Queries you can pretend you wrote
