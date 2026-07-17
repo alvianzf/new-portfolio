@@ -29,12 +29,25 @@ export default defineConfig({
       },
       workbox: {
         navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/llms\.txt$/, /^\/Alvian_Zachry_CV\.pdf$/],
-        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+        // PGlite's Postgres WASM/data blobs (~16MB) and @dbml/core's chunk (~16MB)
+        // exceed the precache cap and are only needed by the database tool —
+        // fetch them on demand instead.
+        globIgnores: ['**/pglite-*.wasm', '**/pglite-*.data', '**/initdb-*.wasm', '**/dbml-*.js']
       }
     })
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('@dbml/core')) return 'dbml';
+        },
+      },
+    },
+  },
   optimizeDeps: {
-    exclude: ['lucide-react', 'latex.js'],
+    exclude: ['lucide-react', 'latex.js', '@electric-sql/pglite'],
   },
   assetsInclude: ['**/*.keep'],
 });

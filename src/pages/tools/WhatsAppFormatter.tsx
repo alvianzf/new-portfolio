@@ -2,7 +2,7 @@ import { useState, useRef, type ReactNode } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import {
   Copy, Bold, Italic, Strikethrough, Code, Check,
-  List, ListOrdered, Quote, Terminal
+  List, ListOrdered, Quote, Terminal, Send
 } from 'lucide-react';
 import { Box, Button, Card, IconButton, Paper, TextField, Tooltip, Typography } from '@mui/material';
 import SEO from '../../components/SEO';
@@ -11,7 +11,16 @@ export default function WhatsAppFormatter() {
   const { theme } = useTheme();
   const [text, setText] = useState('');
   const [copied, setCopied] = useState(false);
+  const [phone, setPhone] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const phoneDigits = phone.replace(/\D/g, '');
+
+  const handleSend = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!phoneDigits) return;
+    window.open(`https://wa.me/${phoneDigits}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+  };
 
   const applyFormat = (symbol: string, type: 'wrap' | 'block' = 'wrap') => {
     if (!textareaRef.current) return;
@@ -269,6 +278,33 @@ export default function WhatsAppFormatter() {
             </div>
           </Box>
         </Card>
+
+        {/* Send directly via WhatsApp */}
+        <Paper
+          component="form"
+          onSubmit={handleSend}
+          variant="outlined"
+          sx={{ mt: 3, p: 2.5, display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: 2 }}
+        >
+          <TextField
+            label="WhatsApp number"
+            placeholder="6281234567890"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            helperText="Start with the country code, no + (Indonesia is 62)"
+            slotProps={{ htmlInput: { inputMode: 'numeric' } }}
+            sx={{ flex: 1, minWidth: 240 }}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={!phoneDigits}
+            startIcon={<Send className="w-4 h-4" />}
+            sx={{ fontWeight: 'bold', py: 1.5, width: { xs: '100%', sm: 'auto' } }}
+          >
+            Send it to the family
+          </Button>
+        </Paper>
       </Box>
     </Box>
   );

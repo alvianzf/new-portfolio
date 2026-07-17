@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Github, Linkedin, ChevronDown, FileJson, Receipt, CloudRain, MessageSquareWarning, CheckCircle2, Menu, X, Terminal, Coins, AreaChart } from 'lucide-react';
+import { Github, Linkedin, ChevronDown, FileJson, Receipt, CloudRain, MessageSquareWarning, CheckCircle2, Menu, X, Terminal, Coins, AreaChart, Sparkles, Database as DatabaseIcon } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedium } from '@fortawesome/free-brands-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -63,6 +63,8 @@ const GAMES_SECTIONS: { heading: string; items: MenuItemDef[] }[] = [
 const TOOLS_PRODUCTIVITY: MenuItemDef[] = [
   { title: 'Thesis Procrastinator', desc: 'Solve relativity instead of working', to: '/tools/thesis-creator', color: '#475569', icon: <Receipt size={20} /> },
   { title: 'Boomer Text Gen', desc: 'Formatting for family group chats', to: '/tools/whatsapp-formatter', color: '#16a34a', icon: <MessageSquareWarning size={20} /> },
+  { title: 'The AI Slop Polisher', desc: "Turn ChatGPT's homework into a respectable PDF", to: '/tools/markdown-to-pdf', color: '#7c3aed', icon: <Sparkles size={20} /> },
+  { title: 'DBA Cosplay Kit', desc: 'Drag boxes, get CREATE TABLE, break nothing', to: '/tools/database-playground', color: '#0284c7', icon: <DatabaseIcon size={20} /> },
 ];
 
 const TOOLS_WEB_APPS: MenuItemDef[] = [

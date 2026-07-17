@@ -20,6 +20,8 @@ import LearnFlex from './pages/games/LearnFlex';
 import LearnTypeScript from './pages/games/LearnTypeScript';
 import LatexEditor from './pages/tools/LatexEditor';
 import WhatsAppFormatter from './pages/tools/WhatsAppFormatter';
+import MarkdownPolisher from './pages/tools/MarkdownPolisher';
+import DatabasePlayground from './pages/tools/DatabasePlayground';
 import NotFound from './pages/NotFound';
 import Analytics from './components/Analytics';
 import Footer from './components/Footer';
@@ -57,6 +59,8 @@ function App() {
                   <Route path="/games/learn-typescript" element={<LearnTypeScript />} />
                   <Route path="/tools/thesis-creator" element={<LatexEditor />} />
                   <Route path="/tools/whatsapp-formatter" element={<WhatsAppFormatter />} />
+                  <Route path="/tools/markdown-to-pdf" element={<MarkdownPolisher />} />
+                  <Route path="/tools/database-playground" element={<DatabasePlayground />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </AnimatePresence>
