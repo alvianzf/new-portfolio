@@ -38,19 +38,18 @@ describe('Blog Page', () => {
     vi.restoreAllMocks();
   });
 
-  it('renders loading state initially', () => {
+  it('renders the page heading', async () => {
     renderWithProviders(<Blog />);
-    // It might be too fast to catch loading, but we can try
-    // Or check if title is there
-    expect(screen.getByText('Blog')).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /Latest Thoughts/i })).toBeInTheDocument();
   });
 
   it('renders blog posts after fetch', async () => {
     renderWithProviders(<Blog />);
 
     await waitFor(() => {
-      expect(screen.getByText('Test Post 1')).toBeInTheDocument();
-      expect(screen.getByText('Test Post 2')).toBeInTheDocument();
+      // Posts render in both the card grid and the All Posts sidebar
+      expect(screen.getAllByText('Test Post 1').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Test Post 2').length).toBeGreaterThan(0);
     });
   });
 

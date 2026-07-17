@@ -1,6 +1,7 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import QuickSync from '../QuickSync';
+import { renderWithProviders } from '../../../test-utils';
 
 // Mock requestAnimationFrame
 const requestAnimationFrameMock = (callback: FrameRequestCallback) => {
@@ -21,13 +22,13 @@ describe('QuickSync Game', () => {
   });
 
   it('renders start screen initially', () => {
-    render(<QuickSync />);
+    renderWithProviders(<QuickSync />);
     expect(screen.getByText('Quick Sync Dodge')).toBeInTheDocument();
     expect(screen.getByText('Start Working')).toBeInTheDocument();
   });
 
   it('starts game when button is clicked', () => {
-    render(<QuickSync />);
+    renderWithProviders(<QuickSync />);
     const startButton = screen.getByText('Start Working');
 
     act(() => {

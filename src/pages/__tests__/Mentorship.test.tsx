@@ -9,7 +9,7 @@ vi.mock('../../assets/learnwithandi.png', () => ({ default: 'test-image-url' }))
 describe('Mentorship Page', () => {
   it('renders main heading', () => {
     renderWithProviders(<Mentorship />);
-    expect(screen.getByText(/Roast/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/Roast/i);
   });
 
   it('renders features', () => {

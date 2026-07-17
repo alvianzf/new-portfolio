@@ -1,6 +1,7 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import BugSquash from '../BugSquash';
+import { renderWithProviders } from '../../../test-utils';
 
 // Mock requestAnimationFrame
 const requestAnimationFrameMock = (callback: FrameRequestCallback) => {
@@ -21,13 +22,13 @@ describe('BugSquash Game', () => {
   });
 
   it('renders start screen initially', () => {
-    render(<BugSquash />);
+    renderWithProviders(<BugSquash />);
     expect(screen.getByText('Bug Squash')).toBeInTheDocument();
     expect(screen.getByText('Start Debugging')).toBeInTheDocument();
   });
 
   it('starts game when button is clicked', () => {
-    render(<BugSquash />);
+    renderWithProviders(<BugSquash />);
     const startButton = screen.getByText('Start Debugging');
 
     act(() => {

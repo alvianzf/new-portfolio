@@ -38,8 +38,13 @@ export default function DatabasePlayground() {
         <Tabs
           value={tab}
           onChange={(_, v) => setTab(v)}
-          centered
-          sx={{ mb: 3, '& .MuiTab-root': { textTransform: 'none', fontWeight: 600 } }}
+          variant="scrollable"
+          allowScrollButtonsMobile
+          sx={{
+            mb: 3,
+            '& .MuiTab-root': { textTransform: 'none', fontWeight: 600 },
+            '& .MuiTabs-flexContainer': { justifyContent: { md: 'center' } },
+          }}
         >
           <Tab icon={<DraftingCompass size={18} />} iconPosition="start" label="Whiteboard Architect" />
           <Tab icon={<Database size={18} />} iconPosition="start" label="Consequence-Free Database" />

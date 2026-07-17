@@ -11,7 +11,8 @@ describe('WormBackground Component', () => {
   it('generates correct number of worms', () => {
     const { container } = render(<WormBackground />);
     // We configured 50 worms in the component
-    const worms = container.querySelectorAll('path');
+    // Exclude the variant-toggle button's lucide icon paths
+    const worms = [...container.querySelectorAll('path')].filter(pth => !pth.closest('button'));
     expect(worms.length).toBe(50);
   });
 
