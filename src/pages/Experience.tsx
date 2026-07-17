@@ -1,14 +1,29 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { experiences, projects, npmPackages } from '../data';
-import ModernCard from '../components/ModernCard';
+import {
+  Box,
+  Container,
+  Stack,
+  Grid,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Divider,
+  Tooltip,
+  IconButton,
+  Link,
+} from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import { Calendar, Building, Briefcase, Wrench, Code, Terminal, Copy, Check, History } from 'lucide-react';
 import SEO from '../components/SEO';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faReact, faNode, faPython, faJs, faPhp, faLaravel, faAws, faVuejs, faDocker, faWordpress, faGoogle
 } from '@fortawesome/free-brands-svg-icons';
-import { faDatabase, faServer, faFire, faHashtag } from '@fortawesome/free-solid-svg-icons';
+import { faDatabase, faServer } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 // Helper to map string tech to icons
@@ -40,12 +55,26 @@ const getTechIcon = (tech: string): IconDefinition | null => {
   return map[tech] || null;
 };
 
+// Import solid icons for fallback/manual mapping
+import { faFire, faHashtag } from '@fortawesome/free-solid-svg-icons';
 
 import WormBackground from '../components/WormBackground';
 
 export default function Experience() {
   const [activeTab, setActiveTab] = useState<'roles' | 'projects' | 'npm'>('roles');
   const [copiedPkg, setCopiedPkg] = useState<string | null>(null);
+
+  const handleCopy = (command: string) => {
+    navigator.clipboard.writeText(command);
+    setCopiedPkg(command);
+    setTimeout(() => setCopiedPkg(null), 2000);
+  };
+
+  const tabs = [
+    { id: 'roles', label: 'Roles', icon: Briefcase },
+    { id: 'projects', label: 'Projects', icon: Code },
+    { id: 'npm', label: 'NPM Packages', icon: Terminal },
+  ] as const;
 
   const experienceSchema = {
     "@context": "https://schema.org",
@@ -63,26 +92,14 @@ export default function Experience() {
         "@type": "Role",
         "roleName": exp.title,
         "worksFor": { "@type": "Organization", "name": exp.company },
-        "startDate": exp.period.split("–")[0].trim(),
+        "startDate": exp.period.split("\u2013")[0].trim(),
         "description": Array.isArray(exp.description) ? exp.description[0] : exp.description
       }))
     }
   };
 
-  const handleCopy = (command: string) => {
-    navigator.clipboard.writeText(command);
-    setCopiedPkg(command);
-    setTimeout(() => setCopiedPkg(null), 2000);
-  };
-
-  const tabs = [
-    { id: 'roles', label: 'Roles', icon: Briefcase },
-    { id: 'projects', label: 'Projects', icon: Code },
-    { id: 'npm', label: 'NPM Packages', icon: Terminal },
-  ] as const;
-
   return (
-    <div className="min-h-screen pt-20 pb-20 md:pt-32 md:pb-32 relative overflow-hidden transition-colors duration-300">
+    <Box sx={{ minHeight: '100vh', pt: { xs: 10, md: 16 }, pb: { xs: 10, md: 16 }, position: 'relative', overflow: 'hidden' }}>
       <WormBackground />
       <SEO
         title="Professional Experience"
@@ -92,50 +109,133 @@ export default function Experience() {
       />
 
       {/* Background Decor */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-500/5 rounded-full blur-[100px] opacity-70 -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-slate-500/5 rounded-full blur-[100px] opacity-70 translate-y-1/2 -translate-x-1/2"></div>
-      </div>
+      <Box sx={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: 500,
+            height: 500,
+            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.05),
+            borderRadius: '50%',
+            filter: 'blur(100px)',
+            opacity: 0.7,
+            transform: 'translate(50%, -50%)',
+          }}
+        />
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            width: 500,
+            height: 500,
+            bgcolor: (theme) => alpha(theme.palette.text.secondary, 0.05),
+            borderRadius: '50%',
+            filter: 'blur(100px)',
+            opacity: 0.7,
+            transform: 'translate(-50%, 50%)',
+          }}
+        />
+      </Box>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 p-2 px-4 rounded-full bg-red-500/10 text-[#990000] font-bold text-xs uppercase tracking-wider mb-4 border border-red-500/20">
-            <History className="w-3 h-3" />
-            Career Timeline
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-6 tracking-tight">
-            13+ Years of <span className="text-[#990000]">"It Works Locally".</span>
-          </h1>
-          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed italic">
-            "Recovering engineer turned manager who wears too many hats. I've gone from writing PHP (sorry) to judging other people's algorithms. I build systems, manage chaos, and occasionally claim credit for my team's hard work."
-          </p>
+          <Box sx={{ textAlign: 'center', mb: 8 }}>
+            <Box
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 1,
+                py: 1,
+                px: 2,
+                borderRadius: 9999,
+                bgcolor: (theme) => alpha(theme.palette.primary.main, 0.1),
+                color: 'primary.main',
+                fontWeight: 700,
+                fontSize: '0.75rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                mb: 2,
+                border: (theme) => `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
+              }}
+            >
+              <History size={12} />
+              Career Timeline
+            </Box>
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: { xs: '2.25rem', md: '3.75rem' },
+                fontWeight: 700,
+                color: 'text.primary',
+                mb: 3,
+              }}
+            >
+              13+ Years of <Box component="span" sx={{ color: 'primary.main' }}>"It Works Locally".</Box>
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: '1.125rem',
+                color: 'text.secondary',
+                maxWidth: '42rem',
+                mx: 'auto',
+                lineHeight: 1.75,
+                fontStyle: 'italic',
+              }}
+            >
+              "Recovering engineer turned manager who wears too many hats. I've gone from writing PHP (sorry) to judging other people's algorithms. I build systems, manage chaos, and occasionally claim credit for my team's hard work."
+            </Typography>
+          </Box>
         </motion.div>
 
         {/* Tabs */}
-        <div className="max-w-4xl mx-auto mb-12 px-2 md:px-4">
-          <div className="flex justify-center overflow-x-auto no-scrollbar gap-1 md:gap-4 bg-[var(--card-bg)] p-1 md:p-2 rounded-2xl border border-[var(--border-color)] w-fit mx-auto shadow-sm whitespace-nowrap">
+        <Box sx={{ mb: 6, display: 'flex', justifyContent: 'center' }}>
+          <Stack
+            direction="row"
+            spacing={{ xs: 0.5, sm: 2 }}
+            sx={{
+              justifyContent: 'center',
+              bgcolor: 'background.paper',
+              p: { xs: 0.5, sm: 1 },
+              borderRadius: 4,
+              border: 1,
+              borderColor: 'divider',
+              boxShadow: 1,
+              maxWidth: '100%',
+              overflow: 'hidden',
+            }}
+          >
             {tabs.map((tab) => (
-              <button
+              <Button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 md:px-6 md:py-3 rounded-xl text-xs md:text-base font-medium transition-all shrink-0 ${activeTab === tab.id
-                  ? 'bg-[#990000] text-white shadow-lg'
-                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-primary)]'
-                  }`}
+                startIcon={<tab.icon size={16} />}
+                sx={{
+                  px: { xs: 1.25, sm: 3 },
+                  py: { xs: 1, sm: 1.5 },
+                  minWidth: 0,
+                  whiteSpace: 'nowrap',
+                  fontSize: { xs: '0.8125rem', sm: '0.875rem' },
+                  borderRadius: 3,
+                  fontWeight: 500,
+                  ...(activeTab === tab.id
+                    ? { bgcolor: 'primary.main', color: 'primary.contrastText', boxShadow: 4, '&:hover': { bgcolor: 'primary.main' } }
+                    : { color: 'text.secondary', '&:hover': { color: 'text.primary', bgcolor: 'background.default' } }),
+                }}
               >
-                <tab.icon className="w-3.5 h-3.5 md:w-4 md:h-4" />
                 {tab.label}
-              </button>
+              </Button>
             ))}
-          </div>
-        </div>
+          </Stack>
+        </Box>
 
         {/* Content Area */}
-        <div className="max-w-5xl mx-auto min-h-[600px]">
+        <Box sx={{ maxWidth: '64rem', mx: 'auto', minHeight: 600 }}>
           <AnimatePresence mode="wait">
 
             {/* ROLES TAB */}
@@ -146,69 +246,134 @@ export default function Experience() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="grid gap-6"
               >
-                {experiences.map((exp, index) => {
-                  const IconComponent = exp.icon || Briefcase;
-                  return (
-                    <ModernCard key={index} className="group p-6 md:p-8 bg-[var(--card-bg)] border-[var(--border-color)] hover:border-red-500/30 transition-all duration-300 rounded-2xl relative overflow-hidden">
-                      <div className="flex flex-col md:flex-row gap-6">
-                        <div className="shrink-0">
-                          <div className="w-14 h-14 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-[#990000] group-hover:scale-105 transition-all">
-                            {IconComponent && typeof IconComponent === 'object' && 'prefix' in IconComponent ? (
-                              <FontAwesomeIcon icon={IconComponent as IconDefinition} className="w-6 h-6" />
-                            ) : IconComponent ? (
-                              <IconComponent className="w-6 h-6" />
-                            ) : null}
-                          </div>
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
-                            <h3 className="text-xl font-bold text-[var(--text-primary)] group-hover:text-[#990000] transition-colors">{exp.title}</h3>
-                            <div className="flex items-center gap-2 text-xs font-bold text-[var(--text-secondary)] uppercase tracking-wider bg-[var(--bg-primary)] px-3 py-1 rounded-full border border-[var(--border-color)] w-fit">
-                              <Calendar className="w-3 h-3" />
-                              {exp.period}
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2 text-[var(--text-secondary)] font-medium mb-4">
-                            <Building className="w-4 h-4" />
-                            {exp.company}
-                          </div>
+                <Stack spacing={3}>
+                  {experiences.map((exp, index) => {
+                    const IconComponent = exp.icon || Briefcase;
+                    return (
+                      <Card
+                        key={index}
+                        sx={{
+                          position: 'relative',
+                          overflow: 'hidden',
+                          '&:hover': {
+                            borderColor: (theme) => alpha(theme.palette.primary.main, 0.3),
+                            '& .role-icon, & .role-title': { color: 'primary.main' },
+                            '& .role-icon': { transform: 'scale(1.05)' },
+                          },
+                        }}
+                      >
+                        <CardContent sx={{ p: { xs: 3, md: 4 } }}>
+                          <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
+                            <Box sx={{ flexShrink: 0 }}>
+                              <Box
+                                className="role-icon"
+                                sx={{
+                                  width: 56,
+                                  height: 56,
+                                  borderRadius: 3,
+                                  bgcolor: 'background.default',
+                                  border: 1,
+                                  borderColor: 'divider',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  color: 'text.secondary',
+                                  transition: 'all 0.3s',
+                                }}
+                              >
+                                {IconComponent && typeof IconComponent === 'object' && 'prefix' in IconComponent ? (
+                                  <FontAwesomeIcon icon={IconComponent as IconDefinition} style={{ width: 24, height: 24 }} />
+                                ) : IconComponent ? (
+                                  <IconComponent size={24} />
+                                ) : null}
+                              </Box>
+                            </Box>
+                            <Box sx={{ flex: 1 }}>
+                              <Stack
+                                direction={{ xs: 'column', md: 'row' }}
+                                sx={{ alignItems: { md: 'center' }, justifyContent: 'space-between', gap: 1, mb: 1 }}
+                              >
+                                <Typography
+                                  variant="h3"
+                                  className="role-title"
+                                  sx={{ fontSize: '1.25rem', fontWeight: 700, color: 'text.primary', transition: 'color 0.3s' }}
+                                >
+                                  {exp.title}
+                                </Typography>
+                                <Chip
+                                  icon={<Calendar size={12} />}
+                                  label={exp.period}
+                                  size="small"
+                                  sx={{
+                                    fontWeight: 700,
+                                    fontSize: '0.75rem',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.05em',
+                                    width: 'fit-content',
+                                    '& .MuiChip-icon': { color: 'inherit' },
+                                  }}
+                                />
+                              </Stack>
+                              <Stack direction="row" spacing={1} sx={{ alignItems: 'center', color: 'text.secondary', fontWeight: 500, mb: 2 }}>
+                                <Building size={16} />
+                                <Typography sx={{ fontWeight: 500, fontSize: '1rem' }}>{exp.company}</Typography>
+                              </Stack>
 
-                          <div className="text-[var(--text-secondary)] leading-relaxed text-sm mb-4">
-                            {Array.isArray(exp.description) ? (
-                              <ul className="space-y-2">
-                                {exp.description.map((item, i) => (
-                                  <li key={i} className="flex items-start gap-3">
-                                    <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[#990000] shrink-0 opacity-50"></div>
-                                    <span>{item}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            ) : (
-                              <p>{exp.description}</p>
-                            )}
-                          </div>
+                              <Box sx={{ color: 'text.secondary', lineHeight: 1.75, fontSize: '0.875rem', mb: 2 }}>
+                                {Array.isArray(exp.description) ? (
+                                  <Stack component="ul" spacing={1} sx={{ listStyle: 'none', m: 0, p: 0 }}>
+                                    {exp.description.map((item, i) => (
+                                      <Stack component="li" key={i} direction="row" spacing={1.5} sx={{ alignItems: 'flex-start' }}>
+                                        <Box
+                                          sx={{
+                                            mt: '0.5rem',
+                                            width: 6,
+                                            height: 6,
+                                            borderRadius: '50%',
+                                            bgcolor: 'primary.main',
+                                            flexShrink: 0,
+                                            opacity: 0.5,
+                                          }}
+                                        />
+                                        <span>{item}</span>
+                                      </Stack>
+                                    ))}
+                                  </Stack>
+                                ) : (
+                                  <Typography sx={{ fontSize: '0.875rem' }}>{exp.description}</Typography>
+                                )}
+                              </Box>
 
-                          {exp.techStack && (
-                            <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-[var(--border-color)]">
-                              {exp.techStack.map((tech) => (
-                                <span key={tech} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[var(--bg-primary)] text-[var(--text-secondary)] text-xs font-medium border border-[var(--border-color)]">
-                                  {getTechIcon(tech) && typeof getTechIcon(tech) === 'object' && 'prefix' in (getTechIcon(tech) as any) ? (
-                                    <FontAwesomeIcon icon={getTechIcon(tech)!} className="w-3 h-3 opacity-70" />
-                                  ) : (
-                                    <Wrench className="w-3 h-3 opacity-70" />
-                                  )}
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </ModernCard>
-                  )
-                })}
+                              {exp.techStack && (
+                                <>
+                                  <Divider sx={{ mt: 2 }} />
+                                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, pt: 2 }}>
+                                    {exp.techStack.map((tech) => (
+                                      <Chip
+                                        key={tech}
+                                        size="small"
+                                        icon={
+                                          getTechIcon(tech) ? (
+                                            <FontAwesomeIcon icon={getTechIcon(tech)!} style={{ width: 12, height: 12, opacity: 0.7 }} />
+                                          ) : (
+                                            <Wrench size={12} style={{ opacity: 0.7 }} />
+                                          )
+                                        }
+                                        label={tech}
+                                        sx={{ fontSize: '0.75rem', fontWeight: 500, '& .MuiChip-icon': { color: 'inherit' } }}
+                                      />
+                                    ))}
+                                  </Box>
+                                </>
+                              )}
+                            </Box>
+                          </Stack>
+                        </CardContent>
+                      </Card>
+                    )
+                  })}
+                </Stack>
               </motion.div>
             )}
 
@@ -220,42 +385,95 @@ export default function Experience() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6"
               >
-                {projects.map((proj, index) => {
-                  const IconComponent = proj.icon || Code;
-                  return (
-                    <ModernCard key={index} className="group flex flex-col h-full p-6 bg-[var(--card-bg)] border-[var(--border-color)] hover:border-red-500/30 transition-all rounded-2xl relative">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="p-3 rounded-lg bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-secondary)] group-hover:text-[#990000] transition-colors">
-                          {IconComponent && typeof IconComponent === 'object' && 'prefix' in IconComponent ? (
-                            <FontAwesomeIcon icon={IconComponent as IconDefinition} className="w-6 h-6" />
-                          ) : IconComponent ? (
-                            <IconComponent className="w-6 h-6" />
-                          ) : null}
-                        </div>
-                        <div className="text-xs font-bold text-[var(--text-secondary)] bg-[var(--bg-primary)] px-2 py-1 rounded border border-[var(--border-color)]">
-                          {proj.period}
-                        </div>
-                      </div>
-                      <h3 className="text-lg font-bold text-[var(--text-primary)] mb-1 group-hover:text-[#990000] transition-colors">{proj.title}</h3>
-                      <p className="text-sm text-[#990000] font-medium mb-3">{proj.company}</p>
-                      <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-4">
-                        {Array.isArray(proj.description) ? proj.description[0] : proj.description}
-                      </p>
-                      {proj.link && (
-                        <a
-                          href={proj.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-auto inline-flex items-center text-xs font-bold text-[#990000] hover:underline"
+                <Grid container spacing={3}>
+                  {projects.map((proj, index) => {
+                    const IconComponent = proj.icon || Code;
+                    return (
+                      <Grid key={index} size={{ xs: 12, md: 6 }}>
+                        <Card
+                          sx={{
+                            height: '100%',
+                            position: 'relative',
+                            '&:hover': {
+                              borderColor: (theme) => alpha(theme.palette.primary.main, 0.3),
+                              '& .project-icon, & .project-title': { color: 'primary.main' },
+                            },
+                          }}
                         >
-                          View Project →
-                        </a>
-                      )}
-                    </ModernCard>
-                  )
-                })}
+                          <CardContent sx={{ p: 3, display: 'flex', flexDirection: 'column', height: '100%' }}>
+                            <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
+                              <Box
+                                className="project-icon"
+                                sx={{
+                                  p: 1.5,
+                                  borderRadius: 2,
+                                  bgcolor: 'background.default',
+                                  border: 1,
+                                  borderColor: 'divider',
+                                  color: 'text.secondary',
+                                  transition: 'color 0.3s',
+                                }}
+                              >
+                                {IconComponent && typeof IconComponent === 'object' && 'prefix' in IconComponent ? (
+                                  <FontAwesomeIcon icon={IconComponent as IconDefinition} style={{ width: 24, height: 24 }} />
+                                ) : IconComponent ? (
+                                  <IconComponent size={24} />
+                                ) : null}
+                              </Box>
+                              <Box
+                                sx={{
+                                  fontSize: '0.75rem',
+                                  fontWeight: 700,
+                                  color: 'text.secondary',
+                                  bgcolor: 'background.default',
+                                  px: 1,
+                                  py: 0.5,
+                                  borderRadius: 1,
+                                  border: 1,
+                                  borderColor: 'divider',
+                                }}
+                              >
+                                {proj.period}
+                              </Box>
+                            </Stack>
+                            <Typography
+                              variant="h3"
+                              className="project-title"
+                              sx={{ fontSize: '1.125rem', fontWeight: 700, color: 'text.primary', mb: 0.5, transition: 'color 0.3s' }}
+                            >
+                              {proj.title}
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem', color: 'primary.main', fontWeight: 500, mb: 1.5 }}>
+                              {proj.company}
+                            </Typography>
+                            <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem', lineHeight: 1.75, mb: 2 }}>
+                              {Array.isArray(proj.description) ? proj.description[0] : proj.description}
+                            </Typography>
+                            {proj.link && (
+                              <Link
+                                href={proj.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                underline="hover"
+                                sx={{
+                                  mt: 'auto',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  fontSize: '0.75rem',
+                                  fontWeight: 700,
+                                  color: 'primary.main',
+                                }}
+                              >
+                                View Project →
+                              </Link>
+                            )}
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    )
+                  })}
+                </Grid>
               </motion.div>
             )}
 
@@ -267,67 +485,128 @@ export default function Experience() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6"
               >
-                {npmPackages.map((pkg, index) => (
-                  <ModernCard key={index} className="p-6 bg-[var(--card-bg)] border-[var(--border-color)] hover:border-red-500/30 transition-all rounded-2xl group">
-                    <div className="flex items-start justify-between mb-4">
-                      <Terminal className="w-8 h-8 text-[var(--text-secondary)] group-hover:text-[#990000] transition-colors" />
-                      <a
-                        href={pkg.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs font-bold text-[#990000] hover:underline"
+                <Grid container spacing={3}>
+                  {npmPackages.map((pkg, index) => (
+                    <Grid key={index} size={{ xs: 12, md: 6 }}>
+                      <Card
+                        sx={{
+                          height: '100%',
+                          '&:hover': {
+                            borderColor: (theme) => alpha(theme.palette.primary.main, 0.3),
+                            '& .npm-icon': { color: 'primary.main' },
+                          },
+                        }}
                       >
-                        View on NPM →
-                      </a>
-                    </div>
-                    <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2 font-mono">{pkg.name}</h3>
-                    <p className="text-[var(--text-secondary)] text-sm mb-6 min-h-[40px]">{pkg.description}</p>
+                        <CardContent sx={{ p: 3 }}>
+                          <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
+                            <Box className="npm-icon" sx={{ color: 'text.secondary', transition: 'color 0.3s', display: 'flex' }}>
+                              <Terminal size={32} />
+                            </Box>
+                            <Link
+                              href={pkg.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              underline="hover"
+                              sx={{ fontSize: '0.75rem', fontWeight: 700, color: 'primary.main' }}
+                            >
+                              View on NPM →
+                            </Link>
+                          </Stack>
+                          <Typography
+                            variant="h3"
+                            sx={{ fontSize: '1.125rem', fontWeight: 700, color: 'text.primary', mb: 1, fontFamily: 'monospace' }}
+                          >
+                            {pkg.name}
+                          </Typography>
+                          <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem', mb: 3, minHeight: 40 }}>
+                            {pkg.description}
+                          </Typography>
 
-                    <div className="relative">
-                      <code className="block bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg p-3 pr-12 font-mono text-xs text-[var(--text-secondary)] overflow-x-auto whitespace-nowrap">
-                        {pkg.command}
-                      </code>
-                      <button
-                        onClick={() => handleCopy(pkg.command)}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-[var(--card-bg)] text-[var(--text-secondary)] transition-colors"
-                        title="Copy to install"
-                      >
-                        {copiedPkg === pkg.command ? (
-                          <Check className="w-4 h-4 text-green-500" />
-                        ) : (
-                          <Copy className="w-4 h-4" />
-                        )}
-                      </button>
-                    </div>
-                  </ModernCard>
-                ))}
+                          <Box sx={{ position: 'relative' }}>
+                            <Box
+                              component="code"
+                              sx={{
+                                display: 'block',
+                                bgcolor: 'background.default',
+                                border: 1,
+                                borderColor: 'divider',
+                                borderRadius: 2,
+                                p: 1.5,
+                                pr: 6,
+                                fontFamily: 'monospace',
+                                fontSize: '0.75rem',
+                                color: 'text.secondary',
+                                overflowX: 'auto',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
+                              {pkg.command}
+                            </Box>
+                            <Tooltip title="Copy to install">
+                              <IconButton
+                                onClick={() => handleCopy(pkg.command)}
+                                size="small"
+                                sx={{
+                                  position: 'absolute',
+                                  right: 8,
+                                  top: '50%',
+                                  transform: 'translateY(-50%)',
+                                  color: 'text.secondary',
+                                  '&:hover': { bgcolor: 'background.paper' },
+                                }}
+                              >
+                                {copiedPkg === pkg.command ? (
+                                  <Check size={16} color="#22c55e" />
+                                ) : (
+                                  <Copy size={16} />
+                                )}
+                              </IconButton>
+                            </Tooltip>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
               </motion.div>
             )}
 
           </AnimatePresence>
-        </div>
+        </Box>
 
         {/* Mentorship CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-24 text-center max-w-2xl mx-auto"
         >
-          <div className="p-8 rounded-2xl bg-[var(--card-bg)] border border-[var(--border-color)]">
-            <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-4">Want to land a role like these?</h3>
-            <p className="text-[var(--text-secondary)] mb-6">
-              I mentor aspiring engineers to help them crack technical interviews and level up their careers.
-            </p>
-            <a
-              href="/mentorship"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-bold rounded-full hover:bg-brand-red transition-all shadow-lg hover:shadow-xl"
-            >
-              Explore Mentorship
-            </a>
-          </div>
+          <Box sx={{ mt: 12, textAlign: 'center', maxWidth: '42rem', mx: 'auto' }}>
+            <Card>
+              <CardContent sx={{ p: 4 }}>
+                <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'text.primary', mb: 2 }}>
+                  Want to land a role like these?
+                </Typography>
+                <Typography sx={{ color: 'text.secondary', mb: 3 }}>
+                  I mentor aspiring engineers to help them crack technical interviews and level up their careers.
+                </Typography>
+                <Button
+                  href="/mentorship"
+                  variant="contained"
+                  sx={{
+                    px: 3,
+                    py: 1.5,
+                    fontWeight: 700,
+                    bgcolor: 'text.primary',
+                    color: 'background.paper',
+                    '&:hover': { bgcolor: 'primary.main', color: 'primary.contrastText' },
+                  }}
+                >
+                  Explore Mentorship
+                </Button>
+              </CardContent>
+            </Card>
+          </Box>
         </motion.div>
 
         {/* Download Resume CTA */}
@@ -335,19 +614,28 @@ export default function Experience() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 text-center"
         >
-          <a
-            href="/Alvian_Zachry_CV.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-[#990000] text-white font-bold rounded-full shadow-lg hover:shadow-red-900/30 hover:-translate-y-1 transition-all"
-          >
-            <Briefcase className="w-5 h-5" />
-            Download Curated Resume
-          </a>
+          <Box sx={{ mt: 6, textAlign: 'center' }}>
+            <Button
+              href="/Alvian_Zachry_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="contained"
+              startIcon={<Briefcase size={20} />}
+              sx={{
+                px: 4,
+                py: 2,
+                fontWeight: 700,
+                boxShadow: 4,
+                transition: 'all 0.3s',
+                '&:hover': { transform: 'translateY(-4px)', boxShadow: 8 },
+              }}
+            >
+              Download Curated Resume
+            </Button>
+          </Box>
         </motion.div>
-      </div>
-    </div>
+      </Container>
+    </Box>
   );
 }

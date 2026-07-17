@@ -4,8 +4,9 @@ const baseUrl = 'https://alvianzf.id';
 const API_KEY = 'AIzaSyCw9p4Ar_wc9h3zOuaPb7JcdH3Lj8Ail_4';
 const BLOG_ID = '369044396031799467';
 const staticPages = [
-  '/', 
-  '/experience', 
+  '/',
+  '/about',
+  '/experience',
   '/blog', 
   '/mentorship', 
   '/tools/thesis-creator', 

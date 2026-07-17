@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, Terminal } from 'lucide-react';
+import IconButton from '@mui/material/IconButton';
 import { useTheme } from '../context/ThemeContext';
 
 export default function ThemeToggle() {
@@ -20,10 +21,24 @@ export default function ThemeToggle() {
   };
 
   return (
-    <button
+    <IconButton
       onClick={toggleTheme}
-      className="p-3 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 z-[100]"
       aria-label="Toggle theme"
+      sx={{
+        p: 1.5,
+        bgcolor: 'background.paper',
+        border: 1,
+        borderColor: 'divider',
+        boxShadow: 4,
+        backdropFilter: 'blur(4px)',
+        transition: 'all 0.3s',
+        zIndex: 100,
+        '&:hover': {
+          bgcolor: 'background.paper',
+          boxShadow: 8,
+          transform: 'scale(1.1)',
+        },
+      }}
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
@@ -36,6 +51,6 @@ export default function ThemeToggle() {
           {getIcon()}
         </motion.div>
       </AnimatePresence>
-    </button>
+    </IconButton>
   );
 }

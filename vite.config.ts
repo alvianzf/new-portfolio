@@ -28,7 +28,8 @@ export default defineConfig({
         ]
       },
       workbox: {
-        navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/llms\.txt$/, /^\/Alvian_Zachry_CV\.pdf$/]
+        navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/llms\.txt$/, /^\/Alvian_Zachry_CV\.pdf$/],
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024
       }
     })
   ],

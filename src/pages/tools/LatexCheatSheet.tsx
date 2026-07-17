@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Box, ButtonBase, Dialog, IconButton, Typography } from '@mui/material';
 
 type Category = 'Structure' | 'Text' | 'Math' | 'Greek' | 'Lists';
 
@@ -62,68 +62,98 @@ interface Props {
 
 export default function LatexCheatSheet({ isOpen, onClose, onInsert }: Props) {
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-white dark:bg-slate-800 w-full max-w-4xl max-h-[80vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col"
-          >
-            {/* Header */}
-            <div className="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
-              <div>
-                <h2 className="text-lg font-bold text-slate-900 dark:text-white">LaTeX Cheat Sheet</h2>
-                <p className="text-xs text-slate-500">Click any snippet to insert it into your document</p>
-              </div>
-              <button
-                onClick={onClose}
-                className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors"
-              >
-                <X className="w-5 h-5 text-slate-500" />
-              </button>
-            </div>
+    <Dialog
+      open={isOpen}
+      onClose={onClose}
+      maxWidth="md"
+      fullWidth
+      slotProps={{ paper: { sx: { borderRadius: 4, maxHeight: '80vh', display: 'flex', flexDirection: 'column' } } }}
+    >
+      {/* Header */}
+      <Box sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', display: 'flex', alignItems: 'center', justifyContent: 'space-between', bgcolor: 'background.default' }}>
+        <Box>
+          <Typography variant="h6" component="h2" sx={{ fontWeight: 'bold', color: 'text.primary' }}>LaTeX Cheat Sheet</Typography>
+          <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>Click any snippet to insert it into your document</Typography>
+        </Box>
+        <IconButton onClick={onClose} aria-label="Close">
+          <X className="w-5 h-5" />
+        </IconButton>
+      </Box>
 
-            {/* Content */}
-            <div className="flex-1 overflow-y-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {(Object.keys(SNIPPETS) as Category[]).map((category) => (
-                <div key={category} className="space-y-3">
-                  <h3 className="text-sm font-bold text-brand-red uppercase tracking-wider border-b border-slate-100 pb-2">
-                    {category}
-                  </h3>
-                  <div className="grid grid-cols-1 gap-2">
-                    {SNIPPETS[category].map((snippet) => (
-                      <button
-                        key={snippet.label}
-                        onClick={() => {
-                          onInsert(snippet.code);
-                          // Optional: Close on insert? Maybe not, user might want multiple.
-                        }}
-                        className="group flex flex-col items-start gap-1 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 border border-transparent hover:border-slate-200 dark:hover:border-slate-600 transition-all text-left"
-                      >
-                        <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 group-hover:text-brand-red transition-colors">
-                          {snippet.label}
-                        </span>
-                        <code className="text-[10px] font-mono text-slate-400 bg-slate-100 dark:bg-slate-900 px-1.5 py-0.5 rounded w-full truncate">
-                          {snippet.code}
-                        </code>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+      {/* Content */}
+      <Box className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" sx={{ p: 3, gap: 3 }}>
+        {(Object.keys(SNIPPETS) as Category[]).map((category) => (
+          <Box key={category} sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+            <Typography
+              component="h3"
+              sx={{
+                fontSize: '0.875rem',
+                fontWeight: 'bold',
+                color: 'primary.main',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                borderBottom: '1px solid',
+                borderColor: 'divider',
+                pb: 1,
+              }}
+            >
+              {category}
+            </Typography>
+            <Box sx={{ display: 'grid', gap: 1 }}>
+              {SNIPPETS[category].map((snippet) => (
+                <ButtonBase
+                  key={snippet.label}
+                  onClick={() => {
+                    onInsert(snippet.code);
+                    // Optional: Close on insert? Maybe not, user might want multiple.
+                  }}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    gap: 0.5,
+                    p: 1,
+                    borderRadius: 2,
+                    border: '1px solid transparent',
+                    textAlign: 'left',
+                    transition: 'all 0.15s',
+                    '&:hover': { bgcolor: 'background.default', borderColor: 'divider', '& .snippet-label': { color: 'primary.main' } },
+                  }}
+                >
+                  <Typography className="snippet-label" sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'text.secondary', transition: 'color 0.15s' }}>
+                    {snippet.label}
+                  </Typography>
+                  <Typography
+                    component="code"
+                    sx={{
+                      fontSize: '10px',
+                      fontFamily: 'monospace',
+                      color: 'text.secondary',
+                      bgcolor: 'background.default',
+                      px: 0.75,
+                      py: 0.25,
+                      borderRadius: 1,
+                      width: '100%',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {snippet.code}
+                  </Typography>
+                </ButtonBase>
               ))}
-            </div>
+            </Box>
+          </Box>
+        ))}
+      </Box>
 
-            {/* Footer */}
-            <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-center">
-              <p className="text-xs text-slate-400">
-                Tip: Press <kbd className="font-sans font-bold bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded px-1">Esc</kbd> to close
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
+      {/* Footer */}
+      <Box sx={{ p: 2, borderTop: '1px solid', borderColor: 'divider', bgcolor: 'background.default', textAlign: 'center' }}>
+        <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>
+          Tip: Press <Box component="kbd" sx={{ fontFamily: 'inherit', fontWeight: 'bold', bgcolor: 'background.paper', border: '1px solid', borderColor: 'divider', borderRadius: 1, px: 0.5 }}>Esc</Box> to close
+        </Typography>
+      </Box>
+    </Dialog>
   );
 }

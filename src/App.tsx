@@ -12,6 +12,7 @@ import Mentorship from './pages/Mentorship';
 import WormBackground from './components/WormBackground';
 import ThemeToggle from './components/ThemeToggle';
 import { ThemeProvider } from './context/ThemeContext';
+import MuiThemeBridge from './theme/MuiThemeBridge';
 import BugSquash from './pages/games/BugSquash';
 import QuickSync from './pages/games/QuickSync';
 import ElusiveDeploy from './pages/games/ElusiveDeploy';
@@ -27,6 +28,7 @@ import ScrollToTop from './components/ScrollToTop';
 function App() {
   return (
     <ThemeProvider>
+      <MuiThemeBridge>
       <HelmetProvider>
         <Router>
           <Analytics />
@@ -63,6 +65,7 @@ function App() {
           </div>
         </Router>
       </HelmetProvider>
+      </MuiThemeBridge>
     </ThemeProvider>
   );
 }

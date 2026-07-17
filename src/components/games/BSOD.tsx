@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { RefreshCcw } from 'lucide-react';
+import { Button } from '@mui/material';
 
 interface BSODProps {
   error: string;
@@ -34,13 +35,14 @@ export default function BSOD({ error, onRestart }: BSODProps) {
           </div>
         </div>
 
-        <button
+        <Button
           onClick={onRestart}
-          className="mt-12 px-8 py-3 bg-white text-[#0078D7] font-bold rounded hover:bg-opacity-90 transition-colors flex items-center gap-2 cursor-pointer"
+          variant="contained"
+          startIcon={<RefreshCcw className="w-5 h-5" />}
+          sx={{ mt: 6, px: 4, py: 1.5, bgcolor: 'white', color: '#0078D7', fontWeight: 'bold', borderRadius: 1, cursor: 'pointer', '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.9)' } }}
         >
-          <RefreshCcw className="w-5 h-5" />
           MANUAL REBOOT
-        </button>
+        </Button>
       </motion.div>
     </div>
   );

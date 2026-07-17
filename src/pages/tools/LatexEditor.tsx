@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Download, AlertTriangle, Code, Play, BookOpen } from 'lucide-react';
+import { Box, Button, Chip, Paper, TextField, Typography } from '@mui/material';
 import SEO from '../../components/SEO';
 import LatexCheatSheet from './LatexCheatSheet';
 // @ts-expect-error - latex.js likely doesn't have types wrapped nicely for this usage
@@ -168,21 +169,21 @@ export default function LatexEditor() {
 
   if (isMobile) {
     return (
-      <div className="min-h-screen pt-32 pb-20 px-6 bg-slate-50 flex items-center justify-center">
+      <Box className="min-h-screen pt-32 pb-20 px-6" sx={{ bgcolor: 'background.default', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <SEO
           title="LaTeX Editor"
           description="Desktop-only LaTeX editor tool."
         />
-        <div className="text-center max-w-md bg-white p-8 rounded-2xl shadow-xl border border-red-100">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <Paper elevation={8} sx={{ textAlign: 'center', maxWidth: 448, p: 4, borderRadius: 4, border: '1px solid', borderColor: 'divider' }}>
+          <Box sx={{ width: 64, height: 64, bgcolor: 'rgba(153, 0, 0, 0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 3 }}>
             <AlertTriangle className="w-8 h-8 text-red-500" />
-          </div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-4">Desktop Only Tool</h1>
-          <p className="text-slate-600">
+          </Box>
+          <Typography variant="h5" component="h1" sx={{ fontWeight: 'bold', color: 'text.primary', mb: 2 }}>Desktop Only Tool</Typography>
+          <Typography sx={{ color: 'text.secondary' }}>
             The Lazy Man's Thesis Creator requires a larger screen for the split-view editor and preview experience. Please open this page on your desktop or laptop.
-          </p>
-        </div>
-      </div>
+          </Typography>
+        </Paper>
+      </Box>
     );
   }
 
@@ -201,49 +202,59 @@ export default function LatexEditor() {
       />
 
       {/* Tool Header */}
-      <div className="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-6 shrink-0 z-10">
-        <div className="flex items-center gap-3">
-          <div className="bg-brand-red/20 p-2 rounded-lg">
+      <Box className="h-16 shrink-0 z-10" sx={{ bgcolor: '#1e293b', borderBottom: '1px solid #334155', display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+          <Box sx={{ bgcolor: 'rgba(153, 0, 0, 0.2)', p: 1, borderRadius: 2 }}>
             <Code className="w-5 h-5 text-brand-red" />
-          </div>
-          <div>
-            <h1 className="text-white font-bold text-sm tracking-wide uppercase">Lazy Man's Thesis Creator</h1>
-            <p className="text-slate-400 text-xs">latex.js powered client-side editor</p>
-          </div>
-        </div>
+          </Box>
+          <Box>
+            <Typography component="h1" sx={{ color: 'white', fontWeight: 'bold', fontSize: '0.875rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Lazy Man's Thesis Creator</Typography>
+            <Typography sx={{ color: '#94a3b8', fontSize: '0.75rem' }}>latex.js powered client-side editor</Typography>
+          </Box>
+        </Box>
 
-        <div className="flex items-center gap-4">
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           {error && (
-            <span className="text-red-400 text-xs flex items-center gap-1 bg-red-900/20 px-3 py-1.5 rounded-full border border-red-500/20">
-              <AlertTriangle className="w-3 h-3" />
-              {error}
-            </span>
+            <Chip
+              icon={<AlertTriangle className="w-3 h-3" />}
+              label={error}
+              size="small"
+              sx={{
+                bgcolor: 'rgba(127, 29, 29, 0.2)',
+                color: '#f87171',
+                border: '1px solid rgba(239, 68, 68, 0.2)',
+                fontSize: '0.75rem',
+                '& .MuiChip-icon': { color: '#f87171' },
+              }}
+            />
           )}
 
-          <button
+          <Button
             onClick={() => setIsCheatSheetOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-slate-700 text-white text-sm font-medium rounded-lg hover:bg-slate-600 transition-colors border border-slate-600"
+            startIcon={<BookOpen className="w-4 h-4" />}
+            sx={{ bgcolor: '#334155', color: 'white', border: '1px solid #475569', '&:hover': { bgcolor: '#475569' } }}
           >
-            <BookOpen className="w-4 h-4" />
             Cheat Sheet
-          </button>
+          </Button>
 
-          <button
+          <Button
             onClick={compileLatex}
-            className="flex items-center gap-2 px-4 py-2 bg-slate-700 text-white text-sm font-medium rounded-lg hover:bg-slate-600 transition-colors"
+            startIcon={<Play className="w-4 h-4" />}
+            sx={{ bgcolor: '#334155', color: 'white', '&:hover': { bgcolor: '#475569' } }}
           >
-            <Play className="w-4 h-4" />
             Refresh
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={handleDownload}
-            className="flex items-center gap-2 px-4 py-2 bg-brand-red text-white text-sm font-bold rounded-lg hover:bg-red-700 transition-colors shadow-lg hover:shadow-red-500/20"
+            variant="contained"
+            color="primary"
+            startIcon={<Download className="w-4 h-4" />}
+            sx={{ fontWeight: 'bold' }}
           >
-            <Download className="w-4 h-4" />
             Export PDF
-          </button>
-        </div>
-      </div>
+          </Button>
+        </Box>
+      </Box>
 
       {/* Main Split View */}
       <div className="flex-1 flex overflow-hidden">
@@ -253,12 +264,33 @@ export default function LatexEditor() {
             <span>INPUT (LaTeX)</span>
             <span>Character Count: {code.length}</span>
           </div>
-          <textarea
-            ref={textareaRef}
+          <TextField
+            multiline
+            inputRef={textareaRef}
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            className="flex-1 w-full bg-[#1e1e1e] text-slate-300 p-6 font-mono text-sm resize-none focus:outline-none leading-relaxed"
-            spellCheck="false"
+            slotProps={{ htmlInput: { spellCheck: false } }}
+            sx={{
+              flex: 1,
+              minHeight: 0,
+              '& .MuiInputBase-root': {
+                height: '100%',
+                alignItems: 'flex-start',
+                p: 0,
+                borderRadius: 0,
+                bgcolor: '#1e1e1e',
+              },
+              '& .MuiInputBase-input': {
+                height: '100% !important',
+                overflow: 'auto !important',
+                color: '#cbd5e1',
+                fontFamily: 'monospace',
+                fontSize: '0.875rem',
+                lineHeight: 1.625,
+                p: 3,
+              },
+              '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
+            }}
           />
         </div>
 

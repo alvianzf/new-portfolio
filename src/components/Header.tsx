@@ -4,11 +4,248 @@ import { Github, Linkedin, ChevronDown, FileJson, Receipt, CloudRain, MessageSqu
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedium } from '@fortawesome/free-brands-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AppBar, Toolbar, Container, Box, Stack, Button, IconButton, Tooltip, Typography } from '@mui/material';
+import { alpha, useTheme } from '@mui/material/styles';
+
+const NAV_ITEMS = ['Home', 'Experience', 'Blog', 'Mentorship', 'About'];
+
+interface MenuItemDef {
+  title: string;
+  desc: string;
+  icon: React.ReactNode;
+  color: string;
+  to?: string;
+  href?: string;
+}
+
+const emojiIcon = (emoji: string, faClass?: string) => (
+  <Box
+    component="i"
+    className={faClass}
+    sx={{ width: 20, height: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontStyle: 'normal' }}
+  >
+    {emoji}
+  </Box>
+);
+
+const GAMES_SECTIONS: { heading: string; items: MenuItemDef[] }[] = [
+  {
+    heading: 'Waste Time',
+    items: [
+      { title: 'Bug Squash', desc: 'Whack-a-Bug (Stress Relief)', to: '/games/bug-squash', color: '#dc2626', icon: emojiIcon('🐞', 'fas fa-bug') },
+      { title: 'Quick Sync Dodge', desc: 'Avoid the calendar invites', to: '/games/quick-sync', color: '#2563eb', icon: emojiIcon('📅', 'fas fa-calendar-minus') },
+      { title: 'Elusive Deploy', desc: 'Try to click the button', to: '/games/elusive-deploy', color: '#ea580c', icon: emojiIcon('🚀', 'fas fa-rocket') },
+    ],
+  },
+  {
+    heading: '"Actually" Learn',
+    items: [
+      {
+        title: 'Flexbox Froggy', desc: 'Center a div correctly', to: '/games/learn-flex', color: '#9333ea',
+        icon: (
+          <Box sx={{ width: 20, height: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 10, border: '2px solid currentColor', borderRadius: 1 }}>
+            CSS
+          </Box>
+        ),
+      },
+      {
+        title: 'Type Torture', desc: 'Fix the red squiggly lines', to: '/games/learn-typescript', color: '#2563eb',
+        icon: (
+          <Box sx={{ width: 20, height: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 10 }}>
+            TS
+          </Box>
+        ),
+      },
+    ],
+  },
+];
+
+const TOOLS_PRODUCTIVITY: MenuItemDef[] = [
+  { title: 'Thesis Procrastinator', desc: 'Solve relativity instead of working', to: '/tools/thesis-creator', color: '#475569', icon: <Receipt size={20} /> },
+  { title: 'Boomer Text Gen', desc: 'Formatting for family group chats', to: '/tools/whatsapp-formatter', color: '#16a34a', icon: <MessageSquareWarning size={20} /> },
+];
+
+const TOOLS_WEB_APPS: MenuItemDef[] = [
+  { title: 'Curly Brace Saver', desc: 'Make ugly APIs look pretty', href: 'https://jsonify.alvianzf.id', color: '#990000', icon: <FileJson size={20} /> },
+  { title: 'Beg For Money', desc: "PDFs for clients who won't pay", href: 'https://invoice.alvianzf.id', color: '#16a34a', icon: <Receipt size={20} /> },
+  { title: 'Tax Calculator', desc: "Want to know how much you're actually paying?", href: 'https://hitungpajak.alvianzf.id', color: '#16a34a', icon: <Coins size={20} /> },
+  { title: 'Finance Tracker', desc: 'See how broke you are and how far are you from that Palisade.', href: 'https://gold-tracker.alvianzf.id', color: '#ca8a04', icon: <AreaChart size={20} /> },
+];
+
+const TOOLS_NPM: MenuItemDef[] = [
+  { title: 'Visual Inflation', desc: 'Handles the tough job of making your numbers actually readable', href: 'https://www.npmjs.com/package/make-it-rain', color: '#9333ea', icon: <CloudRain size={20} /> },
+  { title: 'Env Bully', desc: 'Yells at you for missing keys', href: 'https://www.npmjs.com/package/env-validate-sarcastically', color: '#ca8a04', icon: <MessageSquareWarning size={20} /> },
+  { title: 'Trust Issues', desc: 'Paranoid JSON validation', href: 'https://www.npmjs.com/package/a-valid-json', color: '#0d9488', icon: <CheckCircle2 size={20} /> },
+  { title: 'CPU Heater', desc: 'Laggy background lines', href: 'https://www.npmjs.com/package/@alvianzf/squiggly-lines-go-brrr', color: '#db2777', icon: emojiIcon('🪱') },
+];
+
+function SectionHeading({ children, noBorder }: { children: React.ReactNode; noBorder?: boolean }) {
+  return (
+    <Typography
+      component="h3"
+      sx={{
+        fontSize: '0.75rem',
+        fontWeight: 700,
+        color: 'text.secondary',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+        mb: 2,
+        ...(noBorder ? {} : { borderBottom: 1, borderColor: 'divider', pb: 1 }),
+      }}
+    >
+      {children}
+    </Typography>
+  );
+}
+
+function MegaMenuItem({ item }: { item: MenuItemDef }) {
+  const linkProps = item.to
+    ? { component: NavLink, to: item.to }
+    : { component: 'a' as const, href: item.href, target: '_blank', rel: 'noopener noreferrer' };
+
+  return (
+    <Box
+      {...linkProps}
+      sx={{
+        display: 'block',
+        p: 1,
+        mx: -1,
+        borderRadius: 2,
+        textDecoration: 'none',
+        transition: 'background-color 0.2s',
+        '&:hover': {
+          bgcolor: 'action.hover',
+          '& .mega-title, & .mega-icon': { color: 'primary.main' },
+        },
+      }}
+    >
+      <Stack direction="row" spacing={1.5} alignItems="flex-start">
+        <Box
+          className="mega-icon"
+          sx={{
+            p: 1,
+            borderRadius: 2,
+            color: item.color,
+            bgcolor: alpha(item.color, 0.12),
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'color 0.2s',
+          }}
+        >
+          {item.icon}
+        </Box>
+        <Box>
+          <Typography className="mega-title" sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'text.primary', transition: 'color 0.2s' }}>
+            {item.title}
+          </Typography>
+          <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>{item.desc}</Typography>
+        </Box>
+      </Stack>
+    </Box>
+  );
+}
+
+function MobileMenuLink({ item }: { item: MenuItemDef }) {
+  const linkProps = item.to
+    ? { component: NavLink, to: item.to }
+    : { component: 'a' as const, href: item.href, target: '_blank', rel: 'noopener noreferrer' };
+
+  return (
+    <Box {...linkProps} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, color: 'text.secondary', fontWeight: 500, textDecoration: 'none' }}>
+      <Box sx={{ color: item.color, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{item.icon}</Box>
+      {item.title}
+    </Box>
+  );
+}
+
+function HoverDropdown({
+  label,
+  align,
+  width,
+  children,
+}: {
+  label: string;
+  align: 'center' | 'right';
+  width: number;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Box
+      sx={{ position: 'relative' }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <Button
+        disableRipple
+        endIcon={<ChevronDown size={16} />}
+        sx={{
+          color: open ? 'primary.main' : 'text.secondary',
+          fontSize: '0.875rem',
+          fontWeight: 500,
+          lineHeight: 1.5,
+          py: 0,
+          px: 0,
+          minWidth: 0,
+          boxShadow: 'none',
+          '&:hover': { bgcolor: 'transparent', color: 'primary.main', boxShadow: 'none' },
+        }}
+      >
+        {label}
+      </Button>
+
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '100%',
+          width,
+          pt: 2,
+          ...(align === 'center' ? { left: '50%', transform: 'translateX(-50%)' } : { right: 0 }),
+          opacity: open ? 1 : 0,
+          visibility: open ? 'visible' : 'hidden',
+          transition: 'opacity 0.2s, visibility 0.2s',
+        }}
+      >
+        <Box
+          sx={{
+            position: 'relative',
+            bgcolor: 'background.paper',
+            borderRadius: 3,
+            boxShadow: 8,
+            border: 1,
+            borderColor: 'divider',
+            p: 3,
+          }}
+        >
+          <Box
+            sx={{
+              position: 'absolute',
+              top: -8,
+              ...(align === 'center' ? { left: '50%', ml: '-8px' } : { right: 24 }),
+              width: 16,
+              height: 16,
+              bgcolor: 'background.paper',
+              borderTop: 1,
+              borderLeft: 1,
+              borderColor: 'divider',
+              transform: 'rotate(45deg)',
+            }}
+          />
+          {children}
+        </Box>
+      </Box>
+    </Box>
+  );
+}
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
+  const [isGamesOpen, setIsGamesOpen] = useState(false);
   const location = useLocation();
+  const theme = useTheme();
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -24,400 +261,349 @@ export default function Header() {
     }
   }, [isMobileMenuOpen]);
 
+  const navLinkStyle = ({ isActive }: { isActive: boolean }) => ({
+    color: isActive ? theme.palette.primary.main : theme.palette.text.secondary,
+  });
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex justify-between items-center">
+    <AppBar
+      position="fixed"
+      elevation={0}
+      sx={{
+        zIndex: 1200,
+        bgcolor: alpha(theme.palette.background.default, 0.8),
+        backgroundImage: 'none',
+        backdropFilter: 'blur(12px)',
+        borderBottom: 1,
+        borderColor: 'divider',
+        boxShadow: 'none',
+        transition: 'all 0.3s',
+      }}
+    >
+      <Container maxWidth="xl">
+        <Toolbar disableGutters sx={{ minHeight: '73px !important', justifyContent: 'space-between' }}>
           {/* Logo */}
-          <NavLink to="/" className="flex items-center gap-2 text-xl font-bold tracking-tight text-slate-900 hover:text-[#990000] transition-colors z-50">
-            <span className="flex items-center gap-1">
-              <Terminal className="w-5 h-5 text-[#990000]" />
-              azf.
-            </span>
-          </NavLink>
+          <Box
+            component={NavLink}
+            to="/"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5,
+              fontSize: '1.25rem',
+              fontWeight: 700,
+              letterSpacing: '-0.025em',
+              color: 'text.primary',
+              textDecoration: 'none',
+              transition: 'color 0.2s',
+              '&:hover': { color: 'primary.main' },
+            }}
+          >
+            <Terminal size={20} color={theme.palette.primary.main} />
+            azf.
+          </Box>
 
           {/* Regular Navigation (Tablet & Desktop) */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {['Home', 'Experience', 'Blog', 'Mentorship', 'About'].map((item) => (
-              <NavLink
+          <Stack direction="row" spacing={4} alignItems="center" component="nav" sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {NAV_ITEMS.map((item) => (
+              <Box
                 key={item}
+                component={NavLink}
                 to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-                className={({ isActive }) =>
-                  `text-sm font-medium transition-all hover:text-[#990000] ${isActive ? 'text-[#990000]' : 'text-slate-500'
-                  }`
-                }
+                style={navLinkStyle}
+                sx={{
+                  fontSize: '0.875rem',
+                  fontWeight: 500,
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                  '&:hover': { color: `${theme.palette.primary.main} !important` },
+                }}
               >
                 {item}
-              </NavLink>
+              </Box>
             ))}
 
             {/* Games Dropdown (Desktop) */}
-            <div className="relative group">
-              <button className="flex items-center space-x-1 text-sm font-medium text-slate-500 hover:text-[#990000] transition-colors py-2">
-                <span>Games</span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
-
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[600px] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top">
-                <div className="bg-white rounded-xl shadow-xl border border-slate-100 p-6 grid grid-cols-2 gap-8 relative">
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t border-l border-slate-100 transform rotate-45"></div>
-
-                  {/* Category: Waste Time */}
-                  <div>
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Waste Time</h3>
-                    <div className="space-y-2">
-                      <NavLink to="/games/bug-squash" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-red-50 text-red-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <i className="fas fa-bug w-5 h-5 flex items-center justify-center">🐞</i>
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Bug Squash</div>
-                            <div className="text-xs text-slate-500">Whack-a-Bug (Stress Relief)</div>
-                          </div>
-                        </div>
-                      </NavLink>
-                      <NavLink to="/games/quick-sync" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <i className="fas fa-calendar-minus w-5 h-5 flex items-center justify-center">📅</i>
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Quick Sync Dodge</div>
-                            <div className="text-xs text-slate-500">Avoid the calendar invites</div>
-                          </div>
-                        </div>
-                      </NavLink>
-                      <NavLink to="/games/elusive-deploy" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-orange-50 text-orange-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <i className="fas fa-rocket w-5 h-5 flex items-center justify-center">🚀</i>
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Elusive Deploy</div>
-                            <div className="text-xs text-slate-500">Try to click the button</div>
-                          </div>
-                        </div>
-                      </NavLink>
-                    </div>
-                  </div>
-
-                  {/* Category: Actually Learn (Sarcastic) */}
-                  <div>
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">"Actually" Learn</h3>
-                    <div className="space-y-2">
-                      <NavLink to="/games/learn-flex" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-purple-50 text-purple-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <div className="w-5 h-5 flex items-center justify-center font-bold border-2 border-current rounded text-[10px]">CSS</div>
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Flexbox Froggy</div>
-                            <div className="text-xs text-slate-500">Center a div correctly</div>
-                          </div>
-                        </div>
-                      </NavLink>
-                      <NavLink to="/games/learn-typescript" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <div className="w-5 h-5 flex items-center justify-center font-bold text-[10px]">TS</div>
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Type Torture</div>
-                            <div className="text-xs text-slate-500">Fix the red squiggly lines</div>
-                          </div>
-                        </div>
-                      </NavLink>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <HoverDropdown label="Games" align="center" width={600}>
+              <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
+                {GAMES_SECTIONS.map((section) => (
+                  <Box key={section.heading}>
+                    <SectionHeading>{section.heading}</SectionHeading>
+                    <Stack spacing={1}>
+                      {section.items.map((item) => (
+                        <MegaMenuItem key={item.title} item={item} />
+                      ))}
+                    </Stack>
+                  </Box>
+                ))}
+              </Box>
+            </HoverDropdown>
 
             {/* Tools Dropdown (Desktop) */}
-            <div className="relative group">
-              <button className="flex items-center space-x-1 text-sm font-medium text-slate-500 hover:text-[#990000] transition-colors py-2">
-                <span>Tools</span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
+            <HoverDropdown label="Tools" align="right" width={500}>
+              <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 3 }}>
+                <Box sx={{ gridColumn: 'span 2', borderBottom: 1, borderColor: 'divider', pb: 2, mb: 1 }}>
+                  <SectionHeading noBorder>Productivity Killers</SectionHeading>
+                  <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+                    {TOOLS_PRODUCTIVITY.map((item) => (
+                      <MegaMenuItem key={item.title} item={item} />
+                    ))}
+                  </Box>
+                </Box>
 
-              <div className="absolute top-full right-0 w-[500px] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right">
-                <div className="bg-white rounded-xl shadow-xl border border-slate-100 p-6 grid grid-cols-2 gap-6 relative">
-                  <div className="absolute -top-2 right-6 w-4 h-4 bg-white border-t border-l border-slate-100 transform rotate-45"></div>
+                <Box>
+                  <SectionHeading>Over-Engineered</SectionHeading>
+                  <Stack spacing={1}>
+                    {TOOLS_WEB_APPS.map((item) => (
+                      <MegaMenuItem key={item.title} item={item} />
+                    ))}
+                  </Stack>
+                </Box>
 
-                  {/* Internal Tools Category */}
-                  <div className="col-span-2 border-b border-slate-100 pb-4 mb-2">
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Productivity Killers</h3>
-                    <div className="grid grid-cols-2 gap-4">
-                      {/* Latex Editor - Desktop Only */}
-                      <NavLink to="/tools/thesis-creator" className="hidden md:block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item relative overflow-hidden">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-slate-100 text-slate-700 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <Receipt className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Thesis Procrastinator</div>
-                            <div className="text-xs text-slate-500">Solve relativity instead of working</div>
-                          </div>
-                        </div>
-                      </NavLink>
-
-                      {/* WhatsApp Formatter */}
-                      <NavLink to="/tools/whatsapp-formatter" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-green-50 text-green-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <MessageSquareWarning className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Boomer Text Gen</div>
-                            <div className="text-xs text-slate-500">Formatting for family group chats</div>
-                          </div>
-                        </div>
-                      </NavLink>
-                    </div>
-                  </div>
-
-                  {/* Web Apps Category */}
-                  <div>
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Over-Engineered</h3>
-                    <div className="space-y-2">
-                      <a href="https://jsonify.alvianzf.id" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-red-50 text-[#990000] rounded-lg">
-                            <FileJson className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Curly Brace Saver</div>
-                            <div className="text-xs text-slate-500">Make ugly APIs look pretty</div>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="https://invoice.alvianzf.id" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-green-50 text-green-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <Receipt className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Beg For Money</div>
-                            <div className="text-xs text-slate-500">PDFs for clients who won't pay</div>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="https://hitungpajak.alvianzf.id" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-green-50 text-green-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <Coins className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Tax Calculator</div>
-                            <div className="text-xs text-slate-500">Want to know how much you're actually paying?</div>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="https://gold-tracker.alvianzf.id" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-yellow-50 text-yellow-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <AreaChart className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Finance Tracker</div>
-                            <div className="text-xs text-slate-500">See how broke you are and how far are you from that Palisade.</div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* NPM Packages Category */}
-                  <div>
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Node_Modules Bloat</h3>
-                    <div className="space-y-2">
-                      <a href="https://www.npmjs.com/package/make-it-rain" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-purple-50 text-purple-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <CloudRain className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Visual Inflation</div>
-                            <div className="text-xs text-slate-500">Handles the tough job of making your numbers actually readable</div>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="https://www.npmjs.com/package/env-validate-sarcastically" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-yellow-50 text-yellow-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <MessageSquareWarning className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Env Bully</div>
-                            <div className="text-xs text-slate-500">Yells at you for missing keys</div>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="https://www.npmjs.com/package/a-valid-json" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-teal-50 text-teal-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <CheckCircle2 className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">Trust Issues</div>
-                            <div className="text-xs text-slate-500">Paranoid JSON validation</div>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="https://www.npmjs.com/package/@alvianzf/squiggly-lines-go-brrr" target="_blank" rel="noopener noreferrer" className="block p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 bg-pink-50 text-pink-600 rounded-lg group-hover/item:text-[#990000] transition-colors">
-                            <i className="w-5 h-5 flex items-center justify-center">🪱</i>
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-slate-900 group-hover/item:text-[#990000] transition-colors">CPU Heater</div>
-                            <div className="text-xs text-slate-500">Laggy background lines</div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
+                <Box>
+                  <SectionHeading>Node_Modules Bloat</SectionHeading>
+                  <Stack spacing={1}>
+                    {TOOLS_NPM.map((item) => (
+                      <MegaMenuItem key={item.title} item={item} />
+                    ))}
+                  </Stack>
+                </Box>
+              </Box>
+            </HoverDropdown>
+          </Stack>
 
           {/* Social Icons & Hamburger (Mobile and Desktop) */}
-          <div className="flex items-center space-x-2 md:space-x-4">
-            <div className="hidden sm:flex items-center space-x-2 md:space-x-4">
-              <a href="https://github.com/alvianzf" target="_blank" rel="noopener noreferrer" className="relative group text-slate-400 hover:text-[#990000] transition-colors">
-                <Github className="w-5 h-5" />
-                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">GitHub</span>
-              </a>
-              <a href="https://linkedin.com/in/alvianzf" target="_blank" rel="noopener noreferrer" className="relative group text-slate-400 hover:text-[#990000] transition-colors">
-                <Linkedin className="w-5 h-5" />
-                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">LinkedIn</span>
-              </a>
-              <a href="https://medium.com/@alvianzf" target="_blank" rel="noopener noreferrer" className="relative group text-slate-400 hover:text-[#990000] transition-colors">
-                <FontAwesomeIcon icon={faMedium} className="w-5 h-5" />
-                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Medium</span>
-              </a>
-              <a href="mailto:hello@alvianzf.id" className="hidden lg:block px-4 py-2 text-sm font-medium text-white bg-slate-900 rounded-full hover:bg-[#990000] transition-all shadow-sm hover:shadow-md">
+          <Stack direction="row" spacing={{ xs: 1, md: 2 }} alignItems="center">
+            <Stack direction="row" spacing={{ xs: 0.5, md: 1 }} alignItems="center" sx={{ display: { xs: 'none', sm: 'flex' } }}>
+              <Tooltip title="GitHub">
+                <IconButton component="a" href="https://github.com/alvianzf" target="_blank" rel="noopener noreferrer" size="small" sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}>
+                  <Github size={20} />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="LinkedIn">
+                <IconButton component="a" href="https://linkedin.com/in/alvianzf" target="_blank" rel="noopener noreferrer" size="small" sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}>
+                  <Linkedin size={20} />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Medium">
+                <IconButton component="a" href="https://medium.com/@alvianzf" target="_blank" rel="noopener noreferrer" size="small" sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}>
+                  <FontAwesomeIcon icon={faMedium} style={{ width: 20, height: 20 }} />
+                </IconButton>
+              </Tooltip>
+              <Button
+                component="a"
+                href="mailto:hello@alvianzf.id"
+                variant="contained"
+                disableElevation
+                sx={{
+                  display: { xs: 'none', lg: 'inline-flex' },
+                  px: 2,
+                  py: 1,
+                  fontSize: '0.875rem',
+                  fontWeight: 500,
+                  bgcolor: 'text.primary',
+                  color: 'background.paper',
+                  '&:hover': { bgcolor: 'primary.main', color: '#ffffff' },
+                }}
+              >
                 Contact
-              </a>
-            </div>
+              </Button>
+            </Stack>
 
             {/* Hamburger Button */}
-            <button
+            <IconButton
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-slate-600 hover:text-[#990000] transition-colors z-50 rounded-lg hover:bg-slate-100"
               aria-label="Toggle menu"
+              sx={{ display: { md: 'none' }, color: 'text.secondary', '&:hover': { color: 'primary.main' } }}
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-      </div>
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </IconButton>
+          </Stack>
+        </Toolbar>
+      </Container>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
+          <Box
+            component={motion.div}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-[73px] left-0 right-0 bottom-0 h-[calc(100vh-73px)] bg-white z-40 md:hidden overflow-y-auto"
+            sx={{
+              position: 'fixed',
+              top: '73px',
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: 'calc(100vh - 73px)',
+              bgcolor: 'background.default',
+              overflowY: 'auto',
+              display: { md: 'none' },
+            }}
           >
-            <div className="container mx-auto px-6 py-8 flex flex-col space-y-8">
-              {/* Navigation Links */}
-              <div className="flex flex-col space-y-6">
-                {['Home', 'Experience', 'Blog', 'Mentorship', 'About'].map((item) => (
-                  <NavLink
-                    key={item}
-                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-                    className={({ isActive }) =>
-                      `text-2xl font-bold transition-all ${isActive ? 'text-[#990000]' : 'text-slate-900'}`
-                    }
-                  >
-                    {item}
-                  </NavLink>
-                ))}
+            <Container maxWidth="xl" sx={{ py: 4 }}>
+              <Stack spacing={4}>
+                {/* Navigation Links */}
+                <Stack spacing={3}>
+                  {NAV_ITEMS.map((item) => (
+                    <Box
+                      key={item}
+                      component={NavLink}
+                      to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                      style={({ isActive }: { isActive: boolean }) => ({
+                        color: isActive ? theme.palette.primary.main : theme.palette.text.primary,
+                      })}
+                      sx={{ fontSize: '1.5rem', fontWeight: 700, textDecoration: 'none', transition: 'color 0.2s' }}
+                    >
+                      {item}
+                    </Box>
+                  ))}
 
-                {/* Mobile Tools Dropdown */}
-                <div className="flex flex-col space-y-4">
-                  <button
-                    onClick={() => setIsToolsOpen(!isToolsOpen)}
-                    className="flex items-center justify-between text-2xl font-bold text-slate-900"
-                  >
-                    <span>Tools</span>
-                    <motion.div animate={{ rotate: isToolsOpen ? 180 : 0 }}>
-                      <ChevronDown className="w-6 h-6" />
-                    </motion.div>
-                  </button>
-
-                  <AnimatePresence>
-                    {isToolsOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden space-y-4 pl-4 border-l-2 border-slate-100"
-                      >
-                        <div className="space-y-4 pt-2">
-                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Productivity Killers</p>
-                          <NavLink to="/tools/whatsapp-formatter" className="flex items-center gap-3 text-slate-600 font-medium">
-                            <MessageSquareWarning className="w-5 h-5 text-green-600" /> Boomer Text Gen
-                          </NavLink>
-                          {/* Latex Editor is hidden on mobile */}
-                        </div>
-                        <div className="space-y-4 pt-2">
-                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Over-Engineered</p>
-                          <a href="https://jsonify.alvianzf.id" className="flex items-center gap-3 text-slate-600 font-medium">
-                            <FileJson className="w-5 h-5 text-[#990000]" /> Curly Brace Saver
-                          </a>
-                          <a href="https://invoice.alvianzf.id" className="flex items-center gap-3 text-slate-600 font-medium">
-                            <Receipt className="w-5 h-5 text-green-600" /> Beg For Money
-                          </a>
-                        </div>
-                        <div className="space-y-4 pt-2">
-                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Node_Modules Bloat</p>
-                          <a href="https://www.npmjs.com/package/make-it-rain" className="flex items-center gap-3 text-slate-600 font-medium">
-                            <CloudRain className="w-5 h-5 text-purple-600" /> Visual Inflation
-                          </a>
-                          <a href="https://www.npmjs.com/package/env-validate-sarcastically" className="flex items-center gap-3 text-slate-600 font-medium">
-                            <MessageSquareWarning className="w-5 h-5 text-yellow-600" /> Env Bully
-                          </a>
-                          <a href="https://www.npmjs.com/package/@alvianzf/squiggly-lines-go-brrr" className="flex items-center gap-3 text-slate-600 font-medium">
-                            <span className="w-5 h-5 flex items-center justify-center">🪱</span> CPU Heater
-                          </a>
-                        </div>
+                  {/* Mobile Games Dropdown */}
+                  <Stack spacing={2}>
+                    <Box
+                      component="button"
+                      onClick={() => setIsGamesOpen(!isGamesOpen)}
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        fontSize: '1.5rem',
+                        fontWeight: 700,
+                        color: 'text.primary',
+                        bgcolor: 'transparent',
+                        border: 0,
+                        p: 0,
+                        cursor: 'pointer',
+                        fontFamily: 'inherit',
+                      }}
+                    >
+                      <span>Games</span>
+                      <motion.div animate={{ rotate: isGamesOpen ? 180 : 0 }}>
+                        <ChevronDown size={24} />
                       </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
+                    </Box>
 
-              {/* Social and Contact */}
-              <div className="pt-8 border-t border-slate-100">
-                <div className="flex items-center space-x-6 mb-8">
-                  <a href="https://github.com/alvianzf" className="text-slate-400 hover:text-[#990000] transition-colors">
-                    <Github className="w-8 h-8" />
-                  </a>
-                  <a href="https://linkedin.com/in/alvianzf" className="text-slate-400 hover:text-[#990000] transition-colors">
-                    <Linkedin className="w-8 h-8" />
-                  </a>
-                  <a href="https://medium.com/@alvianzf" className="text-slate-400 hover:text-[#990000] transition-colors">
-                    <FontAwesomeIcon icon={faMedium} className="w-8 h-8" />
-                  </a>
-                </div>
-                <a
-                  href="mailto:hello@alvianzf.id"
-                  className="block w-full text-center px-6 py-4 text-lg font-bold text-white bg-slate-900 rounded-2xl hover:bg-[#990000] transition-all shadow-lg"
-                >
-                  Get in Touch
-                </a>
-              </div>
-            </div>
-          </motion.div>
+                    <AnimatePresence>
+                      {isGamesOpen && (
+                        <Box
+                          component={motion.div}
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          sx={{ overflow: 'hidden', pl: 2, borderLeft: 2, borderColor: 'divider' }}
+                        >
+                          <Stack spacing={2} sx={{ pt: 1 }}>
+                            {GAMES_SECTIONS.map((section) => (
+                              <Stack key={section.heading} spacing={2}>
+                                <SectionHeading noBorder>{section.heading}</SectionHeading>
+                                {section.items.map((item) => (
+                                  <MobileMenuLink key={item.title} item={item} />
+                                ))}
+                              </Stack>
+                            ))}
+                          </Stack>
+                        </Box>
+                      )}
+                    </AnimatePresence>
+                  </Stack>
+
+                  {/* Mobile Tools Dropdown */}
+                  <Stack spacing={2}>
+                    <Box
+                      component="button"
+                      onClick={() => setIsToolsOpen(!isToolsOpen)}
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        fontSize: '1.5rem',
+                        fontWeight: 700,
+                        color: 'text.primary',
+                        bgcolor: 'transparent',
+                        border: 0,
+                        p: 0,
+                        cursor: 'pointer',
+                        fontFamily: 'inherit',
+                      }}
+                    >
+                      <span>Tools</span>
+                      <motion.div animate={{ rotate: isToolsOpen ? 180 : 0 }}>
+                        <ChevronDown size={24} />
+                      </motion.div>
+                    </Box>
+
+                    <AnimatePresence>
+                      {isToolsOpen && (
+                        <Box
+                          component={motion.div}
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          sx={{ overflow: 'hidden', pl: 2, borderLeft: 2, borderColor: 'divider' }}
+                        >
+                          <Stack spacing={2} sx={{ pt: 1 }}>
+                            <SectionHeading noBorder>Productivity Killers</SectionHeading>
+                            {/* Thesis Procrastinator is hidden on mobile */}
+                            {TOOLS_PRODUCTIVITY.filter((item) => item.to !== '/tools/thesis-creator').map((item) => (
+                              <MobileMenuLink key={item.title} item={item} />
+                            ))}
+
+                            <SectionHeading noBorder>Over-Engineered</SectionHeading>
+                            {TOOLS_WEB_APPS.map((item) => (
+                              <MobileMenuLink key={item.title} item={item} />
+                            ))}
+
+                            <SectionHeading noBorder>Node_Modules Bloat</SectionHeading>
+                            {TOOLS_NPM.map((item) => (
+                              <MobileMenuLink key={item.title} item={item} />
+                            ))}
+                          </Stack>
+                        </Box>
+                      )}
+                    </AnimatePresence>
+                  </Stack>
+                </Stack>
+
+                {/* Social and Contact */}
+                <Box sx={{ pt: 4, borderTop: 1, borderColor: 'divider' }}>
+                  <Stack direction="row" spacing={3} sx={{ mb: 4 }}>
+                    <IconButton component="a" href="https://github.com/alvianzf" sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' }, p: 0 }}>
+                      <Github size={32} />
+                    </IconButton>
+                    <IconButton component="a" href="https://linkedin.com/in/alvianzf" sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' }, p: 0 }}>
+                      <Linkedin size={32} />
+                    </IconButton>
+                    <IconButton component="a" href="https://medium.com/@alvianzf" sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' }, p: 0 }}>
+                      <FontAwesomeIcon icon={faMedium} style={{ width: 32, height: 32 }} />
+                    </IconButton>
+                  </Stack>
+                  <Button
+                    component="a"
+                    href="mailto:hello@alvianzf.id"
+                    fullWidth
+                    variant="contained"
+                    disableElevation
+                    sx={{
+                      px: 3,
+                      py: 2,
+                      fontSize: '1.125rem',
+                      fontWeight: 700,
+                      bgcolor: 'text.primary',
+                      color: 'background.paper',
+                      '&:hover': { bgcolor: 'primary.main', color: '#ffffff' },
+                    }}
+                  >
+                    Get in Touch
+                  </Button>
+                </Box>
+              </Stack>
+            </Container>
+          </Box>
         )}
       </AnimatePresence>
-    </header>
+    </AppBar>
   );
 }

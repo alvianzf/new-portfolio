@@ -18,10 +18,9 @@ describe('ModernCard Component', () => {
         <p>Content</p>
       </ModernCard>
     );
-    // ModernCard wraps children in a div with card-modern class
+    // ModernCard renders a MUI Card (div) and forwards className
     const card = screen.getByText('Content').closest('div');
     expect(card).toHaveClass('custom-class');
-    expect(card).toHaveClass('card-modern');
   });
 
   it('renders with cyberpunk-compatible structure', () => {

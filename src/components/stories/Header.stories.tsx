@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Header from '../Header';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '../../context/ThemeContext';
+import MuiThemeBridge from '../../theme/MuiThemeBridge';
 
 const meta = {
   title: 'Components/Header',
@@ -14,6 +15,7 @@ const meta = {
     (Story) => (
       <BrowserRouter>
         <ThemeProvider>
+          <MuiThemeBridge>
           <div className="h-screen bg-[var(--bg-primary)]">
             <Story />
             <div className="pt-20 px-6">
@@ -21,6 +23,7 @@ const meta = {
               <p className="text-[var(--text-secondary)]">Content to show transparency effects.</p>
             </div>
           </div>
+          </MuiThemeBridge>
         </ThemeProvider>
       </BrowserRouter>
     ),

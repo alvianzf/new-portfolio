@@ -1,4 +1,6 @@
-
+import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Skill } from '../types';
 
@@ -8,20 +10,32 @@ interface SkillCardProps {
 
 export default function SkillCard({ skill }: SkillCardProps) {
   return (
-    <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-blue-500 transition-all duration-300 group">
-      <div className="flex items-center space-x-4">
-        <div className="p-3 bg-blue-900 rounded-lg group-hover:bg-blue-800 transition-colors">
-          <FontAwesomeIcon
-            icon={skill.icon}
-            className="w-6 h-6 text-blue-400"
-            fixedWidth
-          />
-        </div>
-        <div>
-          <h4 className="text-lg font-semibold text-gray-200">{skill.name}</h4>
-          <p className="text-sm text-gray-400">{skill.description}</p>
-        </div>
-      </div>
-    </div>
+    <Card
+      elevation={0}
+      sx={{ p: 2, '&:hover': { borderColor: 'primary.main' } }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Box
+          sx={{
+            p: 1.5,
+            borderRadius: 2,
+            bgcolor: 'background.default',
+            color: 'primary.main',
+            display: 'flex',
+            transition: 'background-color 0.3s',
+          }}
+        >
+          <FontAwesomeIcon icon={skill.icon} className="w-6 h-6" fixedWidth />
+        </Box>
+        <Box>
+          <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary' }}>
+            {skill.name}
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            {skill.description}
+          </Typography>
+        </Box>
+      </Box>
+    </Card>
   );
 }

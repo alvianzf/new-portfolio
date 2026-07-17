@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Home, ArrowLeft } from 'lucide-react';
+import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import { SquigglyBackground } from '@alvianzf/squiggly-lines-go-brrr';
 
 const messages = [
@@ -16,10 +17,23 @@ const messages = [
 
 export default function NotFound() {
   const navigate = useNavigate();
+  const theme = useTheme();
   const randomMessage = messages[Math.floor(Math.random() * messages.length)];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-200 font-sans relative overflow-hidden flex items-center justify-center p-6">
+    <Box
+      sx={{
+        minHeight: '100vh',
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        position: 'relative',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        p: 3,
+      }}
+    >
       <SquigglyBackground
         variant="worms"
         count={50}
@@ -28,59 +42,111 @@ export default function NotFound() {
         maxStrokeWidth={3}
         minDuration={5}
         maxDuration={10}
-        backgroundColor="#0f172a" // slate-900
+        backgroundColor={theme.palette.background.default}
         className="fixed inset-0 -z-10 pointer-events-none"
       />
 
-      <div className="relative z-10 max-w-2xl w-full text-center space-y-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h1 className="text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-500 mb-4 font-mono">
-            404
-          </h1>
-          <h2 className="text-2xl md:text-3xl font-bold text-slate-100 mb-6">
-            Well, this is awkward.
-          </h2>
-          <p className="text-lg md:text-xl text-slate-400 leading-relaxed mb-8 max-w-lg mx-auto">
-            {randomMessage}
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-slate-800 text-white hover:bg-slate-700 transition-all border border-slate-700 hover:border-slate-600 group"
+      <Box sx={{ position: 'relative', zIndex: 10, maxWidth: '42rem', width: '100%', textAlign: 'center' }}>
+        <Stack spacing={4}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Go Back
-          </button>
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: { xs: '4.5rem', md: '8rem' },
+                fontWeight: 900,
+                fontFamily: 'monospace',
+                mb: 2,
+                background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                color: 'transparent',
+              }}
+            >
+              404
+            </Typography>
+            <Typography variant="h4" component="h2" sx={{ fontSize: { xs: '1.5rem', md: '1.875rem' }, fontWeight: 700, color: 'text.primary', mb: 3 }}>
+              Well, this is awkward.
+            </Typography>
+            <Typography sx={{ fontSize: { xs: '1.125rem', md: '1.25rem' }, color: 'text.secondary', lineHeight: 1.625, mb: 4, maxWidth: '32rem', mx: 'auto' }}>
+              {randomMessage}
+            </Typography>
+          </motion.div>
 
-          <button
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-slate-100 text-slate-900 hover:bg-white transition-all font-medium hover:scale-105 active:scale-95"
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
           >
-            <Home className="w-4 h-4" />
-            Return Home
-          </button>
-        </motion.div>
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              spacing={2}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Button
+                onClick={() => navigate(-1)}
+                variant="outlined"
+                color="inherit"
+                startIcon={<ArrowLeft className="w-4 h-4" style={{ transition: 'transform 0.3s' }} />}
+                sx={{
+                  px: 3,
+                  py: 1.5,
+                  color: 'text.primary',
+                  bgcolor: 'background.paper',
+                  borderColor: 'divider',
+                  transition: 'all 0.3s',
+                  '&:hover': { borderColor: 'text.secondary', bgcolor: 'background.paper' },
+                  '&:hover svg': { transform: 'translateX(-4px)' },
+                }}
+              >
+                Go Back
+              </Button>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 1 }}
-          className="absolute bottom-[-100px] left-0 right-0 text-xs text-slate-700 font-mono"
-        >
-          (Seriously, there's nothing here. Go away.)
-        </motion.p>
-      </div>
-    </div>
+              <Button
+                onClick={() => navigate('/')}
+                variant="contained"
+                startIcon={<Home className="w-4 h-4" />}
+                sx={{
+                  px: 3,
+                  py: 1.5,
+                  fontWeight: 500,
+                  transition: 'all 0.3s',
+                  '&:hover': { transform: 'scale(1.05)' },
+                  '&:active': { transform: 'scale(0.95)' },
+                }}
+              >
+                Return Home
+              </Button>
+            </Stack>
+          </motion.div>
+
+          <Typography
+            component={motion.p}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            transition={{ delay: 0.8, duration: 1 }}
+            sx={{
+              position: 'absolute',
+              bottom: '-100px',
+              left: 0,
+              right: 0,
+              px: 3,
+              maxWidth: '100vw',
+              overflowWrap: 'break-word',
+              fontSize: '0.75rem',
+              fontFamily: 'monospace',
+              color: 'text.secondary',
+            }}
+          >
+            (Seriously, there's nothing here. Go away.)
+          </Typography>
+        </Stack>
+      </Box>
+    </Box>
   );
 }

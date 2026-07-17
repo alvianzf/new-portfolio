@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Rocket } from 'lucide-react';
+import { Button } from '@mui/material';
 
 interface RunawayButtonProps {
   onAttempt: () => void;
@@ -9,7 +10,6 @@ interface RunawayButtonProps {
 
 export default function RunawayButton({ onAttempt, frozen = false }: RunawayButtonProps) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const buttonRef = useRef<HTMLButtonElement>(null);
   // Initialize position to center
   useEffect(() => {
     setPosition({ x: 0, y: 0 });
@@ -35,17 +35,32 @@ export default function RunawayButton({ onAttempt, frozen = false }: RunawayButt
 
   return (
     <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
-      <motion.button
-        ref={buttonRef}
+      <motion.div
         animate={{ x: position.x, y: position.y }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        onMouseEnter={handleHover}
-        onClick={handleHover} // Fail-safe if they manage to click
-        className="pointer-events-auto px-8 py-4 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg shadow-lg flex items-center gap-2 z-50 transform hover:scale-110 active:scale-95 transition-transform"
+        className="pointer-events-auto z-50"
       >
-        <Rocket className="w-5 h-5" />
-        DEPLOY TO PRODUCTION
-      </motion.button>
+        <Button
+          onMouseEnter={handleHover}
+          onClick={handleHover} // Fail-safe if they manage to click
+          variant="contained"
+          startIcon={<Rocket className="w-5 h-5" />}
+          sx={{
+            px: 4,
+            py: 2,
+            bgcolor: '#22c55e',
+            color: 'white',
+            fontWeight: 'bold',
+            borderRadius: 2,
+            boxShadow: 4,
+            transition: 'transform 0.15s',
+            '&:hover': { bgcolor: '#16a34a', transform: 'scale(1.1)' },
+            '&:active': { transform: 'scale(0.95)' },
+          }}
+        >
+          DEPLOY TO PRODUCTION
+        </Button>
+      </motion.div>
     </div>
   );
 }

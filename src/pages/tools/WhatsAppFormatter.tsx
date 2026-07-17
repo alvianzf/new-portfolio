@@ -1,11 +1,14 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, type ReactNode } from 'react';
+import { useTheme } from '../../context/ThemeContext';
 import {
   Copy, Bold, Italic, Strikethrough, Code, Check,
   List, ListOrdered, Quote, Terminal
 } from 'lucide-react';
+import { Box, Button, Card, IconButton, Paper, TextField, Tooltip, Typography } from '@mui/material';
 import SEO from '../../components/SEO';
 
 export default function WhatsAppFormatter() {
+  const { theme } = useTheme();
   const [text, setText] = useState('');
   const [copied, setCopied] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -93,7 +96,7 @@ export default function WhatsAppFormatter() {
       .replace(/>/g, "&gt;");
 
     // Block logic strictly for preview visualization
-    // Note: This is an approximation. 
+    // Note: This is an approximation.
 
     // Code Blocks
     html = html.replace(/```([\s\S]*?)```/g, '<div class="bg-gray-200 text-slate-800 p-2 rounded font-mono text-sm my-1 whitespace-pre-wrap">$1</div>');
@@ -122,93 +125,151 @@ export default function WhatsAppFormatter() {
     return <div dangerouslySetInnerHTML={{ __html: html }} />;
   };
 
+  const inlineTools: Array<{ title: string; symbol: string; type?: 'wrap' | 'block'; icon: ReactNode }> = [
+    { title: 'Bold', symbol: '*', icon: <Bold className="w-4 h-4" /> },
+    { title: 'Italic', symbol: '_', icon: <Italic className="w-4 h-4" /> },
+    { title: 'Strike', symbol: '~', icon: <Strikethrough className="w-4 h-4" /> },
+    { title: 'Monospace', symbol: '`', icon: <Code className="w-4 h-4" /> },
+  ];
+
+  const blockTools: Array<{ title: string; symbol: string; type: 'wrap' | 'block'; icon: ReactNode }> = [
+    { title: 'Bulleted List', symbol: '- ', type: 'block', icon: <List className="w-4 h-4" /> },
+    { title: 'Numbered List', symbol: '1. ', type: 'block', icon: <ListOrdered className="w-4 h-4" /> },
+    { title: 'Quote', symbol: '> ', type: 'block', icon: <Quote className="w-4 h-4" /> },
+    { title: 'Code Block', symbol: '```', type: 'wrap', icon: <Terminal className="w-4 h-4" /> },
+  ];
+
   return (
-    <div className="min-h-screen pt-32 pb-20 px-6 bg-[var(--bg-primary)]">
+    <Box className="min-h-screen pt-32 pb-20 px-6" sx={{ bgcolor: 'background.default' }}>
       <SEO
         title="Boomer Text Gen"
         description="Write formatting text for WhatsApp easily using this WYSIWYG editor."
       />
 
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-[var(--text-primary)] mb-4">Boomer Text Gen</h1>
-          <p className="text-[var(--text-secondary)]">
+      <Box sx={{ maxWidth: 672, mx: 'auto' }}>
+        <Box sx={{ textAlign: 'center', mb: 5 }}>
+          <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', color: 'text.primary', mb: 2 }}>Boomer Text Gen</Typography>
+          <Typography sx={{ color: 'text.secondary' }}>
             Write with style. Perfect for urgent family group announcements.
-          </p>
-        </div>
+          </Typography>
+        </Box>
 
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+        <Card elevation={8} sx={{ borderRadius: 4, overflow: 'hidden' }}>
           {/* Toolbar */}
-          <div className="flex flex-wrap items-center gap-1 p-3 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 0.5, p: 1.5, borderBottom: '1px solid', borderColor: 'divider', bgcolor: 'background.default' }}>
             {/* Inline Styles */}
-            <div className="flex bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-1">
-              <button onClick={() => applyFormat('*')} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-700 dark:text-slate-300" title="Bold">
-                <Bold className="w-4 h-4" />
-              </button>
-              <button onClick={() => applyFormat('_')} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-700 dark:text-slate-300" title="Italic">
-                <Italic className="w-4 h-4" />
-              </button>
-              <button onClick={() => applyFormat('~')} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-700 dark:text-slate-300" title="Strike">
-                <Strikethrough className="w-4 h-4" />
-              </button>
-              <button onClick={() => applyFormat('`')} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-700 dark:text-slate-300" title="Monospace">
-                <Code className="w-4 h-4" />
-              </button>
-            </div>
+            <Paper variant="outlined" sx={{ display: 'flex', borderRadius: 2, p: 0.5 }}>
+              {inlineTools.map(tool => (
+                <Tooltip key={tool.title} title={tool.title}>
+                  <IconButton size="small" onClick={() => applyFormat(tool.symbol)} sx={{ width: 40, height: 40, borderRadius: 1, color: 'text.secondary' }}>
+                    {tool.icon}
+                  </IconButton>
+                </Tooltip>
+              ))}
+            </Paper>
 
             {/* Block Styles */}
-            <div className="flex bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-1">
-              <button onClick={() => applyFormat('- ', 'block')} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-700 dark:text-slate-300" title="Bulleted List">
-                <List className="w-4 h-4" />
-              </button>
-              <button onClick={() => applyFormat('1. ', 'block')} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-700 dark:text-slate-300" title="Numbered List">
-                <ListOrdered className="w-4 h-4" />
-              </button>
-              <button onClick={() => applyFormat('> ', 'block')} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-700 dark:text-slate-300" title="Quote">
-                <Quote className="w-4 h-4" />
-              </button>
-              <button onClick={() => applyFormat('```', 'wrap')} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-700 dark:text-slate-300" title="Code Block">
-                <Terminal className="w-4 h-4" />
-              </button>
-            </div>
+            <Paper variant="outlined" sx={{ display: 'flex', borderRadius: 2, p: 0.5 }}>
+              {blockTools.map(tool => (
+                <Tooltip key={tool.title} title={tool.title}>
+                  <IconButton size="small" onClick={() => applyFormat(tool.symbol, tool.type)} sx={{ width: 40, height: 40, borderRadius: 1, color: 'text.secondary' }}>
+                    {tool.icon}
+                  </IconButton>
+                </Tooltip>
+              ))}
+            </Paper>
 
-            <div className="flex-1"></div>
-
-            <button
+            <Button
               onClick={handleCopy}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${copied
-                ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                : 'bg-brand-red text-white hover:bg-red-700'
-                }`}
+              variant="contained"
+              startIcon={copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              sx={{
+                fontWeight: 'bold',
+                ml: { sm: 'auto' },
+                width: { xs: '100%', sm: 'auto' },
+                ...(copied && {
+                  bgcolor: '#dcfce7',
+                  color: '#15803d',
+                  '&:hover': { bgcolor: '#dcfce7' },
+                }),
+              }}
             >
-              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
               {copied ? 'Copied!' : 'Copy'}
-            </button>
-          </div>
+            </Button>
+          </Box>
 
           {/* Editor Area */}
-          <div className="grid md:grid-cols-2 h-[500px] divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700">
-            <textarea
-              ref={textareaRef}
+          <Box className="grid md:grid-cols-2 h-[500px]" sx={{ '& > *': { borderColor: 'divider' } }}>
+            <TextField
+              multiline
+              inputRef={textareaRef}
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="Type your message here..."
-              className="w-full h-full p-4 bg-transparent resize-none focus:outline-none text-[var(--text-primary)] font-sans leading-relaxed"
+              sx={{
+                width: '100%',
+                height: '100%',
+                borderRight: { md: '1px solid' },
+                borderBottom: { xs: '1px solid', md: 'none' },
+                borderColor: { xs: 'divider', md: 'divider' },
+                '& .MuiInputBase-root': {
+                  height: '100%',
+                  alignItems: 'flex-start',
+                  p: 0,
+                  borderRadius: 0,
+                  bgcolor: 'transparent',
+                },
+                '& .MuiInputBase-input': {
+                  height: '100% !important',
+                  overflow: 'auto !important',
+                  color: 'text.primary',
+                  lineHeight: 1.625,
+                  p: 2,
+                },
+                '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
+              }}
             />
             <div className="w-full h-full bg-[var(--bg-secondary)] p-4 overflow-y-auto">
               {/* WhatsApp-like Bubble */}
-              <div className="bg-white dark:bg-[#005c4b] p-3 rounded-lg rounded-tl-none shadow-sm inline-block max-w-[90%] relative">
-                <div className="text-[var(--text-primary)] dark:text-white leading-relaxed whitespace-pre-wrap break-words">
+              <Box
+                sx={{
+                  p: 1.5,
+                  boxShadow: 1,
+                  display: 'inline-block',
+                  maxWidth: '90%',
+                  position: 'relative',
+                  ...(theme === 'cyberpunk'
+                    ? {
+                        bgcolor: 'background.paper',
+                        color: 'text.primary',
+                        borderRadius: 0,
+                        border: '1px solid',
+                        borderColor: 'divider',
+                      }
+                    : theme === 'dark'
+                      ? { bgcolor: '#005c4b', color: '#ffffff', borderRadius: 2, borderTopLeftRadius: 0 }
+                      : { bgcolor: '#dcf8c6', color: '#111b21', borderRadius: 2, borderTopLeftRadius: 0 }),
+                }}
+              >
+                <div className="leading-relaxed whitespace-pre-wrap break-words">
                   {renderPreview(text)}
                 </div>
-                <div className="text-[10px] text-slate-400 dark:text-[#8696a0] text-right mt-1 select-none">
+                <Box
+                  sx={{
+                    fontSize: 10,
+                    textAlign: 'right',
+                    mt: 0.5,
+                    userSelect: 'none',
+                    color: theme === 'cyberpunk' ? 'text.secondary' : theme === 'dark' ? '#8696a0' : '#667781',
+                  }}
+                >
                   {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </div>
-              </div>
+                </Box>
+              </Box>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Box>
+        </Card>
+      </Box>
+    </Box>
   );
 }

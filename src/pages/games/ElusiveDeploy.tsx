@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, Lock, Unlock, RotateCcw } from 'lucide-react';
+import { Box, Button, Paper, Typography } from '@mui/material';
 import RunawayButton from '../../components/games/RunawayButton';
 
 const TAUNTS = [
@@ -32,17 +33,17 @@ export default function ElusiveDeploy() {
   };
 
   return (
-    <div className="min-h-screen pt-20 pb-10 bg-[var(--bg-primary)] overflow-hidden relative select-none flex flex-col items-center">
+    <Box className="min-h-screen pt-20 pb-10 overflow-hidden relative select-none flex flex-col items-center" sx={{ bgcolor: 'background.default' }}>
       {/* HUD */}
-      <div className="absolute top-24 z-30 flex flex-col items-center gap-4">
-        <h1 className="text-3xl font-bold text-[var(--text-primary)]">Production Deployment</h1>
-        <div className="flex items-center gap-2 text-[var(--text-secondary)]">
+      <div className="relative mt-4 z-30 flex flex-col items-center gap-4 px-6">
+        <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', color: 'text.primary' }}>Production Deployment</Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'text.secondary' }}>
           <Lock className="w-4 h-4" />
-          <span className="font-mono text-sm">Environment: PROTECTED</span>
-        </div>
+          <Typography sx={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>Environment: PROTECTED</Typography>
+        </Box>
 
-        <div className="bg-[var(--card-bg)] px-6 py-3 rounded-xl shadow-lg border border-[var(--border-color)] flex flex-col items-center min-w-[300px]">
-          <span className="text-xs font-bold text-[var(--text-secondary)] uppercase tracking-wider mb-1">Status Log</span>
+        <Paper elevation={4} sx={{ px: 3, py: 1.5, borderRadius: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 300 }}>
+          <Typography sx={{ fontSize: '0.75rem', fontWeight: 'bold', color: 'text.secondary', textTransform: 'uppercase', letterSpacing: '0.05em', mb: 0.5 }}>Status Log</Typography>
           <AnimatePresence mode="wait">
             <motion.p
               key={attempts}
@@ -54,11 +55,11 @@ export default function ElusiveDeploy() {
               {`> ${taunt}`}
             </motion.p>
           </AnimatePresence>
-        </div>
+        </Paper>
 
-        <div className="mt-2 text-sm text-[var(--text-secondary)]">
-          Attempts: <span className="font-mono font-bold text-[var(--text-primary)]">{attempts}</span>
-        </div>
+        <Typography sx={{ mt: 1, fontSize: '0.875rem', color: 'text.secondary' }}>
+          Attempts: <Box component="span" sx={{ fontFamily: 'monospace', fontWeight: 'bold', color: 'text.primary' }}>{attempts}</Box>
+        </Typography>
       </div>
 
       {/* Game Area */}
@@ -68,30 +69,35 @@ export default function ElusiveDeploy() {
 
       {/* Controls */}
       <div className="absolute bottom-10 z-50 flex gap-4 pointer-events-auto">
-        <button
+        <Button
           onClick={() => setIsFrozen(!isFrozen)}
-          className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${isFrozen
-            ? 'bg-red-500 text-white shadow-red-500/30 shadow-lg'
-            : 'bg-[var(--card-bg)] text-[var(--text-secondary)] hover:bg-[var(--bg-primary)] border border-[var(--border-color)]'
-            }`}
+          startIcon={isFrozen ? <Unlock className="w-5 h-5" /> : <Lock className="w-5 h-5" />}
+          sx={{
+            px: 3,
+            py: 1.5,
+            borderRadius: 3,
+            fontWeight: 'bold',
+            ...(isFrozen
+              ? { bgcolor: '#ef4444', color: 'white', boxShadow: '0 10px 15px -3px rgba(239, 68, 68, 0.3)', '&:hover': { bgcolor: '#dc2626' } }
+              : { bgcolor: 'background.paper', color: 'text.secondary', border: '1px solid', borderColor: 'divider', '&:hover': { bgcolor: 'background.default' } }),
+          }}
         >
-          {isFrozen ? <Unlock className="w-5 h-5" /> : <Lock className="w-5 h-5" />}
           {isFrozen ? "CHEAT MODE: ON" : "Cheat Mode"}
-        </button>
+        </Button>
 
-        <button
+        <Button
           onClick={() => setAttempts(0)}
-          className="px-6 py-3 bg-[var(--card-bg)] text-[var(--text-primary)] rounded-xl shadow-lg font-bold border border-[var(--border-color)] hover:bg-[var(--bg-primary)] transition-colors flex items-center gap-2"
+          startIcon={<RotateCcw className="w-4 h-4" />}
+          sx={{ px: 3, py: 1.5, bgcolor: 'background.paper', color: 'text.primary', borderRadius: 3, boxShadow: 4, fontWeight: 'bold', border: '1px solid', borderColor: 'divider', '&:hover': { bgcolor: 'background.default' } }}
         >
-          <RotateCcw className="w-4 h-4" />
           Reset Shame
-        </button>
+        </Button>
       </div>
 
       {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.03]">
         <AlertTriangle className="w-[500px] h-[500px] text-red-500" />
       </div>
-    </div>
+    </Box>
   );
 }

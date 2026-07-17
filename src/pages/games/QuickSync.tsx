@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Timer, Trophy, Play, Calendar, Pause, RotateCcw } from 'lucide-react';
+import { Box, Button, IconButton, Paper, Typography } from '@mui/material';
 import PlayerDev from '../../components/games/PlayerDev';
 import CalendarInvite from '../../components/games/CalendarInvite';
 
@@ -122,43 +123,45 @@ export default function QuickSync() {
   };
 
   return (
-    <div
-      className="min-h-screen pt-20 pb-10 bg-[var(--bg-primary)] overflow-hidden relative select-none cursor-crosshair touch-none"
+    <Box
+      className="min-h-screen pt-20 pb-10 overflow-hidden relative select-none cursor-crosshair touch-none"
+      sx={{ bgcolor: 'background.default' }}
       onMouseMove={handleMove}
       onTouchMove={handleMove}
     >
       {/* HUD */}
       <div className="absolute top-24 left-0 right-0 z-40 px-4 pointer-events-none flex flex-col items-center gap-4">
         <div className="flex justify-center gap-8 w-full max-w-2xl">
-          <div className="bg-[var(--card-bg)]/90 backdrop-blur px-6 py-3 rounded-2xl shadow-xl flex items-center gap-4">
-            <div className="flex items-center gap-2">
+          <Paper elevation={8} className="backdrop-blur" sx={{ px: 3, py: 1.5, borderRadius: 4, display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Timer className="w-5 h-5 text-blue-500" />
-              <span className="text-xl font-bold font-mono text-[var(--text-primary)]">{score}s</span>
-            </div>
-            <div className="w-px h-6 bg-[var(--border-color)]" />
-            <div className="flex items-center gap-2">
+              <Typography sx={{ fontSize: '1.25rem', fontWeight: 'bold', fontFamily: 'monospace', color: 'text.primary' }}>{score}s</Typography>
+            </Box>
+            <Box sx={{ width: '1px', height: 24, bgcolor: 'divider' }} />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Trophy className="w-5 h-5 text-yellow-500" />
-              <span className="text-sm font-bold text-[var(--text-secondary)]">Level {level}</span>
-            </div>
-          </div>
+              <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold', color: 'text.secondary' }}>Level {level}</Typography>
+            </Box>
+          </Paper>
         </div>
 
         {/* Controls */}
         {isPlaying && (
           <div className="pointer-events-auto flex gap-4">
-            <button
+            <IconButton
               onClick={() => setIsPaused(!isPaused)}
-              className="px-4 py-2 bg-[var(--card-bg)] text-[var(--text-primary)] rounded-lg shadow-lg font-bold border border-[var(--border-color)] hover:bg-[var(--bg-primary)] transition-colors"
+              sx={{ bgcolor: 'background.paper', color: 'text.primary', borderRadius: 2, border: '1px solid', borderColor: 'divider', boxShadow: 4, '&:hover': { bgcolor: 'background.default' } }}
             >
               {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
-            </button>
-            <button
+            </IconButton>
+            <Button
               onClick={startGame}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-lg font-bold hover:bg-blue-700 transition-colors flex items-center gap-2"
+              variant="contained"
+              startIcon={<RotateCcw className="w-4 h-4" />}
+              sx={{ bgcolor: '#2563eb', color: 'white', fontWeight: 'bold', borderRadius: 2, boxShadow: 4, '&:hover': { bgcolor: '#1d4ed8' } }}
             >
-              <RotateCcw className="w-4 h-4" />
               Restart
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -169,24 +172,27 @@ export default function QuickSync() {
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-[var(--card-bg)] p-8 rounded-3xl shadow-2xl text-center max-w-md border border-[var(--border-color)]"
           >
-            <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Calendar className="w-10 h-10 text-blue-600" />
-            </div>
-            <h1 className="text-3xl font-bold text-[var(--text-primary)] mb-4">Quick Sync Dodge</h1>
-            <p className="text-[var(--text-secondary)] mb-8 leading-relaxed">
-              Your calendar is filling up. Calls are raining down.
-              <br />
-              Move your mouse to dodge the "Quick Syncs" and stay in flow state.
-            </p>
-            <button
-              onClick={startGame}
-              className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2"
-            >
-              <Play className="w-5 h-5" />
-              Start Working
-            </button>
+            <Paper elevation={12} sx={{ p: 4, borderRadius: 6, textAlign: 'center', maxWidth: 448 }}>
+              <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Calendar className="w-10 h-10 text-blue-600" />
+              </div>
+              <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', color: 'text.primary', mb: 2 }}>Quick Sync Dodge</Typography>
+              <Typography sx={{ color: 'text.secondary', mb: 4, lineHeight: 1.625 }}>
+                Your calendar is filling up. Calls are raining down.
+                <br />
+                Move your mouse to dodge the "Quick Syncs" and stay in flow state.
+              </Typography>
+              <Button
+                onClick={startGame}
+                variant="contained"
+                fullWidth
+                startIcon={<Play className="w-5 h-5" />}
+                sx={{ py: 2, bgcolor: '#2563eb', color: 'white', fontWeight: 'bold', borderRadius: 3, boxShadow: '0 10px 15px -3px rgba(59, 130, 246, 0.3)', '&:hover': { bgcolor: '#1d4ed8', transform: 'scale(1.05)' }, '&:active': { transform: 'scale(0.95)' }, transition: 'all 0.2s' }}
+              >
+                Start Working
+              </Button>
+            </Paper>
           </motion.div>
         </div>
       ) : null}
@@ -197,22 +203,26 @@ export default function QuickSync() {
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-[var(--card-bg)] p-8 rounded-2xl max-w-lg w-full text-center m-4"
+            className="max-w-lg w-full m-4"
           >
-            <h2 className="text-4xl font-bold text-[var(--text-primary)] mb-2">Meeting Started!</h2>
-            <p className="text-xl text-[var(--text-secondary)] mb-8">You got pulled into a "quick 5 min sync" that lasted an hour.</p>
+            <Paper elevation={12} sx={{ p: 4, borderRadius: 4, textAlign: 'center' }}>
+              <Typography variant="h3" component="h2" sx={{ fontWeight: 'bold', color: 'text.primary', mb: 1 }}>Meeting Started!</Typography>
+              <Typography sx={{ fontSize: '1.25rem', color: 'text.secondary', mb: 4 }}>You got pulled into a "quick 5 min sync" that lasted an hour.</Typography>
 
-            <div className="bg-[var(--bg-primary)] rounded-xl p-6 mb-8 text-[var(--text-secondary)]">
-              <p className="text-sm uppercase font-bold tracking-wider mb-2">Time in Flow State</p>
-              <p className="text-5xl font-mono font-bold text-blue-600">{score}s</p>
-            </div>
+              <Box sx={{ bgcolor: 'background.default', borderRadius: 3, p: 3, mb: 4, color: 'text.secondary' }}>
+                <Typography sx={{ fontSize: '0.875rem', textTransform: 'uppercase', fontWeight: 'bold', letterSpacing: '0.05em', mb: 1 }}>Time in Flow State</Typography>
+                <Typography sx={{ fontSize: '3rem', fontFamily: 'monospace', fontWeight: 'bold', color: '#2563eb' }}>{score}s</Typography>
+              </Box>
 
-            <button
-              onClick={startGame}
-              className="w-full py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl transition-all shadow-lg border border-slate-700"
-            >
-              Decline & Return to Work
-            </button>
+              <Button
+                onClick={startGame}
+                variant="contained"
+                fullWidth
+                sx={{ py: 2, bgcolor: '#0f172a', color: 'white', fontWeight: 'bold', borderRadius: 3, border: '1px solid #334155', boxShadow: 4, '&:hover': { bgcolor: '#1e293b' } }}
+              >
+                Decline & Return to Work
+              </Button>
+            </Paper>
           </motion.div>
         </div>
       )}
@@ -231,11 +241,11 @@ export default function QuickSync() {
       {/* Pause Overlay */}
       {isPaused && (
         <div className="absolute inset-0 z-50 bg-[var(--bg-primary)]/20 backdrop-blur-sm flex items-center justify-center pointer-events-none">
-          <div className="bg-slate-900 text-white px-8 py-4 rounded-xl shadow-2xl font-bold text-2xl animate-pulse">
+          <Paper elevation={12} className="animate-pulse" sx={{ bgcolor: '#0f172a', color: 'white', px: 4, py: 2, borderRadius: 3, fontWeight: 'bold', fontSize: '1.5rem' }}>
             OUT OF OFFICE
-          </div>
+          </Paper>
         </div>
       )}
-    </div>
+    </Box>
   );
 }

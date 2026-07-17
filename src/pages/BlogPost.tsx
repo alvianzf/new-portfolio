@@ -3,7 +3,17 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { Calendar, ArrowLeft, Clock } from 'lucide-react';
-import ModernCard from '../components/ModernCard';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActionArea from '@mui/material/CardActionArea';
+import Button from '@mui/material/Button';
+import Skeleton from '@mui/material/Skeleton';
+import { alpha } from '@mui/material/styles';
 import SEO from '../components/SEO';
 
 interface BlogPost {
@@ -75,25 +85,39 @@ export default function BlogPost() {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-32 pb-20 flex justify-center items-center">
-        <div className="animate-pulse flex flex-col items-center">
-          <div className="h-4 w-4 bg-brand-red rounded-full mb-4 animate-bounce"></div>
-          <span className="text-slate-400 font-medium">Loading post...</span>
-        </div>
-      </div>
+      <Box sx={{ minHeight: '100vh', pt: 16, pb: 10, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Stack alignItems="center" spacing={2}>
+          <Skeleton variant="circular" width={16} height={16} sx={{ bgcolor: 'primary.main' }} />
+          <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+            Loading post...
+          </Typography>
+        </Stack>
+      </Box>
     );
   }
 
   if (error || !post) {
     return (
-      <div className="min-h-screen pt-32 pb-20 flex justify-center">
-        <ModernCard className="bg-red-50 border-red-100 max-w-md w-full text-center p-8">
-          <p className="text-red-600 font-medium">{error || 'Post not found'}</p>
-          <Link to="/blog" className="text-brand-red mt-4 inline-block hover:underline">
-            ← Back to Blog
-          </Link>
-        </ModernCard>
-      </div>
+      <Box sx={{ minHeight: '100vh', pt: 16, pb: 10, display: 'flex', justifyContent: 'center' }}>
+        <Card sx={{ maxWidth: 448, width: '100%', textAlign: 'center', alignSelf: 'flex-start' }}>
+          <CardContent sx={{ p: 4 }}>
+            <Typography sx={{ color: 'error.main', fontWeight: 500 }}>{error || 'Post not found'}</Typography>
+            <Typography
+              component={Link}
+              to="/blog"
+              sx={{
+                color: 'primary.main',
+                mt: 2,
+                display: 'inline-block',
+                textDecoration: 'none',
+                '&:hover': { textDecoration: 'underline' },
+              }}
+            >
+              ← Back to Blog
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
     );
   }
 
@@ -117,7 +141,7 @@ export default function BlogPost() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20">
+    <Box sx={{ minHeight: '100vh', pt: 16, pb: 10 }}>
       <SEO
         title={post.title}
         description={description}
@@ -127,80 +151,130 @@ export default function BlogPost() {
         modifiedTime={post.updated || post.published}
         schema={blogSchema}
       />
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <Container maxWidth="xl" sx={{ px: 3 }}>
+        <Grid container spacing={4}>
           {/* Main Content */}
-          <motion.article
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="lg:col-span-3"
-          >
-            {/* Back Button */}
-            <Link
-              to="/blog"
-              className="inline-flex items-center text-slate-500 hover:text-brand-red transition-colors mb-8"
+          <Grid size={{ xs: 12, lg: 9 }} component="article">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Blog
-            </Link>
+              {/* Back Button */}
+              <Button
+                component={Link}
+                to="/blog"
+                startIcon={<ArrowLeft size={16} />}
+                sx={{
+                  color: 'text.secondary',
+                  mb: 4,
+                  px: 0,
+                  '&:hover': { color: 'primary.main', bgcolor: 'transparent' },
+                }}
+              >
+                Back to Blog
+              </Button>
 
-            {/* Post Header */}
-            <header className="mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight">
-                {post.title}
-              </h1>
-              <div className="flex flex-wrap items-center gap-4 text-slate-500 text-sm">
-                <div className="flex items-center">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  <time>{format(new Date(post.published), 'MMMM d, yyyy')}</time>
-                </div>
-                <div className="flex items-center">
-                  <Clock className="w-4 h-4 mr-2" />
-                  <span>{calculateReadTime(post.content)}</span>
-                </div>
-              </div>
-            </header>
+              {/* Post Header */}
+              <Box component="header" sx={{ mb: 4 }}>
+                <Typography
+                  variant="h1"
+                  sx={{
+                    fontSize: { xs: '1.875rem', md: '2.25rem' },
+                    fontWeight: 700,
+                    color: 'text.primary',
+                    mb: 2,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  {post.title}
+                </Typography>
+                <Stack
+                  direction="row"
+                  flexWrap="wrap"
+                  alignItems="center"
+                  gap={2}
+                  sx={{ color: 'text.secondary', fontSize: '0.875rem' }}
+                >
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <Calendar size={16} />
+                    <time>{format(new Date(post.published), 'MMMM d, yyyy')}</time>
+                  </Stack>
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <Clock size={16} />
+                    <span>{calculateReadTime(post.content)}</span>
+                  </Stack>
+                </Stack>
+              </Box>
 
-            {/* Post Content */}
-            <ModernCard className="p-6 md:p-10">
-              <div
-                className="blog-content"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
-            </ModernCard>
-          </motion.article>
+              {/* Post Content */}
+              <Card>
+                <CardContent sx={{ p: { xs: 3, md: 5 } }}>
+                  <div
+                    className="blog-content"
+                    dangerouslySetInnerHTML={{ __html: post.content }}
+                  />
+                </CardContent>
+              </Card>
+            </motion.div>
+          </Grid>
 
           {/* Sidebar - Other Posts */}
-          <motion.aside
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="lg:col-span-1"
-          >
-            <div className="sticky top-28">
-              <h2 className="text-lg font-bold text-slate-900 mb-4">Other Posts</h2>
-              <div className="space-y-4">
-                {otherPosts.map((otherPost) => (
-                  <Link
-                    key={otherPost.id}
-                    to={`/blog/${otherPost.id}`}
-                    className="block group"
-                  >
-                    <ModernCard className="p-4 hover:border-brand-red/30 transition-all">
-                      <h3 className="text-sm font-semibold text-slate-900 group-hover:text-brand-red transition-colors line-clamp-2 mb-2">
-                        {otherPost.title}
-                      </h3>
-                      <div className="text-xs text-slate-400">
-                        {format(new Date(otherPost.published), 'MMM d, yyyy')}
-                      </div>
-                    </ModernCard>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </motion.aside>
-        </div>
-      </div>
-    </div>
+          <Grid size={{ xs: 12, lg: 3 }} component="aside">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Box sx={{ position: 'sticky', top: 112 }}>
+                <Typography
+                  variant="h6"
+                  component="h2"
+                  sx={{ fontSize: '1.125rem', fontWeight: 700, color: 'text.primary', mb: 2 }}
+                >
+                  Other Posts
+                </Typography>
+                <Stack spacing={2}>
+                  {otherPosts.map((otherPost) => (
+                    <Card
+                      key={otherPost.id}
+                      sx={{
+                        '&:hover': { borderColor: (theme) => alpha(theme.palette.primary.main, 0.3) },
+                        '&:hover .other-post-title': { color: 'primary.main' },
+                      }}
+                    >
+                      <CardActionArea component={Link} to={`/blog/${otherPost.id}`}>
+                        <CardContent sx={{ p: 2 }}>
+                          <Typography
+                            variant="h6"
+                            component="h3"
+                            className="other-post-title"
+                            sx={{
+                              fontSize: '0.875rem',
+                              fontWeight: 600,
+                              color: 'text.primary',
+                              transition: 'color 0.3s',
+                              mb: 1,
+                              display: '-webkit-box',
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: 'vertical',
+                              overflow: 'hidden',
+                            }}
+                          >
+                            {otherPost.title}
+                          </Typography>
+                          <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>
+                            {format(new Date(otherPost.published), 'MMM d, yyyy')}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  ))}
+                </Stack>
+              </Box>
+            </motion.div>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 }

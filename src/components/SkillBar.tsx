@@ -1,4 +1,6 @@
-
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+import Typography from '@mui/material/Typography';
 import { Skill } from '../types';
 
 interface SkillBarProps {
@@ -7,17 +9,20 @@ interface SkillBarProps {
 
 export default function SkillBar({ skill }: SkillBarProps) {
   return (
-    <div className="mb-4">
-      <div className="flex justify-between mb-1">
-        <span className="text-base font-medium text-gray-300">{skill.name}</span>
-        <span className="text-sm font-medium text-gray-400">{skill.level}%</span>
-      </div>
-      <div className="w-full bg-gray-700 rounded-full h-2.5">
-        <div
-          className="bg-blue-500 h-2.5 rounded-full transition-all duration-500"
-          style={{ width: `${skill.level}%` }}
-        ></div>
-      </div>
-    </div>
+    <Box sx={{ mb: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
+        <Typography variant="body1" sx={{ fontWeight: 500, color: 'text.primary' }}>
+          {skill.name}
+        </Typography>
+        <Typography variant="body2" sx={{ fontWeight: 500, color: 'text.secondary' }}>
+          {skill.level}%
+        </Typography>
+      </Box>
+      <LinearProgress
+        variant="determinate"
+        value={skill.level}
+        sx={{ height: 10, '& .MuiLinearProgress-bar': { transition: 'transform 0.5s' } }}
+      />
+    </Box>
   );
 }

@@ -6,18 +6,18 @@ import { renderWithProviders } from '../../test-utils';
 describe('Experience Page', () => {
   it('renders page title', () => {
     renderWithProviders(<Experience />);
-    expect(screen.getByText('Professional Journey')).toBeInTheDocument();
+    expect(screen.getByText(/13\+ Years of/)).toBeInTheDocument();
   });
 
-  it('renders work experience cards', () => {
+  it('renders tab buttons', () => {
     renderWithProviders(<Experience />);
-    // Check for specific text that should be present
-    expect(screen.getByText(/timeline of my career/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /roles/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /projects/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /npm packages/i })).toBeInTheDocument();
   });
 
-  it('renders experience list', () => {
+  it('renders career timeline badge', () => {
     renderWithProviders(<Experience />);
-    // Check for "Professional Journey" which we already did.
-    expect(screen.getByText(/timeline of my career/i)).toBeInTheDocument();
+    expect(screen.getByText(/career timeline/i)).toBeInTheDocument();
   });
 });

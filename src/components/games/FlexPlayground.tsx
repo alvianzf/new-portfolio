@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
+import { Box, Button, MenuItem, Paper, TextField, Typography } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 
 interface Level {
   id: number;
@@ -45,6 +47,12 @@ const LEVELS: Level[] = [
   }
 ];
 
+const CONTROLS: Array<{ key: 'justifyContent' | 'alignItems' | 'flexDirection'; label: string; options: string[] }> = [
+  { key: 'justifyContent', label: 'justify-content', options: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly'] },
+  { key: 'alignItems', label: 'align-items', options: ['flex-start', 'flex-end', 'center', 'baseline', 'stretch'] },
+  { key: 'flexDirection', label: 'flex-direction', options: ['row', 'row-reverse', 'column', 'column-reverse'] },
+];
+
 export default function FlexPlayground() {
   const [currentLevel, setCurrentLevel] = useState(0);
   const [styles, setStyles] = useState({
@@ -86,53 +94,44 @@ export default function FlexPlayground() {
   return (
     <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl mx-auto">
       {/* Controls */}
-      <div className="w-full md:w-1/3 space-y-6 bg-[var(--card-bg)] p-6 rounded-2xl shadow-xl border border-[var(--border-color)]">
-        <div>
-          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-2">Level {level.id}</h2>
-          <p className="text-[var(--text-secondary)] mb-4">{level.instruction}</p>
-          <div className="bg-yellow-50 text-yellow-800 p-3 rounded-lg text-sm italic border border-yellow-200">
+      <Paper elevation={8} className="w-full md:w-1/3" sx={{ p: 3, borderRadius: 4, display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <Box>
+          <Typography variant="h6" component="h2" sx={{ fontWeight: 'bold', color: 'text.primary', mb: 1 }}>Level {level.id}</Typography>
+          <Typography sx={{ color: 'text.secondary', mb: 2 }}>{level.instruction}</Typography>
+          <Box
+            sx={(theme) => ({
+              bgcolor: theme.palette.mode === 'dark' ? alpha(theme.palette.warning.main, 0.15) : '#fefce8',
+              color: theme.palette.mode === 'dark' ? theme.palette.warning.light : '#854d0e',
+              border: '1px solid',
+              borderColor: theme.palette.mode === 'dark' ? alpha(theme.palette.warning.main, 0.4) : '#fef08a',
+              p: 1.5,
+              borderRadius: 2,
+              fontSize: '0.875rem',
+              fontStyle: 'italic',
+            })}
+          >
             Hint: {level.sarcasticHint}
-          </div>
-        </div>
+          </Box>
+        </Box>
 
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">justify-content</label>
-            <select
-              value={styles.justifyContent}
-              onChange={(e) => setStyles(s => ({ ...s, justifyContent: e.target.value }))}
-              className="w-full bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)] rounded-lg p-2.5 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all"
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {CONTROLS.map(control => (
+            <TextField
+              key={control.key}
+              select
+              label={control.label}
+              value={styles[control.key]}
+              onChange={(e) => setStyles(s => ({ ...s, [control.key]: e.target.value }))}
+              fullWidth
+              size="small"
+              sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
             >
-              {['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly'].map(opt => (
-                <option key={opt} value={opt}>{opt}</option>
+              {control.options.map(opt => (
+                <MenuItem key={opt} value={opt}>{opt}</MenuItem>
               ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">align-items</label>
-            <select
-              value={styles.alignItems}
-              onChange={(e) => setStyles(s => ({ ...s, alignItems: e.target.value }))}
-              className="w-full bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)] rounded-lg p-2.5 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all"
-            >
-              {['flex-start', 'flex-end', 'center', 'baseline', 'stretch'].map(opt => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">flex-direction</label>
-            <select
-              value={styles.flexDirection}
-              onChange={(e) => setStyles(s => ({ ...s, flexDirection: e.target.value }))}
-              className="w-full bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)] rounded-lg p-2.5 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all"
-            >
-              {['row', 'row-reverse', 'column', 'column-reverse'].map(opt => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
-          </div>
-        </div>
+            </TextField>
+          ))}
+        </Box>
 
         {success && (
           <motion.div
@@ -140,22 +139,24 @@ export default function FlexPlayground() {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col gap-4"
           >
-            <div className="flex items-center gap-2 text-green-600 font-bold bg-green-50 p-3 rounded-lg">
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: '#16a34a', fontWeight: 'bold', bgcolor: '#f0fdf4', p: 1.5, borderRadius: 2 }}>
               <Check className="w-5 h-5" />
               {feedback}
-            </div>
-            <button
+            </Box>
+            <Button
               onClick={nextLevel}
-              className="w-full py-3 bg-slate-900 text-white font-bold rounded-lg hover:bg-slate-800 transition-colors"
+              variant="contained"
+              fullWidth
+              sx={{ py: 1.5, bgcolor: '#0f172a', color: 'white', fontWeight: 'bold', borderRadius: 2, '&:hover': { bgcolor: '#1e293b' } }}
             >
               Next Level
-            </button>
+            </Button>
           </motion.div>
         )}
-      </div>
+      </Paper>
 
       {/* Playground */}
-      <div className="flex-1 min-h-[400px] bg-[var(--bg-primary)] rounded-2xl border-4 border-[var(--border-color)] relative overflow-hidden">
+      <Box className="flex-1 min-h-[400px] relative overflow-hidden" sx={{ bgcolor: 'background.default', borderRadius: 4, border: '4px solid', borderColor: 'divider' }}>
         <div
           className="absolute inset-0 p-8 flex gap-4 transition-all duration-500"
           style={{
@@ -174,7 +175,7 @@ export default function FlexPlayground() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </Box>
     </div>
   );
 }

@@ -1,12 +1,55 @@
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ArrowRight, Download, Mail, Calendar, Linkedin, Github } from 'lucide-react';
+import { Box, Button, Container, Grid, Link as MuiLink, Stack, Typography } from '@mui/material';
 // @ts-expect-error png import
 import alvian from '../assets/potraits.png';
 import { skills, categories } from "../data";
 import ModernCard from "../components/ModernCard";
 import SEO from '../components/SEO';
 // import PromoPopup from '../components/PromoPopup';
+
+// data.ts mixes FontAwesome icon definitions and lucide components
+function SkillIcon({ icon }: { icon: (typeof skills)[number]['icon'] }) {
+  if (icon && typeof icon === 'object' && 'prefix' in icon) {
+    return <FontAwesomeIcon icon={icon} className="w-5 h-5" />;
+  }
+  if (icon) {
+    const Icon = icon;
+    return <Icon className="w-5 h-5" />;
+  }
+  return null;
+}
+
+const devSkillNames = ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'];
+
+const marqueePillSx = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 1,
+  px: 3,
+  py: 1.5,
+  bgcolor: 'background.paper',
+  border: '1px solid',
+  borderColor: 'divider',
+  borderRadius: 1,
+  boxShadow: 1,
+  whiteSpace: 'nowrap',
+  color: 'text.secondary',
+  transition: 'all 0.3s',
+  '&:hover': {
+    borderColor: 'primary.main',
+    boxShadow: 2,
+    color: 'primary.main',
+  },
+} as const;
+
+const contactItems = [
+  { title: 'Email', icon: Mail, href: 'mailto:hello@alvianzf.id', label: 'hello@alvianzf.id', external: false },
+  { title: 'Schedule a Call', icon: Calendar, href: 'https://calendar.app.google/J3gjDH8fv98BjSHz7', label: 'Book a time', external: true },
+  { title: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/in/alvianzf', label: 'linkedin.com/in/alvianzf', external: true },
+  { title: 'GitHub', icon: Github, href: 'https://github.com/alvianzf', label: 'github.com/alvianzf', external: true },
+];
 
 export default function Home() {
   const personSchema = {
@@ -66,8 +109,11 @@ export default function Home() {
     "knowsLanguage": ["Indonesian", "English"]
   };
 
+  const devSkills = skills.filter(s => devSkillNames.includes(s.name));
+  const infraSkills = skills.filter(s => !devSkillNames.includes(s.name) && s.category === 'technical');
+
   return (
-    <div className="min-h-screen pt-20 overflow-x-hidden">
+    <Box sx={{ minHeight: '100vh', pt: '5rem', overflowX: 'hidden' }}>
       <SEO
         schema={personSchema}
         keywords={[
@@ -76,263 +122,306 @@ export default function Home() {
           "React Developer", "Engineering Manager", "Tech Mentorship Indonesia"
         ]}
       />
-      <div className="container mx-auto px-6 py-10 md:py-20">
+      <Container maxWidth={false} sx={{ px: 3, py: { xs: 5, md: 10 } }}>
         {/* Hero Section */}
-        <section className="mb-16">
-          <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-5xl md:text-8xl font-bold tracking-tighter text-[var(--text-primary)] mb-6 leading-tight">
-                Alvian
-                <br />
-                <span className="text-[var(--text-secondary)]">Zachry.</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-[var(--text-secondary)] max-w-lg leading-relaxed mb-10">
-                Software Engineer, Recruiter, & Bootcamp Tech Instructor <br />
-                <span className="text-[var(--text-secondary)] text-xl">bridging the gap between people and technology.</span>
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <a
-                  href="/experience"
-                  className="btn-primary flex items-center gap-2 hover:bg-brand-red transition-colors"
+        <Box component="section" sx={{ mb: 8 }}>
+          <Grid container spacing={8} alignItems="center" sx={{ maxWidth: '80rem', mx: 'auto' }}>
+            <Grid size={{ xs: 12, lg: 6 }}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <Typography
+                  variant="h1"
+                  sx={{
+                    fontSize: { xs: '3rem', md: '6rem' },
+                    fontWeight: 700,
+                    letterSpacing: '-0.05em',
+                    color: 'text.primary',
+                    mb: 4,
+                    lineHeight: 1.25,
+                  }}
                 >
-                  See my work <ArrowRight className="w-4 h-4" />
-                </a>
-                <a href="/Alvian_Zachry_CV.pdf" target="_blank" rel="noopener noreferrer" className="text-[var(--text-secondary)] hover:text-brand-red font-medium flex items-center gap-2 px-6 py-3 transition-colors">
-                  Download CV <Download className="w-4 h-4" />
-                </a>
-              </div>
-            </motion.div>
+                  Alvian
+                  <br />
+                  <Box component="span" sx={{ color: 'text.secondary' }}>Zachry.</Box>
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: { xs: '1.25rem', md: '1.5rem' },
+                    color: 'text.secondary',
+                    maxWidth: '32rem',
+                    lineHeight: 1.625,
+                    mb: 5,
+                  }}
+                >
+                  Software Engineer, Recruiter, & Bootcamp Tech Instructor <br />
+                  <Box component="span" sx={{ fontSize: '1.25rem' }}>bridging the gap between people and technology.</Box>
+                </Typography>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              {/* Updated accent color blob */}
-              <div className="absolute inset-0 bg-brand-red rounded-full blur-3xl opacity-10 transform translate-x-10 translate-y-10"></div>
-              <img
-                src={alvian}
-                alt="Alvian Zachry"
-                className="relative rounded-2xl w-full max-w-md mx-auto shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
-              />
-            </motion.div>
-          </div>
-        </section>
+                <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 2 }}>
+                  <Button
+                    href="/experience"
+                    variant="contained"
+                    endIcon={<ArrowRight size={16} />}
+                    sx={{ px: 3, py: 1.5 }}
+                  >
+                    See my work
+                  </Button>
+                  <Button
+                    href="/Alvian_Zachry_CV.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    endIcon={<Download size={16} />}
+                    sx={{
+                      px: 3,
+                      py: 1.5,
+                      color: 'text.secondary',
+                      '&:hover': { color: 'primary.main', bgcolor: 'transparent' },
+                    }}
+                  >
+                    Download CV
+                  </Button>
+                </Stack>
+              </motion.div>
+            </Grid>
+
+            <Grid size={{ xs: 12, lg: 6 }}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                style={{ position: 'relative' }}
+              >
+                {/* Updated accent color blob */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    inset: 0,
+                    bgcolor: 'primary.main',
+                    borderRadius: '50%',
+                    filter: 'blur(64px)',
+                    opacity: 0.1,
+                    transform: 'translate(2.5rem, 2.5rem)',
+                  }}
+                />
+                <Box
+                  component="img"
+                  src={alvian}
+                  alt="Alvian Zachry"
+                  className="grayscale hover:grayscale-0"
+                  sx={{
+                    position: 'relative',
+                    borderRadius: '1rem',
+                    width: '100%',
+                    maxWidth: '28rem',
+                    mx: 'auto',
+                    display: 'block',
+                    boxShadow: 24,
+                    transition: 'all 0.7s',
+                  }}
+                />
+              </motion.div>
+            </Grid>
+          </Grid>
+        </Box>
 
         {/* Technical Expertise (Infinite Marquee) */}
-        <section className="mb-12 md:mb-24 relative space-y-2">
-          {/* Row 1: Development & Frameworks (Right to Left) */}
-          <div className="max-w-[100vw] overflow-hidden mask-linear-gradient">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-              className="flex w-max gap-4 animate-marquee pause-on-hover py-1"
-            >
-              {[...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name)), ...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name)), ...skills.filter(s => ['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name))].map((skill, index) => (
-                <div
-                  key={`row1-${skill.name}-${index}`}
-                  className="flex items-center gap-2 px-6 py-3 card-modern border border-[var(--border-color)] shadow-sm whitespace-nowrap group hover:border-brand-red hover:shadow-md transition-all duration-300"
-                >
-                  {skill.icon && typeof skill.icon === 'object' && 'prefix' in skill.icon ? (
-                    <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
-                  ) : skill.icon ? (
-                    <skill.icon className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
-                  ) : null}
-                  <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">{skill.name}</span>
-                </div>
-              ))}
-            </motion.div>
-          </div>
+        <Box component="section" sx={{ mb: { xs: 6, md: 12 }, position: 'relative' }}>
+          <Stack spacing={1}>
+            {/* Row 1: Development & Frameworks (Right to Left) */}
+            <Box className="mask-linear-gradient" sx={{ maxWidth: '100vw', overflow: 'hidden' }}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                className="flex w-max gap-4 animate-marquee pause-on-hover py-1"
+              >
+                {[...devSkills, ...devSkills, ...devSkills].map((skill, index) => (
+                  <Box key={`row1-${skill.name}-${index}`} sx={marqueePillSx}>
+                    <SkillIcon icon={skill.icon} />
+                    <Typography component="span" variant="body2" sx={{ fontWeight: 500, color: 'inherit' }}>{skill.name}</Typography>
+                  </Box>
+                ))}
+              </motion.div>
+            </Box>
 
-          {/* Row 2: Infrastructure & Tools (Left to Right) */}
-          <div className="max-w-[100vw] overflow-hidden mask-linear-gradient">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-              className="flex w-max gap-4 animate-marquee-reverse pause-on-hover py-1"
-            >
-              {[...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical'), ...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical'), ...skills.filter(s => !['JavaScript & TypeScript', 'Python', 'PHP', 'Laravel', 'CodeIgniter', 'React.js & Next.js', 'Vue.js', 'Node.js & Express.js', 'NestJS'].includes(s.name) && s.category === 'technical')].map((skill, index) => (
-                <div
-                  key={`row2-${skill.name}-${index}`}
-                  className="flex items-center gap-2 px-6 py-3 card-modern border border-[var(--border-color)] shadow-sm whitespace-nowrap group hover:border-brand-red hover:shadow-md transition-all duration-300"
-                >
-                  {skill.icon && typeof skill.icon === 'object' && 'prefix' in skill.icon ? (
-                    <FontAwesomeIcon icon={skill.icon} className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
-                  ) : skill.icon ? (
-                    <skill.icon className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-brand-red transition-colors" />
-                  ) : null}
-                  <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">{skill.name}</span>
-                </div>
-              ))}
-            </motion.div>
-          </div>
+            {/* Row 2: Infrastructure & Tools (Left to Right) */}
+            <Box className="mask-linear-gradient" sx={{ maxWidth: '100vw', overflow: 'hidden' }}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                className="flex w-max gap-4 animate-marquee-reverse pause-on-hover py-1"
+              >
+                {[...infraSkills, ...infraSkills, ...infraSkills].map((skill, index) => (
+                  <Box key={`row2-${skill.name}-${index}`} sx={marqueePillSx}>
+                    <SkillIcon icon={skill.icon} />
+                    <Typography component="span" variant="body2" sx={{ fontWeight: 500, color: 'inherit' }}>{skill.name}</Typography>
+                  </Box>
+                ))}
+              </motion.div>
+            </Box>
+          </Stack>
 
           {/* Gradient Masks for fading effect - updated to match theme bg */}
-          <div className="absolute top-0 left-0 h-full w-20 bg-gradient-to-r from-[var(--bg-primary)] to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute top-0 right-0 h-full w-20 bg-gradient-to-l from-[var(--bg-primary)] to-transparent z-10 pointer-events-none"></div>
-        </section>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              height: '100%',
+              width: '5rem',
+              background: (theme) => `linear-gradient(to right, ${theme.palette.background.default}, transparent)`,
+              zIndex: 10,
+              pointerEvents: 'none',
+            }}
+          />
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              height: '100%',
+              width: '5rem',
+              background: (theme) => `linear-gradient(to left, ${theme.palette.background.default}, transparent)`,
+              zIndex: 10,
+              pointerEvents: 'none',
+            }}
+          />
+        </Box>
 
         {/* Biography (About Me) */}
-        <section className="max-w-4xl mx-auto mb-12 md:mb-24">
+        <Box component="section" sx={{ maxWidth: '56rem', mx: 'auto', mb: { xs: 6, md: 12 } }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-8 ">About Me</h2>
-            <p className="text-lg text-[var(--text-secondary)] leading-loose">
+            <Typography variant="h4" component="h2" sx={{ fontSize: '1.875rem', fontWeight: 700, color: 'text.primary', mb: 4 }}>
+              About Me
+            </Typography>
+            <Typography sx={{ fontSize: '1.125rem', color: 'text.secondary', lineHeight: 2 }}>
               Hi, I'm Ary! I’m a tech geek at heart who loves bringing people together. I spend my days building full-stack systems and—my favorite part—mentoring the next generation of engineers. I’m really passionate about bridging the gap between talent in Southeast Asia and opportunities in Europe. When I’m not deep in code, I’m usually coaching teams, helping someone pivot their career, or just geeking out on how to make Agile actually work.
-            </p>
+            </Typography>
           </motion.div>
-        </section>
+        </Box>
 
         {/* Soft Skills & Languages (Horizontal Layout) */}
-        <section className="max-w-7xl mx-auto mb-16 md:mb-32">
+        <Box component="section" sx={{ maxWidth: '80rem', mx: 'auto', mb: { xs: 8, md: 16 } }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="grid grid-cols-1 gap-12">
+            <Stack spacing={6}>
               {categories.filter(cat => cat.name !== 'Technical Skills').map((category) => (
-                <div key={category.name} className="space-y-6">
-                  <h3 className="text-xl font-semibold text-[var(--text-primary)] flex items-center gap-3 border-b border-[var(--border-color)] pb-4">
-                    <category.icon className="w-6 h-6 text-brand-red" />
+                <Stack key={category.name} spacing={3}>
+                  <Typography
+                    variant="h6"
+                    component="h3"
+                    sx={{
+                      fontSize: '1.25rem',
+                      fontWeight: 600,
+                      color: 'text.primary',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1.5,
+                      borderBottom: '1px solid',
+                      borderColor: 'divider',
+                      pb: 2,
+                    }}
+                  >
+                    <Box component={category.icon} sx={{ width: 24, height: 24, color: 'primary.main' }} />
                     {category.name}
-                  </h3>
+                  </Typography>
 
-                  <div className="flex flex-wrap gap-4">
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
                     {skills
                       .filter(skill => skill.category === category.name.toLowerCase().split(' ')[0])
                       .map((skill) => (
-                        <div key={skill.name} className="flex-1 min-w-[240px] sm:min-w-[280px] max-w-[350px]">
-                          <ModernCard className="h-full flex items-center gap-4 p-5 hover:border-brand-red/30 transition-all hover:shadow-md hover:-translate-y-1 bg-[var(--card-bg)]">
-                            <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
-                              {skill.icon && typeof skill.icon === 'object' && 'prefix' in skill.icon ? (
-                                <FontAwesomeIcon icon={skill.icon} className="w-5 h-5" />
-                              ) : skill.icon ? (
-                                <skill.icon className="w-5 h-5" />
-                              ) : null}
-                            </div>
-                            <div>
-                              <h4 className="font-semibold text-[var(--text-primary)]">{skill.name}</h4>
-                              <p className="text-sm text-[var(--text-secondary)] mt-1 leading-snug">{skill.description}</p>
-                            </div>
+                        <Box key={skill.name} sx={{ flex: 1, minWidth: { xs: '240px', sm: '280px' }, maxWidth: '350px' }}>
+                          <ModernCard className="h-full flex items-center gap-4 p-5">
+                            <Box
+                              sx={{
+                                p: 1.5,
+                                bgcolor: 'background.default',
+                                borderRadius: '0.75rem',
+                                color: 'text.secondary',
+                                transition: 'color 0.3s',
+                                '.card-modern:hover &': { color: 'primary.main' },
+                              }}
+                            >
+                              <SkillIcon icon={skill.icon} />
+                            </Box>
+                            <Box>
+                              <Typography component="h4" sx={{ fontWeight: 600, color: 'text.primary' }}>{skill.name}</Typography>
+                              <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5, lineHeight: 1.375 }}>{skill.description}</Typography>
+                            </Box>
                           </ModernCard>
-                        </div>
+                        </Box>
                       ))}
-                  </div>
-                </div>
+                  </Box>
+                </Stack>
               ))}
-            </div>
+            </Stack>
           </motion.div>
-        </section>
+        </Box>
 
         {/* Contact Section */}
-        <section id="contact" className="max-w-4xl mx-auto mb-12 md:mb-24">
+        <Box component="section" id="contact" sx={{ maxWidth: '56rem', mx: 'auto', mb: { xs: 6, md: 12 } }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-8">Get in Touch</h2>
-            <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-10">
+            <Typography variant="h4" component="h2" sx={{ fontSize: '1.875rem', fontWeight: 700, color: 'text.primary', mb: 4 }}>
+              Get in Touch
+            </Typography>
+            <Typography sx={{ fontSize: '1.125rem', color: 'text.secondary', lineHeight: 1.625, mb: 5 }}>
               Whether you're looking to collaborate on a project, need consulting, or just want to chat about tech and talent—I'd love to hear from you!
-            </p>
+            </Typography>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Email */}
-              <ModernCard className="p-6 hover:border-brand-red/30 transition-all hover:shadow-lg hover:-translate-y-1 group">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
-                    <Mail className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-[var(--text-primary)] mb-2">Email</h3>
-                    <a
-                      href="mailto:hello@alvianzf.id"
-                      className="text-[var(--text-secondary)] hover:text-brand-red transition-colors"
-                    >
-                      hello@alvianzf.id
-                    </a>
-                  </div>
-                </div>
-              </ModernCard>
-
-              {/* Schedule a Call */}
-              <ModernCard className="p-6 hover:border-brand-red/30 transition-all hover:shadow-lg hover:-translate-y-1 group">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
-                    <Calendar className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-[var(--text-primary)] mb-2">Schedule a Call</h3>
-                    <a
-                      href="https://calendar.app.google/J3gjDH8fv98BjSHz7"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[var(--text-secondary)] hover:text-brand-red transition-colors"
-                    >
-                      Book a time
-                    </a>
-                  </div>
-                </div>
-              </ModernCard>
-
-              {/* LinkedIn */}
-              <ModernCard className="p-6 hover:border-brand-red/30 transition-all hover:shadow-lg hover:-translate-y-1 group">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
-                    <Linkedin className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-[var(--text-primary)] mb-2">LinkedIn</h3>
-                    <a
-                      href="https://linkedin.com/in/alvianzf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[var(--text-secondary)] hover:text-brand-red transition-colors"
-                    >
-                      linkedin.com/in/alvianzf
-                    </a>
-                  </div>
-                </div>
-              </ModernCard>
-
-              {/* GitHub */}
-              <ModernCard className="p-6 hover:border-brand-red/30 transition-all hover:shadow-lg hover:-translate-y-1 group">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-[var(--bg-primary)] rounded-xl text-[var(--text-secondary)] group-hover:text-brand-red transition-colors">
-                    <Github className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-[var(--text-primary)] mb-2">GitHub</h3>
-                    <a
-                      href="https://github.com/alvianzf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[var(--text-secondary)] hover:text-brand-red transition-colors"
-                    >
-                      github.com/alvianzf
-                    </a>
-                  </div>
-                </div>
-              </ModernCard>
-            </div>
+            <Grid container spacing={3}>
+              {contactItems.map((item) => (
+                <Grid key={item.title} size={{ xs: 12, md: 6 }}>
+                  <ModernCard className="h-full">
+                    <Stack direction="row" spacing={2} alignItems="flex-start">
+                      <Box
+                        sx={{
+                          p: 1.5,
+                          bgcolor: 'background.default',
+                          borderRadius: '0.75rem',
+                          color: 'text.secondary',
+                          transition: 'color 0.3s',
+                          '.card-modern:hover &': { color: 'primary.main' },
+                        }}
+                      >
+                        <item.icon className="w-6 h-6" />
+                      </Box>
+                      <Box>
+                        <Typography component="h3" sx={{ fontWeight: 600, color: 'text.primary', mb: 1 }}>{item.title}</Typography>
+                        <MuiLink
+                          href={item.href}
+                          underline="none"
+                          {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                          sx={{ color: 'text.secondary', transition: 'color 0.3s', '&:hover': { color: 'primary.main' } }}
+                        >
+                          {item.label}
+                        </MuiLink>
+                      </Box>
+                    </Stack>
+                  </ModernCard>
+                </Grid>
+              ))}
+            </Grid>
           </motion.div>
-        </section>
+        </Box>
         {/* <PromoPopup /> */}
-      </div>
-    </div>
+      </Container>
+    </Box>
   );
 }

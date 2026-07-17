@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, X } from 'lucide-react';
+import { Box, Button, InputBase } from '@mui/material';
 
 interface Challenge {
   id: number;
@@ -76,6 +77,8 @@ export default function TypeEditor() {
     }
   };
 
+  const inputColor = status === 'error' ? '#F48771' : status === 'success' ? '#4EC9B0' : undefined;
+
   return (
     <div className="w-full max-w-4xl mx-auto space-y-8">
       <div className="bg-[#1E1E1E] rounded-xl shadow-2xl overflow-hidden border border-slate-700 font-mono text-sm md:text-base">
@@ -95,21 +98,35 @@ export default function TypeEditor() {
             <span className="text-[#569CD6]"></span>
             <span>{challenge.codeBefore}</span>
             <div className="relative inline-block min-w-[100px]">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => {
-                  setInput(e.target.value);
-                  setStatus('idle');
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  checkAnswer();
                 }}
-                onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
-                className={`bg-transparent border-b-2 outline-none w-full font-mono transition-colors ${status === 'error' ? 'border-[#F48771] text-[#F48771]' :
-                  status === 'success' ? 'border-[#4EC9B0] text-[#4EC9B0]' :
-                    'border-[#569CD6] text-white'
-                  }`}
-                placeholder={challenge.placeholder}
-                autoFocus
-              />
+              >
+                <InputBase
+                  value={input}
+                  onChange={(e) => {
+                    setInput(e.target.value);
+                    setStatus('idle');
+                  }}
+                  placeholder={challenge.placeholder}
+                  autoFocus
+                  fullWidth
+                  sx={{
+                    fontFamily: 'monospace',
+                    fontSize: 'inherit',
+                    color: inputColor ?? 'white',
+                    borderBottom: '2px solid',
+                    borderColor: inputColor ?? '#569CD6',
+                    borderRadius: 0,
+                    transition: 'color 0.2s, border-color 0.2s',
+                    '& .MuiInputBase-input': { p: 0 },
+                  }}
+                />
+                {/* Hidden submit so Enter triggers Compile */}
+                <button type="submit" hidden />
+              </form>
               {status === 'error' && (
                 <div className="absolute top-full left-0 w-full h-1 bg-red-500/50 wave-underline" />
               )}
@@ -125,33 +142,54 @@ export default function TypeEditor() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`flex items-center gap-3 px-6 py-3 rounded-lg ${status === 'success' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-              }`}
           >
-            {status === 'success' ? <Check className="w-5 h-5" /> : <X className="w-5 h-5" />}
-            <span className="font-bold">{message}</span>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1.5,
+                px: 3,
+                py: 1.5,
+                borderRadius: 2,
+                fontWeight: 'bold',
+                ...(status === 'success'
+                  ? { bgcolor: 'rgba(34, 197, 94, 0.15)', color: '#16a34a' }
+                  : { bgcolor: 'rgba(239, 68, 68, 0.15)', color: '#dc2626' }),
+              }}
+            >
+              {status === 'success' ? <Check className="w-5 h-5" /> : <X className="w-5 h-5" />}
+              <span>{message}</span>
+            </Box>
           </motion.div>
         )}
 
         <div className="flex gap-4">
-          <button
+          <Button
             onClick={checkAnswer}
             disabled={status === 'success'}
-            className={`px-8 py-3 rounded-lg font-bold transition-all ${status === 'success'
-              ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-              : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-500/30'
-              }`}
+            variant="contained"
+            sx={{
+              px: 4,
+              py: 1.5,
+              borderRadius: 2,
+              fontWeight: 'bold',
+              bgcolor: '#2563eb',
+              color: 'white',
+              boxShadow: 4,
+              '&:hover': { bgcolor: '#1d4ed8', boxShadow: '0 10px 15px -3px rgba(59, 130, 246, 0.3)' },
+            }}
           >
             Compile
-          </button>
+          </Button>
 
           {status === 'success' && currentLevel < CHALLENGES.length - 1 && (
-            <button
+            <Button
               onClick={nextLevel}
-              className="px-8 py-3 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-700 transition-all shadow-lg"
+              variant="contained"
+              sx={{ px: 4, py: 1.5, bgcolor: '#1e293b', color: 'white', fontWeight: 'bold', borderRadius: 2, boxShadow: 4, '&:hover': { bgcolor: '#334155' } }}
             >
               Next Error
-            </button>
+            </Button>
           )}
         </div>
       </div>
