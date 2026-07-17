@@ -160,6 +160,8 @@ export default function Footer() {
               </Box>
               <li><Link component={RouterLink} to="/tools/thesis-creator" sx={linkSx}>Thesis Procrastinator</Link></li>
               <li><Link component={RouterLink} to="/tools/whatsapp-formatter" sx={linkSx}>Boomer Text Gen</Link></li>
+              <li><Link component={RouterLink} to="/tools/markdown-to-pdf" sx={linkSx}>The AI Slop Polisher</Link></li>
+              <li><Link component={RouterLink} to="/tools/database-playground" sx={linkSx}>DBA Cosplay Kit</Link></li>
 
               <Box
                 component="li"
