@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Home, ArrowLeft } from 'lucide-react';
 import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import { SquigglyBackground } from '@alvianzf/squiggly-lines-go-brrr';
+import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 
 const messages = [
   "Wow, you found nothing. Just like my motivation on a Monday.",
@@ -34,6 +36,13 @@ export default function NotFound() {
         p: 3,
       }}
     >
+      <SEO
+        title="404 - Page Not Found"
+        description="This page doesn't exist. Seriously, there's nothing here. Go back home."
+      />
+      <Helmet>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <SquigglyBackground
         variant="worms"
         count={50}

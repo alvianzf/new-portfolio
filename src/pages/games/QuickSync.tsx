@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Timer, Trophy, Play, Calendar, Pause, RotateCcw } from 'lucide-react';
 import { Box, Button, IconButton, Paper, Typography } from '@mui/material';
+import SEO from '../../components/SEO';
 import PlayerDev from '../../components/games/PlayerDev';
 import CalendarInvite from '../../components/games/CalendarInvite';
 
@@ -129,6 +130,10 @@ export default function QuickSync() {
       onMouseMove={handleMove}
       onTouchMove={handleMove}
     >
+      <SEO
+        title="Quick Sync Dodge"
+        description="Dodge the falling calendar invites and protect your focus time. Every meeting you avoid could have been an email anyway."
+      />
       {/* HUD */}
       <div className="absolute top-24 left-0 right-0 z-40 px-4 pointer-events-none flex flex-col items-center gap-4">
         <div className="flex justify-center gap-8 w-full max-w-2xl">

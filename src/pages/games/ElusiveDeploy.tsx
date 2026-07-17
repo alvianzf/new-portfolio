@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, Lock, Unlock, RotateCcw } from 'lucide-react';
 import { Box, Button, Paper, Typography } from '@mui/material';
+import SEO from '../../components/SEO';
 import RunawayButton from '../../components/games/RunawayButton';
 
 const TAUNTS = [
@@ -34,6 +35,10 @@ export default function ElusiveDeploy() {
 
   return (
     <Box className="min-h-screen pt-20 pb-10 overflow-hidden relative select-none flex flex-col items-center" sx={{ bgcolor: 'background.default' }}>
+      <SEO
+        title="The Elusive Deploy"
+        description="All you have to do is click the deploy button. That's it. It just... doesn't want to be clicked. Closest thing to a real Friday deploy."
+      />
       {/* HUD */}
       <div className="relative mt-4 z-30 flex flex-col items-center gap-4 px-6">
         <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', color: 'text.primary' }}>Production Deployment</Typography>

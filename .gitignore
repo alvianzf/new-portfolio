@@ -39,3 +39,6 @@ storybook-static
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+.env
+.env.local

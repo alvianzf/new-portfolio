@@ -1,9 +1,14 @@
 import { Box, Container, Typography } from '@mui/material';
+import SEO from '../../components/SEO';
 import TypeEditor from '../../components/games/TypeEditor';
 
 export default function LearnTypeScript() {
   return (
     <Box className="min-h-screen pt-20 pb-10" sx={{ bgcolor: 'background.default' }}>
+      <SEO
+        title="Type Torture"
+        description="You said you know TypeScript. Prove it. Replace every 'any' with something that makes the compiler happy and your colleagues confused."
+      />
       <Container maxWidth="lg" sx={{ px: 3 }}>
         <Box sx={{ textAlign: 'center', mb: 6 }}>
           <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">

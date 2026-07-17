@@ -6,9 +6,11 @@ import LatexCheatSheet from './LatexCheatSheet';
 // @ts-expect-error - latex.js likely doesn't have types wrapped nicely for this usage
 import { parse, HtmlGenerator } from 'latex.js';
 
+// NOTE: no \usepackage{amsmath} — latex.js 0.12.6 ships an empty dist/packages/
+// directory and tries to load packages via runtime require(), which fails under
+// Vite/ESM ("error loading package ... require is not defined"). Math is rendered
+// by latex.js's bundled KaTeX and does not need the amsmath declaration.
 const DEFAULT_LATEX = `\\documentclass{article}
-  \\usepackage{amsmath}
-
   \\title{General Relativity Notes}
   \\author{Alvian Zachry Faturrahman}
   \\date{\\today}
@@ -69,7 +71,7 @@ const DEFAULT_LATEX = `\\documentclass{article}
 export default function LatexEditor() {
   const [code, setCode] = useState(DEFAULT_LATEX);
   const [error, setError] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1024);
   const [isCheatSheetOpen, setIsCheatSheetOpen] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -93,8 +95,10 @@ export default function LatexEditor() {
       // Parse the LaTeX code
       const doc = parse(code, { generator: generator });
 
-      // Get the HTML document from the generator
-      const htmlDoc = doc.htmlDocument();
+      // Get the HTML document from the generator. Pass the CDN dist URL so the
+      // generated <head> resolves css/katex.css, css/article.css and js/base.js
+      // against it instead of 404ing on relative paths under /tools/.
+      const htmlDoc = doc.htmlDocument('https://cdn.jsdelivr.net/npm/latex.js@0.12.6/dist/');
 
       // Add some basic styling to the generated HTML
       const style = htmlDoc.createElement('style');
@@ -135,11 +139,12 @@ export default function LatexEditor() {
     }
   };
 
-  // Compilation effect
+  // Compilation effect — skip while the mobile "Desktop Only" gate is shown
   useEffect(() => {
+    if (isMobile) return;
     compileLatex();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [code]);
+  }, [code, isMobile]);
 
   const handleDownload = () => {
     if (iframeRef.current && iframeRef.current.contentWindow) {

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bug as BugIcon, AlertTriangle, Trophy, Play, Pause, RotateCcw } from 'lucide-react';
 import { Box, Button, IconButton, Paper, Typography } from '@mui/material';
+import SEO from '../../components/SEO';
 import BSOD from '../../components/games/BSOD';
 import Bug from '../../components/games/Bug';
 
@@ -86,6 +87,10 @@ export default function BugSquash() {
 
   return (
     <Box className="min-h-screen pt-20 pb-10 px-4 overflow-hidden relative select-none" sx={{ bgcolor: 'background.default' }}>
+      <SEO
+        title="Bug Squash"
+        description="Whack-a-bug stress relief. Squash the bugs before they take down production. Just like your day job, except this one has a score counter."
+      />
       {/* HUD */}
       <div className="absolute top-24 left-0 right-0 z-40 px-4 pointer-events-none flex flex-col items-center gap-4">
         <div className="flex justify-center gap-8 w-full max-w-2xl">

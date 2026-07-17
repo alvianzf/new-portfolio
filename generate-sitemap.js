@@ -1,7 +1,17 @@
 import fs from 'fs';
 
+// Minimal .env loader (node doesn't read .env; avoids a dotenv dependency)
+if (fs.existsSync('.env')) {
+  for (const line of fs.readFileSync('.env', 'utf8').split('\n')) {
+    const m = line.match(/^([A-Z_]+)=(.*)$/);
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2];
+  }
+}
+
 const baseUrl = 'https://alvianzf.id';
-const API_KEY = 'AIzaSyCw9p4Ar_wc9h3zOuaPb7JcdH3Lj8Ail_4';
+// Set BLOGGER_API_KEY (or VITE_BLOGGER_API_KEY) in the environment; the key
+// must be referrer/API-restricted in Google Cloud Console.
+const API_KEY = process.env.BLOGGER_API_KEY || process.env.VITE_BLOGGER_API_KEY;
 const BLOG_ID = '369044396031799467';
 const staticPages = [
   '/',
@@ -20,18 +30,23 @@ const staticPages = [
 
 async function generateSitemap() {
   try {
-    console.log('Fetching blog posts...');
-    const response = await fetch(
-      `https://www.googleapis.com/blogger/v3/blogs/${BLOG_ID}/posts?key=${API_KEY}&maxResults=500`
-    );
-    
-    if (!response.ok) {
-      throw new Error(`Failed to fetch posts: ${response.statusText}`);
+    let posts = [];
+    if (!API_KEY) {
+      console.warn('BLOGGER_API_KEY not set — generating sitemap without blog posts.');
+    } else {
+      console.log('Fetching blog posts...');
+      const response = await fetch(
+        `https://www.googleapis.com/blogger/v3/blogs/${BLOG_ID}/posts?key=${API_KEY}&maxResults=500`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch posts: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      posts = data.items || [];
     }
 
-    const data = await response.json();
-    const posts = data.items || [];
-    
     console.log(`Found ${posts.length} posts.`);
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

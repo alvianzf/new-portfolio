@@ -1,10 +1,15 @@
 import { Layout } from 'lucide-react';
 import { Box, Chip, Container, Typography } from '@mui/material';
+import SEO from '../../components/SEO';
 import FlexPlayground from '../../components/games/FlexPlayground';
 
 export default function LearnFlex() {
   return (
     <Box className="min-h-screen pt-20 pb-10" sx={{ bgcolor: 'background.default' }}>
+      <SEO
+        title="Learn Flexbox (The Fun Way)"
+        description="Learn to center a div without crying. An interactive flexbox playground for developers whose client changed their mind five times today."
+      />
       <Container maxWidth="lg" sx={{ px: 3 }}>
         <Box sx={{ textAlign: 'center', mb: 6 }}>
           <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6 transform rotate-3 hover:rotate-6 transition-transform">
