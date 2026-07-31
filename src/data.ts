@@ -212,7 +212,7 @@ export const projects: Experience[] = [
     title: "SIMO — Sports Management Information System",
     company: "KONI Kota Batam",
     icon: Trophy,
-    period: "Present",
+    period: "Jul 2026 – Present",
     description:
       "Built SIMO (Sistem Informasi Manajemen Olahraga), the sports management platform operated by KONI Batam for athlete, coach, and official records across every sport discipline — plus achievements, medal tracking, news, and the event calendar. Bilingual ID/EN SEO with a rich-text editorial workflow and realtime updates.",
     link: "https://simo-konibatam.com",
