@@ -184,6 +184,7 @@ export default function Footer() {
                 { href: 'https://www.npmjs.com/package/env-validate-sarcastically', label: 'Env Bully' },
                 { href: 'https://www.npmjs.com/package/a-valid-json', label: 'Trust Issues' },
                 { href: 'https://www.npmjs.com/package/@alvianzf/squiggly-lines-go-brrr', label: 'CPU Heater' },
+                { href: 'https://www.npmjs.com/package/no-please', label: 'Excuse Machine' },
               ].map((pkg) => (
                 <Link
                   key={pkg.href}

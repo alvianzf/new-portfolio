@@ -1,5 +1,5 @@
 import { Experience, Skill, Category, NpmPackage } from "./types";
-import { Code2, Brain, Languages, UserSearch, Presentation, GraduationCap, Terminal, Rocket, Server, LayoutTemplate, Flame, Bot } from "lucide-react";
+import { Code2, Brain, Languages, UserSearch, Presentation, GraduationCap, Terminal, Rocket, Server, LayoutTemplate, Flame, Bot, Trophy } from "lucide-react";
 import {
   faReact,
   faNode,
@@ -208,6 +208,17 @@ export const experiences: Experience[] = [
 ];
 
 export const projects: Experience[] = [
+  {
+    title: "SIMO — Sports Management Information System",
+    company: "KONI Kota Batam",
+    icon: Trophy,
+    period: "Present",
+    description:
+      "Built SIMO (Sistem Informasi Manajemen Olahraga), the sports management platform operated by KONI Batam for athlete, coach, and official records across every sport discipline — plus achievements, medal tracking, news, and the event calendar. Bilingual ID/EN SEO with a rich-text editorial workflow and realtime updates.",
+    link: "https://simo-konibatam.com",
+    techStack: ["React", "TypeScript", "Vite", "TipTap", "Socket.IO", "SEO"],
+    category: "technical",
+  },
   {
     title: "Full-Stack Product Engineer",
     company: "LearnWithAndi",
@@ -470,5 +481,11 @@ export const npmPackages: NpmPackage[] = [
     description: "CPU Heater. Adds squiggly lines to your background to warm up your room.",
     command: "npm i @alvianzf/squiggly-lines-go-brrr",
     url: "https://www.npmjs.com/package/@alvianzf/squiggly-lines-go-brrr",
+  },
+  {
+    name: "no-please",
+    description: "Excuse Machine. Reasons to say no, in five escalating levels of politeness. No instance required.",
+    command: "npm i no-please",
+    url: "https://www.npmjs.com/package/no-please",
   },
 ];

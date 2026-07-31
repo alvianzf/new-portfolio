@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Github, Linkedin, ChevronDown, FileJson, Receipt, CloudRain, MessageSquareWarning, CheckCircle2, Menu, X, Terminal, Coins, AreaChart, Sparkles, Database as DatabaseIcon } from 'lucide-react';
+import { Github, Linkedin, ChevronDown, FileJson, Receipt, CloudRain, MessageSquareWarning, CheckCircle2, Menu, X, Terminal, Coins, AreaChart, Sparkles, Ban, Database as DatabaseIcon } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedium } from '@fortawesome/free-brands-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -79,6 +79,7 @@ const TOOLS_NPM: MenuItemDef[] = [
   { title: 'Env Bully', desc: 'Yells at you for missing keys', href: 'https://www.npmjs.com/package/env-validate-sarcastically', color: '#ca8a04', icon: <MessageSquareWarning size={20} /> },
   { title: 'Trust Issues', desc: 'Paranoid JSON validation', href: 'https://www.npmjs.com/package/a-valid-json', color: '#0d9488', icon: <CheckCircle2 size={20} /> },
   { title: 'CPU Heater', desc: 'Laggy background lines', href: 'https://www.npmjs.com/package/@alvianzf/squiggly-lines-go-brrr', color: '#db2777', icon: emojiIcon('🪱') },
+  { title: 'Excuse Machine', desc: 'Five escalating levels of no', href: 'https://www.npmjs.com/package/no-please', color: '#dc2626', icon: <Ban size={20} /> },
 ];
 
 function SectionHeading({ children, noBorder }: { children: React.ReactNode; noBorder?: boolean }) {
