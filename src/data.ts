@@ -216,7 +216,7 @@ export const projects: Experience[] = [
     description:
       "Built SIMO (Sistem Informasi Manajemen Olahraga), the sports management platform operated by KONI Batam for athlete, coach, and official records across every sport discipline — plus achievements, medal tracking, news, and the event calendar. Bilingual ID/EN SEO with a rich-text editorial workflow and realtime updates.",
     link: "https://simo-konibatam.com",
-    techStack: ["React", "TypeScript", "Vite", "TipTap", "Socket.IO", "SEO"],
+    techStack: ["React", "TypeScript", "Vite", "Node.js", "Express", "PostgreSQL", "TipTap", "Socket.IO", "SEO"],
     category: "technical",
   },
   {
