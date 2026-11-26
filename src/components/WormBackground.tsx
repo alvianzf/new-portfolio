@@ -51,26 +51,31 @@ export default function WormBackground() {
       />
 
       {/* Variant Switcher */}
-      <div className="fixed bottom-20 right-4 z-50">
+      <div className="fixed bottom-20 right-4 z-50 iso-perspective">
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.9 }}
-              className="absolute bottom-16 right-0 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 mb-2 min-w-[180px]"
+              initial={{ opacity: 0, rotateX: -10, y: 10 }}
+              animate={{ opacity: 1, rotateX: 0, y: 0 }}
+              exit={{ opacity: 0, rotateX: -10, y: 10 }}
+              style={{
+                transformStyle: 'preserve-3d',
+                backgroundColor: 'var(--card-bg)',
+                borderColor: 'var(--border-color)',
+                boxShadow: '8px 8px 0px var(--border-color)',
+              }}
+              className="absolute bottom-16 right-0 rounded-xl border p-2 mb-2 min-w-[180px]"
             >
               <div className="space-y-1">
                 {variants.map((v) => {
                   const Icon = variantIcons[v];
+                  const active = variant === v;
                   return (
                     <button
                       key={v}
                       onClick={() => setVariant(v)}
-                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${variant === v
-                        ? 'bg-[#990000] text-white'
-                        : 'hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
-                        }`}
+                      style={active ? { backgroundColor: 'var(--accent-primary)', color: '#fff' } : { color: 'var(--text-secondary)' }}
+                      className="w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all hover:brightness-95"
                     >
                       <Icon className="w-4 h-4" />
                       <span className="text-sm font-medium">{variantLabels[v]}</span>
@@ -79,17 +84,15 @@ export default function WormBackground() {
                 })}
               </div>
 
-              <div className="mt-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-                <p className="px-1 pb-1 text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Direction</p>
+              <div className="mt-2 pt-2 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                <p className="px-1 pb-1 text-[10px] uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>Direction</p>
                 <div className="flex flex-wrap gap-1">
                   {directions.map((d) => (
                     <button
                       key={d}
                       onClick={() => setDirection(d)}
-                      className={`px-2 py-1 rounded-md text-xs font-medium capitalize transition-all ${direction === d
-                        ? 'bg-[#990000] text-white'
-                        : 'hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
-                        }`}
+                      style={direction === d ? { backgroundColor: 'var(--accent-primary)', color: '#fff' } : { color: 'var(--text-secondary)' }}
+                      className="px-2 py-1 rounded-md text-xs font-medium capitalize transition-all hover:brightness-95"
                     >
                       {d}
                     </button>
@@ -97,17 +100,15 @@ export default function WormBackground() {
                 </div>
               </div>
 
-              <div className="mt-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-                <p className="px-1 pb-1 text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Speed</p>
+              <div className="mt-2 pt-2 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                <p className="px-1 pb-1 text-[10px] uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>Speed</p>
                 <div className="flex flex-wrap gap-1">
                   {speeds.map((s) => (
                     <button
                       key={s}
                       onClick={() => setSpeed(s)}
-                      className={`px-2 py-1 rounded-md text-xs font-medium capitalize transition-all ${speed === s
-                        ? 'bg-[#990000] text-white'
-                        : 'hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
-                        }`}
+                      style={speed === s ? { backgroundColor: 'var(--accent-primary)', color: '#fff' } : { color: 'var(--text-secondary)' }}
+                      className="px-2 py-1 rounded-md text-xs font-medium capitalize transition-all hover:brightness-95"
                     >
                       {s}
                     </button>
@@ -120,15 +121,21 @@ export default function WormBackground() {
 
         {/* Toggle Button */}
         <motion.button
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ rotateX: -6, rotateY: 6 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
-          className="w-12 h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:shadow-xl transition-all group"
+          style={{
+            backgroundColor: 'var(--card-bg)',
+            borderColor: 'var(--border-color)',
+            boxShadow: '4px 4px 0px var(--border-color)',
+            transformStyle: 'preserve-3d',
+          }}
+          className="w-12 h-12 rounded-full border flex items-center justify-center transition-all group"
           aria-label="Change animation variant"
         >
           {(() => {
             const Icon = variantIcons[variant];
-            return <Icon className="w-5 h-5 text-slate-700 dark:text-slate-300 group-hover:text-[#990000] transition-colors" />;
+            return <Icon className="w-5 h-5 transition-colors" style={{ color: 'var(--text-secondary)' }} />;
           })()}
         </motion.button>
       </div>

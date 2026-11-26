@@ -200,44 +200,53 @@ function HoverDropdown({
       </Button>
 
       <Box
+        className="iso-perspective"
         sx={{
           position: 'absolute',
           top: '100%',
           width,
           pt: 2,
           ...(align === 'center' ? { left: '50%', transform: 'translateX(-50%)' } : { right: 0 }),
-          opacity: open ? 1 : 0,
           visibility: open ? 'visible' : 'hidden',
-          transition: 'opacity 0.2s, visibility 0.2s',
         }}
       >
-        <Box
-          sx={{
-            position: 'relative',
-            bgcolor: 'background.paper',
-            borderRadius: 3,
-            boxShadow: 8,
-            border: 1,
-            borderColor: 'divider',
-            p: 3,
-          }}
-        >
-          <Box
-            sx={{
-              position: 'absolute',
-              top: -8,
-              ...(align === 'center' ? { left: '50%', ml: '-8px' } : { right: 24 }),
-              width: 16,
-              height: 16,
-              bgcolor: 'background.paper',
-              borderTop: 1,
-              borderLeft: 1,
-              borderColor: 'divider',
-              transform: 'rotate(45deg)',
-            }}
-          />
-          {children}
-        </Box>
+        <AnimatePresence>
+          {open && (
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, rotateX: -12, y: -8 }}
+              animate={{ opacity: 1, rotateX: 0, y: 0 }}
+              exit={{ opacity: 0, rotateX: -12, y: -8 }}
+              transition={{ duration: 0.18 }}
+              style={{ transformStyle: 'preserve-3d' }}
+              sx={{
+                position: 'relative',
+                bgcolor: 'background.paper',
+                borderRadius: 3,
+                boxShadow: (theme) => `10px 10px 0px ${theme.palette.divider}`,
+                border: 1,
+                borderColor: 'divider',
+                p: 3,
+              }}
+            >
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: -8,
+                  ...(align === 'center' ? { left: '50%', ml: '-8px' } : { right: 24 }),
+                  width: 16,
+                  height: 16,
+                  bgcolor: 'background.paper',
+                  borderTop: 1,
+                  borderLeft: 1,
+                  borderColor: 'divider',
+                  transform: 'rotate(45deg)',
+                }}
+              />
+              {children}
+            </Box>
+          )}
+        </AnimatePresence>
       </Box>
     </Box>
   );
@@ -430,10 +439,11 @@ export default function Header() {
         {isMobileMenuOpen && (
           <Box
             component={motion.div}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, rotateX: -6, y: -20 }}
+            animate={{ opacity: 1, rotateX: 0, y: 0 }}
+            exit={{ opacity: 0, rotateX: -6, y: -20 }}
             transition={{ duration: 0.2 }}
+            style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
             sx={{
               position: 'fixed',
               top: '73px',

@@ -4,9 +4,9 @@ import About from '../About';
 import { renderWithProviders } from '../../test-utils';
 
 // Mock components that might cause issues or are tested separately
-vi.mock('../../components/ModernCard', () => ({
+vi.mock('../../components/iso/IsoCard', () => ({
   default: ({ children, className }: { children: React.ReactNode, className?: string }) => (
-    <div data-testid="modern-card" className={className}>{children}</div>
+    <div data-testid="iso-card" className={className}>{children}</div>
   )
 }));
 

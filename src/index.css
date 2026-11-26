@@ -146,6 +146,22 @@
 }
 
 @layer utilities {
+  /* Isometric primitives (src/components/iso/*) rely on these for the
+     shared perspective/3D-face mechanics. Colors stay token-driven via
+     the CSS vars above / MUI theme.custom.isCyberpunk, not hardcoded here. */
+  .iso-perspective {
+    perspective: 1200px;
+  }
+
+  .iso-face {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  .cyberpunk .iso-face {
+    border-radius: 0 !important;
+  }
+
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r;
     --tw-gradient-from: var(--text-primary);

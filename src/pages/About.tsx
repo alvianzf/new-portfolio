@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
-import ModernCard from '../components/ModernCard';
+import IsoCard from '../components/iso/IsoCard';
 import SEO from '../components/SEO';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -34,9 +34,10 @@ const CodeSpan = ({ children }: { children: React.ReactNode }) => (
 );
 
 const sectionMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
+  initial: { opacity: 0, y: 20, rotateX: 8 },
+  whileInView: { opacity: 1, y: 0, rotateX: 0 },
   viewport: { once: true },
+  style: { transformStyle: 'preserve-3d' as const, perspective: 1000 },
 } as const;
 
 const CodeWindow = ({
@@ -56,7 +57,17 @@ const CodeWindow = ({
   dots?: boolean;
   sx?: object;
 }) => (
-  <Box sx={{ borderRadius: small ? 2 : 3, overflow: 'hidden', border: 1, borderColor: 'divider', ...sx }}>
+  <Box
+    className="iso-perspective"
+    sx={{
+      borderRadius: small ? 2 : 3,
+      overflow: 'hidden',
+      border: 1,
+      borderColor: 'divider',
+      boxShadow: (theme) => `${small ? 6 : 10}px ${small ? 6 : 10}px 0px ${theme.palette.divider}`,
+      ...sx,
+    }}
+  >
     <Stack
       direction="row"
       alignItems="center"
@@ -379,7 +390,6 @@ async function generateSitemap() {
             language="typescript"
             code={themeSnippet}
             sx={{
-              boxShadow: 12,
               transform: 'rotate(1deg)',
               transition: 'transform 0.3s',
               '&:hover': { transform: 'rotate(0deg)' },
@@ -421,7 +431,6 @@ async function generateSitemap() {
             code={wormSnippet}
             dots
             showLineNumbers
-            sx={{ boxShadow: 16 }}
           />
         </MotionBox>
 
@@ -430,7 +439,7 @@ async function generateSitemap() {
           <SectionHeading icon={<Briefcase className="w-6 h-6" />} color="#3b82f6">
             The "Experience" Ecosystem
           </SectionHeading>
-          <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
+          <IsoCard>
             <Typography sx={{ color: 'text.secondary', mb: 2 }}>
               My career path was too chaotic for a simple timeline, so I built a full-blown dashboard.
             </Typography>
@@ -439,7 +448,7 @@ async function generateSitemap() {
               <li><strong>The "Freelance Vigilante":</strong> A dedicated section for my 2011-2019 era of building government ERPs at 3 AM.</li>
               <li><strong>NPM Integration:</strong> A live list of my sarcastic npm packages with one-click install commands.</li>
             </Box>
-          </ModernCard>
+          </IsoCard>
         </MotionBox>
 
         {/* Apocalypse PWA */}
@@ -449,7 +458,7 @@ async function generateSitemap() {
           </SectionHeading>
           <Grid container spacing={3}>
             <Grid size={{ xs: 12, md: 6 }}>
-              <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
+              <IsoCard>
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1, fontWeight: 700, color: 'text.primary' }}>
                   <WifiOff className="w-4 h-4" />
                   <Typography component="span" sx={{ fontWeight: 700, color: 'inherit' }}>Offline Support</Typography>
@@ -457,10 +466,10 @@ async function generateSitemap() {
                 <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
                   This website caches itself. If the internet goes down, you can still read my resume while the world burns.
                 </Typography>
-              </ModernCard>
+              </IsoCard>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
+              <IsoCard>
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1, fontWeight: 700, color: 'text.primary' }}>
                   <Smartphone className="w-4 h-4" />
                   <Typography component="span" sx={{ fontWeight: 700, color: 'inherit' }}>Installable</Typography>
@@ -468,7 +477,7 @@ async function generateSitemap() {
                 <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
                   You can install this portfolio on your phone. Why would you want an app of <em>me</em> on your home screen? I don't know, but now you have the option.
                 </Typography>
-              </ModernCard>
+              </IsoCard>
             </Grid>
           </Grid>
         </MotionBox>
@@ -521,7 +530,7 @@ async function generateSitemap() {
             title="generate-sitemap.js"
             language="javascript"
             code={sitemapSnippet}
-            sx={{ mt: 3, boxShadow: 12 }}
+            sx={{ mt: 3 }}
           />
         </MotionBox>
 
@@ -535,18 +544,18 @@ async function generateSitemap() {
           </Typography>
 
           <Stack spacing={3}>
-            <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
+            <IsoCard>
               <Typography component="h4" sx={{ fontWeight: 700, color: 'text.primary', mb: 1 }}>
                 Unit & Integration Tests (Vitest)
               </Typography>
               <Box component="ul" sx={{ listStyle: 'disc', pl: 2.5, m: 0, mb: 2, color: 'text.secondary', fontSize: '0.875rem', '& > li + li': { mt: 0.5 } }}>
-                <li><strong>Component Testing:</strong> Every component has tests. Yes, even the <CodeSpan>ModernCard</CodeSpan> that just wraps a div.</li>
+                <li><strong>Component Testing:</strong> Every component has tests. Yes, even the <CodeSpan>IsoCard</CodeSpan> that just wraps a div.</li>
                 <li><strong>Browser Mode:</strong> Vitest runs in Playwright to test actual browser behavior because mocking the DOM is apparently "not good enough."</li>
                 <li><strong>Coverage Reports:</strong> I track code coverage like a stock portfolio. 80%+ or it didn't happen.</li>
               </Box>
               <CodeWindow title="src/tests/sanity.test.ts" language="typescript" code={testSnippet} small sx={{ mt: 2 }} />
-            </ModernCard>
-            <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
+            </IsoCard>
+            <IsoCard>
               <Typography component="h4" sx={{ fontWeight: 700, color: 'text.primary', mb: 1 }}>
                 End-to-End Tests (Playwright)
               </Typography>
@@ -555,8 +564,8 @@ async function generateSitemap() {
                 <li><strong>Real User Flows:</strong> Testing navigation, mobile menus, theme toggles, and everything a recruiter might accidentally click.</li>
               </Box>
               <CodeWindow title="tests/e2e/recruiter.spec.ts" language="typescript" code={playwrightSnippet} small sx={{ mt: 2 }} />
-            </ModernCard>
-            <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
+            </IsoCard>
+            <IsoCard>
               <Typography component="h4" sx={{ fontWeight: 700, color: 'text.primary', mb: 1 }}>
                 Component Documentation (Storybook)
               </Typography>
@@ -566,7 +575,7 @@ async function generateSitemap() {
                 <li><strong>Accessibility Checks:</strong> Making sure my components pass a11y standards (because lawsuits are expensive).</li>
               </Box>
               <CodeWindow title="stories/RunawayButton.stories.tsx" language="typescript" code={storybookSnippet} small sx={{ mt: 2 }} />
-            </ModernCard>
+            </IsoCard>
           </Stack>
         </MotionBox>
 
@@ -585,7 +594,7 @@ async function generateSitemap() {
             <li><strong>TypeScript Strict Mode:</strong> The compiler is more judgmental than my code reviewer.</li>
           </Box>
 
-          <Box sx={{ borderRadius: 3, overflow: 'hidden', border: 1, borderColor: 'divider', boxShadow: 12, bgcolor: '#1e1e1e' }}>
+          <Box className="iso-perspective" sx={{ borderRadius: 3, overflow: 'hidden', border: 1, borderColor: 'divider', boxShadow: (theme) => `10px 10px 0px ${theme.palette.divider}`, bgcolor: '#1e1e1e' }}>
             <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ px: 2, py: 1, borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
               <Typography component="span" sx={{ fontSize: '0.75rem', color: '#9ca3af', fontFamily: 'monospace' }}>
                 TERMINAL - PROBLEMS
@@ -612,7 +621,7 @@ async function generateSitemap() {
 
           <Grid container spacing={4} sx={{ mb: 4 }}>
             <Grid size={{ xs: 12, md: 6 }}>
-              <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
+              <IsoCard>
                 <Typography component="h4" sx={{ fontWeight: 700, color: 'text.primary', mb: 1 }}>
                   The "Runaway" Button
                 </Typography>
@@ -620,11 +629,11 @@ async function generateSitemap() {
                   Attempts to deploy to production. It moves when you hover. It springs away when you click. It is a metaphor for my career goals.
                 </Typography>
                 <CodeWindow title="src/components/games/RunawayButton.tsx" language="typescript" code={gameSnippet} small />
-              </ModernCard>
+              </IsoCard>
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
+              <IsoCard>
                 <Typography component="h4" sx={{ fontWeight: 700, color: 'text.primary', mb: 1 }}>
                   CSS Flexbox Torture
                 </Typography>
@@ -637,7 +646,7 @@ async function generateSitemap() {
                   <li><strong>Type Torture:</strong> Fix <CodeSpan>any</CodeSpan> types or get roasted.</li>
                 </Box>
                 <CodeWindow title="src/components/games/FlexPlayground.tsx" language="typescript" code={flexSnippet} small />
-              </ModernCard>
+              </IsoCard>
             </Grid>
           </Grid>
         </MotionBox>
@@ -652,7 +661,7 @@ async function generateSitemap() {
               <Typography sx={{ color: 'text.secondary', mb: 2 }}>
                 I built actual tools into this website because opening VS Code is too much effort sometimes.
               </Typography>
-              <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)] mb-6">
+              <IsoCard className="mb-6">
                 <Typography component="h4" sx={{ fontWeight: 700, color: 'text.primary', mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
                   <FileText className="w-4 h-4" />
                   The "Lazy Man's Thesis Creator"
@@ -665,11 +674,11 @@ async function generateSitemap() {
                   <li><strong>Cheat Sheet:</strong> For when you forget how to make a Greek letter.</li>
                   <li><strong>PDF Export:</strong> Prints directly to PDF so you can submit your homework.</li>
                 </Box>
-              </ModernCard>
+              </IsoCard>
             </Box>
 
             <Box sx={{ flex: 1, width: '100%' }}>
-              <CodeWindow title="src/pages/tools/LatexEditor.tsx" language="typescript" code={latexSnippet} sx={{ boxShadow: 12 }} />
+              <CodeWindow title="src/pages/tools/LatexEditor.tsx" language="typescript" code={latexSnippet} />
             </Box>
           </Stack>
         </MotionBox>
@@ -718,20 +727,22 @@ async function generateSitemap() {
               License
             </Typography>
           </Stack>
-          <ModernCard className="p-6 bg-[var(--card-bg)] border-[var(--border-color)]">
+          <IsoCard>
             <Typography sx={{ color: 'text.secondary', mb: 2 }}>
               Licensed under <strong>MIT</strong> (Mostly Intense TypeScript).
             </Typography>
             <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
               Feel free to steal the WormBackground (it's on npm: <CodeSpan>@alvianzf/squiggly-lines-go-brrr</CodeSpan>) or the testing infrastructure. I know that's the only reason you're looking at the code anyway.
             </Typography>
-          </ModernCard>
+          </IsoCard>
         </MotionBox>
 
         {/* Contact */}
         <MotionBox
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 20, rotateX: 8 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+          viewport={{ once: true }}
+          style={{ transformStyle: 'preserve-3d', perspective: 1000 }}
           sx={{
             textAlign: 'center',
             p: { xs: 3, md: 6 },

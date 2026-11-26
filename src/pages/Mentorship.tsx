@@ -5,16 +5,15 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import { alpha } from '@mui/material/styles';
 import learnWithAndiLogo from '../assets/learnwithandi.png';
 import SEO from '../components/SEO';
 import { useTheme } from '../context/ThemeContext';
-
-import WormBackground from '../components/WormBackground';
+import IsoCard from '../components/iso/IsoCard';
+import IsoPanel from '../components/iso/IsoPanel';
+import IsoGrid from '../components/iso/IsoGrid';
 
 export default function Mentorship() {
   const { theme } = useTheme();
@@ -79,7 +78,6 @@ export default function Mentorship() {
 
   return (
     <Box sx={{ minHeight: '100vh', pt: { xs: 10, md: 16 }, pb: 10, transition: 'background-color 0.3s' }}>
-      <WormBackground />
       <SEO
         title="Tech Interview Mentorship"
         description="Brutal, honest mock technical interviews with a recruiter who's been on both sides of the table. Book at learnwithandi.com."
@@ -168,57 +166,37 @@ export default function Mentorship() {
         </motion.div>
 
         {/* Features Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <Grid container spacing={3} sx={{ mb: 8 }}>
-            {features.map((feature, index) => (
-              <Grid key={feature.title} size={{ xs: 12, md: 6, lg: 3 }}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index }}
-                  style={{ height: '100%' }}
+        <Box sx={{ mb: 8 }}>
+          <IsoGrid columns={4} stagger>
+            {features.map((feature) => (
+              <IsoCard key={feature.title} className="h-full">
+                <Box
+                  sx={{
+                    p: 1.5,
+                    bgcolor: (theme) => alpha(theme.palette.primary.main, 0.1),
+                    color: 'primary.main',
+                    borderRadius: 3,
+                    width: 'fit-content',
+                    mb: 2,
+                    display: 'flex',
+                  }}
                 >
-                  <Card
-                    sx={{
-                      height: '100%',
-                      '&:hover': { borderColor: (theme) => alpha(theme.palette.primary.main, 0.3) },
-                    }}
-                  >
-                    <CardContent sx={{ p: 3 }}>
-                      <Box
-                        sx={{
-                          p: 1.5,
-                          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.1),
-                          color: 'primary.main',
-                          borderRadius: 3,
-                          width: 'fit-content',
-                          mb: 2,
-                          display: 'flex',
-                        }}
-                      >
-                        {feature.icon}
-                      </Box>
-                      <Typography
-                        variant="h6"
-                        component="h3"
-                        sx={{ fontSize: '1.125rem', fontWeight: 700, color: 'text.primary', mb: 1 }}
-                      >
-                        {feature.title}
-                      </Typography>
-                      <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
-                        {feature.description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </Grid>
+                  {feature.icon}
+                </Box>
+                <Typography
+                  variant="h6"
+                  component="h3"
+                  sx={{ fontSize: '1.125rem', fontWeight: 700, color: 'text.primary', mb: 1 }}
+                >
+                  {feature.title}
+                </Typography>
+                <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
+                  {feature.description}
+                </Typography>
+              </IsoCard>
             ))}
-          </Grid>
-        </motion.div>
+          </IsoGrid>
+        </Box>
 
         {/* What You'll Get Section */}
         <motion.div
@@ -252,9 +230,9 @@ export default function Mentorship() {
             </Grid>
 
             <Grid size={{ xs: 12, lg: 6 }}>
-              <Card
+              <IsoPanel
+                elevated
                 sx={{
-                  p: 4,
                   ...(isCyberpunk
                     ? {
                         bgcolor: 'background.paper',
@@ -297,7 +275,7 @@ export default function Mentorship() {
                     Visit learnwithandi.com
                   </Button>
                 </Box>
-              </Card>
+              </IsoPanel>
             </Grid>
           </Grid>
         </motion.div>

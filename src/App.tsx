@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AnimatePresence } from 'framer-motion';
+import PageTransition from './components/iso/PageTransition';
 import Header from './components/Header';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -44,7 +44,7 @@ function App() {
             </Suspense>
             <Header />
             <main>
-              <AnimatePresence mode="wait">
+              <PageTransition>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
@@ -63,7 +63,7 @@ function App() {
                   <Route path="/tools/database-playground" element={<DatabasePlayground />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
-              </AnimatePresence>
+              </PageTransition>
             </main>
             <Footer />
           </div>

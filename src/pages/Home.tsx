@@ -5,9 +5,9 @@ import { Box, Button, Container, Grid, Link as MuiLink, Stack, Typography } from
 // @ts-expect-error png import
 import alvian from '../assets/potraits.png';
 import { skills, categories } from "../data";
-import ModernCard from "../components/ModernCard";
+import IsoCard from "../components/iso/IsoCard";
+import SectionReveal from "../components/iso/SectionReveal";
 import SEO from '../components/SEO';
-// import PromoPopup from '../components/PromoPopup';
 
 // data.ts mixes FontAwesome icon definitions and lucide components
 function SkillIcon({ icon }: { icon: (typeof skills)[number]['icon'] }) {
@@ -33,13 +33,14 @@ const marqueePillSx = {
   border: '1px solid',
   borderColor: 'divider',
   borderRadius: 1,
-  boxShadow: 1,
+  boxShadow: (theme) => `3px 3px 0px ${theme.palette.divider}`,
   whiteSpace: 'nowrap',
   color: 'text.secondary',
   transition: 'all 0.3s',
   '&:hover': {
     borderColor: 'primary.main',
-    boxShadow: 2,
+    boxShadow: (theme) => `5px 5px 0px ${theme.palette.primary.main}`,
+    transform: 'translate(-2px, -2px)',
     color: 'primary.main',
   },
 } as const;
@@ -193,6 +194,7 @@ export default function Home() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 style={{ position: 'relative' }}
+                className="iso-perspective"
               >
                 {/* Updated accent color blob */}
                 <Box
@@ -206,20 +208,37 @@ export default function Home() {
                     transform: 'translate(2.5rem, 2.5rem)',
                   }}
                 />
+                {/* Isometric offset frame behind the portrait */}
                 <Box
-                  component="img"
+                  aria-hidden
+                  className="iso-face"
+                  sx={{
+                    position: 'absolute',
+                    inset: 0,
+                    maxWidth: '28rem',
+                    mx: 'auto',
+                    borderRadius: (theme) => (theme.custom?.isCyberpunk ? 0 : '1rem'),
+                    border: '2px solid',
+                    borderColor: 'primary.main',
+                    transform: 'translate(16px, 16px)',
+                  }}
+                />
+                <Box
+                  component={motion.img}
+                  whileHover={{ rotateX: -3, rotateY: 3 }}
+                  transition={{ type: 'spring', stiffness: 250, damping: 20 }}
                   src={alvian}
                   alt="Alvian Zachry"
-                  className="grayscale hover:grayscale-0"
+                  className="iso-face grayscale hover:grayscale-0"
                   sx={{
                     position: 'relative',
-                    borderRadius: '1rem',
+                    borderRadius: (theme) => (theme.custom?.isCyberpunk ? 0 : '1rem'),
                     width: '100%',
                     maxWidth: '28rem',
                     mx: 'auto',
                     display: 'block',
                     boxShadow: 24,
-                    transition: 'all 0.7s',
+                    transition: 'filter 0.7s',
                   }}
                 />
               </motion.div>
@@ -294,28 +313,19 @@ export default function Home() {
 
         {/* Biography (About Me) */}
         <Box component="section" sx={{ maxWidth: '56rem', mx: 'auto', mb: { xs: 6, md: 12 } }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <SectionReveal>
             <Typography variant="h4" component="h2" sx={{ fontSize: '1.875rem', fontWeight: 700, color: 'text.primary', mb: 4 }}>
               About Me
             </Typography>
             <Typography sx={{ fontSize: '1.125rem', color: 'text.secondary', lineHeight: 2 }}>
               Hi, I'm Ary! I’m a tech geek at heart who loves bringing people together. I spend my days building full-stack systems and—my favorite part—mentoring the next generation of engineers. I’m really passionate about bridging the gap between talent in Southeast Asia and opportunities in Europe. When I’m not deep in code, I’m usually coaching teams, helping someone pivot their career, or just geeking out on how to make Agile actually work.
             </Typography>
-          </motion.div>
+          </SectionReveal>
         </Box>
 
         {/* Soft Skills & Languages (Horizontal Layout) */}
         <Box component="section" sx={{ maxWidth: '80rem', mx: 'auto', mb: { xs: 8, md: 16 } }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
+          <SectionReveal iso>
             <Stack spacing={6}>
               {categories.filter(cat => cat.name !== 'Technical Skills').map((category) => (
                 <Stack key={category.name} spacing={3}>
@@ -343,41 +353,36 @@ export default function Home() {
                       .filter(skill => skill.category === category.name.toLowerCase().split(' ')[0])
                       .map((skill) => (
                         <Box key={skill.name} sx={{ flex: 1, minWidth: { xs: '240px', sm: '280px' }, maxWidth: '350px' }}>
-                          <ModernCard className="h-full flex items-center gap-4 p-5">
-                            <Box
-                              sx={{
-                                p: 1.5,
-                                bgcolor: 'background.default',
-                                borderRadius: '0.75rem',
-                                color: 'text.secondary',
-                                transition: 'color 0.3s',
-                                '.card-modern:hover &': { color: 'primary.main' },
-                              }}
-                            >
-                              <SkillIcon icon={skill.icon} />
+                          <IsoCard className="h-full">
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                              <Box
+                                sx={{
+                                  p: 1.5,
+                                  bgcolor: 'background.default',
+                                  borderRadius: '0.75rem',
+                                  color: 'text.secondary',
+                                }}
+                              >
+                                <SkillIcon icon={skill.icon} />
+                              </Box>
+                              <Box>
+                                <Typography component="h4" sx={{ fontWeight: 600, color: 'text.primary' }}>{skill.name}</Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5, lineHeight: 1.375 }}>{skill.description}</Typography>
+                              </Box>
                             </Box>
-                            <Box>
-                              <Typography component="h4" sx={{ fontWeight: 600, color: 'text.primary' }}>{skill.name}</Typography>
-                              <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5, lineHeight: 1.375 }}>{skill.description}</Typography>
-                            </Box>
-                          </ModernCard>
+                          </IsoCard>
                         </Box>
                       ))}
                   </Box>
                 </Stack>
               ))}
             </Stack>
-          </motion.div>
+          </SectionReveal>
         </Box>
 
         {/* Contact Section */}
         <Box component="section" id="contact" sx={{ maxWidth: '56rem', mx: 'auto', mb: { xs: 6, md: 12 } }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <SectionReveal iso>
             <Typography variant="h4" component="h2" sx={{ fontSize: '1.875rem', fontWeight: 700, color: 'text.primary', mb: 4 }}>
               Get in Touch
             </Typography>
@@ -388,7 +393,7 @@ export default function Home() {
             <Grid container spacing={3}>
               {contactItems.map((item) => (
                 <Grid key={item.title} size={{ xs: 12, md: 6 }}>
-                  <ModernCard className="h-full">
+                  <IsoCard className="h-full">
                     <Stack direction="row" spacing={2} alignItems="flex-start">
                       <Box
                         sx={{
@@ -396,8 +401,6 @@ export default function Home() {
                           bgcolor: 'background.default',
                           borderRadius: '0.75rem',
                           color: 'text.secondary',
-                          transition: 'color 0.3s',
-                          '.card-modern:hover &': { color: 'primary.main' },
                         }}
                       >
                         <item.icon className="w-6 h-6" />
@@ -414,13 +417,12 @@ export default function Home() {
                         </MuiLink>
                       </Box>
                     </Stack>
-                  </ModernCard>
+                  </IsoCard>
                 </Grid>
               ))}
             </Grid>
-          </motion.div>
+          </SectionReveal>
         </Box>
-        {/* <PromoPopup /> */}
       </Container>
     </Box>
   );

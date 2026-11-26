@@ -7,6 +7,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import IconButton from '@mui/material/IconButton';
+import SectionReveal from './iso/SectionReveal';
 
 const headingSx = {
   color: 'primary.main',
@@ -39,7 +40,12 @@ const socialSx = {
   color: 'text.secondary',
   borderRadius: 2,
   transition: 'all 0.3s',
-  '&:hover': { bgcolor: 'primary.main', color: 'primary.contrastText' },
+  '&:hover': {
+    bgcolor: 'primary.main',
+    color: 'primary.contrastText',
+    boxShadow: '4px 4px 0px var(--text-primary)',
+    transform: 'translate(-2px, -2px)',
+  },
 } as const;
 
 export default function Footer() {
@@ -58,6 +64,7 @@ export default function Footer() {
       }}
     >
       <Container maxWidth="xl" sx={{ px: 3 }}>
+        <SectionReveal iso>
         <Box
           sx={{
             display: 'grid',
@@ -206,6 +213,7 @@ export default function Footer() {
             </Box>
           </Box>
         </Box>
+        </SectionReveal>
 
         <Box
           sx={{

@@ -8,14 +8,13 @@ import {
   Grid,
   Typography,
   Button,
-  Card,
-  CardContent,
   Chip,
   Divider,
   Tooltip,
   IconButton,
   Link,
 } from '@mui/material';
+import IsoPanel from '../components/iso/IsoPanel';
 import { alpha } from '@mui/material/styles';
 import { Calendar, Building, Briefcase, Wrench, Code, Terminal, Copy, Check, History } from 'lucide-react';
 import SEO from '../components/SEO';
@@ -58,8 +57,6 @@ const getTechIcon = (tech: string): IconDefinition | null => {
 // Import solid icons for fallback/manual mapping
 import { faFire, faHashtag } from '@fortawesome/free-solid-svg-icons';
 
-import WormBackground from '../components/WormBackground';
-
 export default function Experience() {
   const [activeTab, setActiveTab] = useState<'roles' | 'projects' | 'npm'>('roles');
   const [copiedPkg, setCopiedPkg] = useState<string | null>(null);
@@ -100,7 +97,6 @@ export default function Experience() {
 
   return (
     <Box sx={{ minHeight: '100vh', pt: { xs: 10, md: 16 }, pb: { xs: 10, md: 16 }, position: 'relative', overflow: 'hidden' }}>
-      <WormBackground />
       <SEO
         title="Professional Experience"
         description="13+ years of full-stack engineering, program management, technical leadership, and developer hiring. Roles at Devshore Partners, TiketQ, Hacktiv8, and more."
@@ -242,28 +238,25 @@ export default function Experience() {
             {activeTab === 'roles' && (
               <motion.div
                 key="roles"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, rotateX: 8, y: 20 }}
+                animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                exit={{ opacity: 0, rotateX: -8, y: -20 }}
                 transition={{ duration: 0.3 }}
+                style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
               >
                 <Stack spacing={3}>
                   {experiences.map((exp, index) => {
                     const IconComponent = exp.icon || Briefcase;
                     return (
-                      <Card
+                      <Box
                         key={index}
                         sx={{
-                          position: 'relative',
-                          overflow: 'hidden',
-                          '&:hover': {
-                            borderColor: (theme) => alpha(theme.palette.primary.main, 0.3),
-                            '& .role-icon, & .role-title': { color: 'primary.main' },
-                            '& .role-icon': { transform: 'scale(1.05)' },
-                          },
+                          '&:hover .role-icon, &:hover .role-title': { color: 'primary.main' },
+                          '&:hover .role-icon': { transform: 'scale(1.05)' },
                         }}
                       >
-                        <CardContent sx={{ p: { xs: 3, md: 4 } }}>
+                      <IsoPanel>
+                        <Box sx={{ p: { xs: 3, md: 4 } }}>
                           <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
                             <Box sx={{ flexShrink: 0 }}>
                               <Box
@@ -369,8 +362,9 @@ export default function Experience() {
                               )}
                             </Box>
                           </Stack>
-                        </CardContent>
-                      </Card>
+                        </Box>
+                      </IsoPanel>
+                      </Box>
                     )
                   })}
                 </Stack>
@@ -381,27 +375,25 @@ export default function Experience() {
             {activeTab === 'projects' && (
               <motion.div
                 key="projects"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, rotateX: 8, y: 20 }}
+                animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                exit={{ opacity: 0, rotateX: -8, y: -20 }}
                 transition={{ duration: 0.3 }}
+                style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
               >
                 <Grid container spacing={3}>
                   {projects.map((proj, index) => {
                     const IconComponent = proj.icon || Code;
                     return (
                       <Grid key={index} size={{ xs: 12, md: 6 }}>
-                        <Card
+                        <Box
                           sx={{
                             height: '100%',
-                            position: 'relative',
-                            '&:hover': {
-                              borderColor: (theme) => alpha(theme.palette.primary.main, 0.3),
-                              '& .project-icon, & .project-title': { color: 'primary.main' },
-                            },
+                            '&:hover .project-icon, &:hover .project-title': { color: 'primary.main' },
                           }}
                         >
-                          <CardContent sx={{ p: 3, display: 'flex', flexDirection: 'column', height: '100%' }}>
+                        <IsoPanel className="h-full">
+                          <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                             <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
                               <Box
                                 className="project-icon"
@@ -468,8 +460,9 @@ export default function Experience() {
                                 View Project →
                               </Link>
                             )}
-                          </CardContent>
-                        </Card>
+                          </Box>
+                        </IsoPanel>
+                        </Box>
                       </Grid>
                     )
                   })}
@@ -481,24 +474,17 @@ export default function Experience() {
             {activeTab === 'npm' && (
               <motion.div
                 key="npm"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, rotateX: 8, y: 20 }}
+                animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                exit={{ opacity: 0, rotateX: -8, y: -20 }}
                 transition={{ duration: 0.3 }}
+                style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
               >
                 <Grid container spacing={3}>
                   {npmPackages.map((pkg, index) => (
                     <Grid key={index} size={{ xs: 12, md: 6 }}>
-                      <Card
-                        sx={{
-                          height: '100%',
-                          '&:hover': {
-                            borderColor: (theme) => alpha(theme.palette.primary.main, 0.3),
-                            '& .npm-icon': { color: 'primary.main' },
-                          },
-                        }}
-                      >
-                        <CardContent sx={{ p: 3 }}>
+                      <Box sx={{ height: '100%', '&:hover .npm-icon': { color: 'primary.main' } }}>
+                      <IsoPanel className="h-full">
                           <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
                             <Box className="npm-icon" sx={{ color: 'text.secondary', transition: 'color 0.3s', display: 'flex' }}>
                               <Terminal size={32} />
@@ -564,8 +550,8 @@ export default function Experience() {
                               </IconButton>
                             </Tooltip>
                           </Box>
-                        </CardContent>
-                      </Card>
+                      </IsoPanel>
+                      </Box>
                     </Grid>
                   ))}
                 </Grid>
@@ -582,30 +568,28 @@ export default function Experience() {
           viewport={{ once: true }}
         >
           <Box sx={{ mt: 12, textAlign: 'center', maxWidth: '42rem', mx: 'auto' }}>
-            <Card>
-              <CardContent sx={{ p: 4 }}>
-                <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'text.primary', mb: 2 }}>
-                  Want to land a role like these?
-                </Typography>
-                <Typography sx={{ color: 'text.secondary', mb: 3 }}>
-                  I mentor aspiring engineers to help them crack technical interviews and level up their careers.
-                </Typography>
-                <Button
-                  href="/mentorship"
-                  variant="contained"
-                  sx={{
-                    px: 3,
-                    py: 1.5,
-                    fontWeight: 700,
-                    bgcolor: 'text.primary',
-                    color: 'background.paper',
-                    '&:hover': { bgcolor: 'primary.main', color: 'primary.contrastText' },
-                  }}
-                >
-                  Explore Mentorship
-                </Button>
-              </CardContent>
-            </Card>
+            <IsoPanel elevated>
+              <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'text.primary', mb: 2 }}>
+                Want to land a role like these?
+              </Typography>
+              <Typography sx={{ color: 'text.secondary', mb: 3 }}>
+                I mentor aspiring engineers to help them crack technical interviews and level up their careers.
+              </Typography>
+              <Button
+                href="/mentorship"
+                variant="contained"
+                sx={{
+                  px: 3,
+                  py: 1.5,
+                  fontWeight: 700,
+                  bgcolor: 'text.primary',
+                  color: 'background.paper',
+                  '&:hover': { bgcolor: 'primary.main', color: 'primary.contrastText' },
+                }}
+              >
+                Explore Mentorship
+              </Button>
+            </IsoPanel>
           </Box>
         </motion.div>
 
