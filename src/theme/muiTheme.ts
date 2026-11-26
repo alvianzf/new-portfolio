@@ -18,15 +18,15 @@ declare module '@mui/material/styles' {
 // test environment, which doesn't process stylesheets) — real browsers
 // always resolve the actual var.
 const FALLBACK = {
-  bgPrimary: '#f8fafc',
-  textPrimary: '#0f172a',
-  textSecondary: '#64748b',
-  accentPrimary: '#990000',
-  accentSecondary: '#7f1d1d',
-  borderColor: '#e2e8f0',
+  bgPrimary: '#fdfcfb',
+  textPrimary: '#1c1917',
+  textSecondary: '#78716c',
+  accentPrimary: '#4f46e5',
+  accentSecondary: '#f59e0b',
+  borderColor: '#e7e5e4',
   cardBg: '#ffffff',
-  fontPrimary: '"Inter", sans-serif',
-  fontHeading: '"Outfit", sans-serif',
+  fontPrimary: '"Plus Jakarta Sans", sans-serif',
+  fontHeading: '"Space Grotesk", sans-serif',
 };
 
 function readCssVars() {

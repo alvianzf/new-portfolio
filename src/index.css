@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,39 +6,37 @@
 
 @layer base {
   :root {
-    --bg-primary: #fefefe;
-    /* near-white — content sits on a near-blank canvas; cards read as
-       separate via whitespace + shadow, not a different background tone */
-    --text-primary: #0f172a;
-    /* slate-900 */
-    --text-secondary: #64748b;
-    /* slate-500 */
-    --accent-primary: #990000;
-    /* brand-red */
-    --accent-secondary: #7f1d1d;
-    /* red-900 */
-    --border-color: #e2e8f0;
-    /* slate-200 */
+    --bg-primary: #fdfcfb;
+    /* warm near-white — not the old cool slate-50 */
+    --text-primary: #1c1917;
+    /* warm near-black (stone-900) */
+    --text-secondary: #78716c;
+    /* stone-500 */
+    --accent-primary: #4f46e5;
+    /* indigo-600 — replaces the old brand red entirely */
+    --accent-secondary: #f59e0b;
+    /* amber-500 — warm counterpoint accent */
+    --border-color: #e7e5e4;
+    /* stone-200 */
     --card-bg: #ffffff;
-    --font-primary: "Inter", sans-serif;
-    --font-heading: "Outfit", sans-serif;
+    --font-primary: "Plus Jakarta Sans", sans-serif;
+    --font-heading: "Space Grotesk", sans-serif;
   }
 
   /* Dark Mode */
   .dark {
-    --bg-primary: #0f172a;
-    /* slate-900 */
-    --text-primary: #ffffff;
-    /* white */
-    --text-secondary: #cbd5e1;
-    /* slate-300 */
-    --accent-primary: #ef4444;
-    /* red-500 */
-    --accent-secondary: #f87171;
-    /* red-400 */
-    --border-color: #1e293b;
-    /* slate-800 */
-    --card-bg: #1e293b;
+    --bg-primary: #121212;
+    --text-primary: #fafaf9;
+    /* stone-50 */
+    --text-secondary: #a8a29e;
+    /* stone-400 */
+    --accent-primary: #818cf8;
+    /* indigo-400 */
+    --accent-secondary: #fbbf24;
+    /* amber-400 */
+    --border-color: #292524;
+    /* stone-800 */
+    --card-bg: #1c1917;
   }
 
   /* Cyberpunk Mode */
