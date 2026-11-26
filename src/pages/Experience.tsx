@@ -5,24 +5,21 @@ import {
   Box,
   Container,
   Stack,
-  Grid,
   Typography,
   Button,
-  Chip,
-  Divider,
   Tooltip,
   IconButton,
   Link,
 } from '@mui/material';
 import IsoPanel from '../components/iso/IsoPanel';
-import { alpha } from '@mui/material/styles';
-import { Calendar, Building, Briefcase, Wrench, Code, Terminal, Copy, Check, History } from 'lucide-react';
+import SectionReveal from '../components/iso/SectionReveal';
+import { Briefcase, Code, Terminal, Copy, Check } from 'lucide-react';
 import SEO from '../components/SEO';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faReact, faNode, faPython, faJs, faPhp, faLaravel, faAws, faVuejs, faDocker, faWordpress, faGoogle
 } from '@fortawesome/free-brands-svg-icons';
-import { faDatabase, faServer } from '@fortawesome/free-solid-svg-icons';
+import { faDatabase, faServer, faFire, faHashtag } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 // Helper to map string tech to icons
@@ -54,8 +51,11 @@ const getTechIcon = (tech: string): IconDefinition | null => {
   return map[tech] || null;
 };
 
-// Import solid icons for fallback/manual mapping
-import { faFire, faHashtag } from '@fortawesome/free-solid-svg-icons';
+const tabs = [
+  { id: 'roles', label: 'Roles' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'npm', label: 'NPM Packages' },
+] as const;
 
 export default function Experience() {
   const [activeTab, setActiveTab] = useState<'roles' | 'projects' | 'npm'>('roles');
@@ -66,12 +66,6 @@ export default function Experience() {
     setCopiedPkg(command);
     setTimeout(() => setCopiedPkg(null), 2000);
   };
-
-  const tabs = [
-    { id: 'roles', label: 'Roles', icon: Briefcase },
-    { id: 'projects', label: 'Projects', icon: Code },
-    { id: 'npm', label: 'NPM Packages', icon: Terminal },
-  ] as const;
 
   const experienceSchema = {
     "@context": "https://schema.org",
@@ -89,14 +83,14 @@ export default function Experience() {
         "@type": "Role",
         "roleName": exp.title,
         "worksFor": { "@type": "Organization", "name": exp.company },
-        "startDate": exp.period.split("\u2013")[0].trim(),
+        "startDate": exp.period.split("–")[0].trim(),
         "description": Array.isArray(exp.description) ? exp.description[0] : exp.description
       }))
     }
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', pt: { xs: 10, md: 16 }, pb: { xs: 10, md: 16 }, position: 'relative', overflow: 'hidden' }}>
+    <Box sx={{ minHeight: '100vh', pb: { xs: 10, md: 16 } }}>
       <SEO
         title="Professional Experience"
         description="13+ years of full-stack engineering, program management, technical leadership, and developer hiring. Roles at Devshore Partners, TiketQ, Hacktiv8, and more."
@@ -104,470 +98,206 @@ export default function Experience() {
         schema={experienceSchema}
       />
 
-      {/* Background Decor */}
-      <Box sx={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            width: 500,
-            height: 500,
-            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.05),
-            borderRadius: '50%',
-            filter: 'blur(100px)',
-            opacity: 0.7,
-            transform: 'translate(50%, -50%)',
-          }}
-        />
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            width: 500,
-            height: 500,
-            bgcolor: (theme) => alpha(theme.palette.text.secondary, 0.05),
-            borderRadius: '50%',
-            filter: 'blur(100px)',
-            opacity: 0.7,
-            transform: 'translate(-50%, 50%)',
-          }}
-        />
-      </Box>
-
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10 }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <Box sx={{ textAlign: 'center', mb: 8 }}>
-            <Box
-              sx={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 1,
-                py: 1,
-                px: 2,
-                borderRadius: 9999,
-                bgcolor: (theme) => alpha(theme.palette.primary.main, 0.1),
-                color: 'primary.main',
-                fontWeight: 700,
-                fontSize: '0.75rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                mb: 2,
-                border: (theme) => `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
-              }}
-            >
-              <History size={12} />
-              Career Timeline
-            </Box>
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: '2.25rem', md: '3.75rem' },
-                fontWeight: 700,
-                color: 'text.primary',
-                mb: 3,
-              }}
-            >
-              13+ Years of <Box component="span" sx={{ color: 'primary.main' }}>"It Works Locally".</Box>
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: '1.125rem',
-                color: 'text.secondary',
-                maxWidth: '42rem',
-                mx: 'auto',
-                lineHeight: 1.75,
-                fontStyle: 'italic',
-              }}
-            >
+      <Container maxWidth="md" sx={{ pt: { xs: '7rem', md: '9rem' }, pb: { xs: 8, md: 12 } }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <Typography sx={{ color: 'primary.main', fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.08em', mb: 2 }}>
+            Career Timeline
+          </Typography>
+          <Typography variant="h1" sx={{ fontSize: { xs: '2.5rem', md: '4rem' }, fontWeight: 700, color: 'text.primary', lineHeight: 1.1, mb: 4 }}>
+            13+ Years of <Box component="span" sx={{ color: 'primary.main' }}>"It Works Locally."</Box>
+          </Typography>
+          <Box sx={{ borderLeft: '3px solid', borderColor: 'primary.main', pl: 3 }}>
+            <Typography sx={{ fontSize: '1.125rem', color: 'text.secondary', lineHeight: 1.75, fontStyle: 'italic' }}>
               "Recovering engineer turned manager who wears too many hats. I've gone from writing PHP (sorry) to judging other people's algorithms. I build systems, manage chaos, and occasionally claim credit for my team's hard work."
             </Typography>
           </Box>
         </motion.div>
+      </Container>
 
-        {/* Tabs */}
-        <Box sx={{ mb: 6, display: 'flex', justifyContent: 'center' }}>
-          <Stack
-            direction="row"
-            spacing={{ xs: 0.5, sm: 2 }}
-            sx={{
-              justifyContent: 'center',
-              bgcolor: 'background.paper',
-              p: { xs: 0.5, sm: 1 },
-              borderRadius: 4,
-              border: 1,
-              borderColor: 'divider',
-              boxShadow: 1,
-              maxWidth: '100%',
-              overflow: 'hidden',
-            }}
-          >
+      {/* Tabs — plain underlined text, not a boxed segmented control */}
+      <Box sx={{ position: 'sticky', top: '4.5rem', zIndex: 20, bgcolor: 'background.default', borderBottom: '1px solid', borderColor: 'divider' }}>
+        <Container maxWidth="md">
+          <Stack direction="row" spacing={{ xs: 3, md: 5 }}>
             {tabs.map((tab) => (
-              <Button
+              <Box
                 key={tab.id}
+                component="button"
                 onClick={() => setActiveTab(tab.id)}
-                startIcon={<tab.icon size={16} />}
                 sx={{
-                  px: { xs: 1.25, sm: 3 },
-                  py: { xs: 1, sm: 1.5 },
-                  minWidth: 0,
-                  whiteSpace: 'nowrap',
-                  fontSize: { xs: '0.8125rem', sm: '0.875rem' },
-                  borderRadius: 3,
-                  fontWeight: 500,
-                  ...(activeTab === tab.id
-                    ? { bgcolor: 'primary.main', color: 'primary.contrastText', boxShadow: 4, '&:hover': { bgcolor: 'primary.main' } }
-                    : { color: 'text.secondary', '&:hover': { color: 'text.primary', bgcolor: 'background.default' } }),
+                  bgcolor: 'transparent',
+                  border: 0,
+                  cursor: 'pointer',
+                  py: 2.5,
+                  fontSize: { xs: '0.9375rem', md: '1rem' },
+                  fontWeight: 600,
+                  fontFamily: 'inherit',
+                  color: activeTab === tab.id ? 'text.primary' : 'text.secondary',
+                  position: 'relative',
+                  '&:hover': { color: 'text.primary' },
                 }}
               >
                 {tab.label}
-              </Button>
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="experience-tab-underline"
+                    style={{ position: 'absolute', left: 0, right: 0, bottom: -1, height: 2, background: 'var(--accent-primary)' }}
+                  />
+                )}
+              </Box>
             ))}
           </Stack>
-        </Box>
+        </Container>
+      </Box>
 
-        {/* Content Area */}
-        <Box sx={{ maxWidth: '64rem', mx: 'auto', minHeight: 600 }}>
-          <AnimatePresence mode="wait">
+      <Container maxWidth="md" sx={{ pt: { xs: 8, md: 12 } }}>
+        <AnimatePresence mode="wait">
+          {/* ROLES — a plain vertical timeline, not a stack of identical cards */}
+          {activeTab === 'roles' && (
+            <motion.div
+              key="roles"
+              initial={{ opacity: 0, rotateX: 8, y: 20 }}
+              animate={{ opacity: 1, rotateX: 0, y: 0 }}
+              exit={{ opacity: 0, rotateX: -8, y: -20 }}
+              transition={{ duration: 0.3 }}
+              style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
+            >
+              <Stack spacing={0}>
+                {experiences.map((exp, index) => (
+                  <Box key={index} sx={{ display: 'flex', gap: { xs: 3, md: 5 }, pb: index < experiences.length - 1 ? 7 : 0 }}>
+                    <Box sx={{ flexShrink: 0, width: { xs: 70, md: 120 }, textAlign: 'right', pt: 0.5 }}>
+                      <Typography sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' }, fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase' }}>
+                        {exp.period}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ position: 'relative', flexShrink: 0, width: 2, bgcolor: 'divider' }}>
+                      <Box sx={{ position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)', width: 10, height: 10, borderRadius: '50%', bgcolor: 'primary.main' }} />
+                    </Box>
+                    <Box sx={{ flex: 1, pb: 1 }}>
+                      <Typography variant="h3" sx={{ fontSize: '1.375rem', fontWeight: 700, color: 'text.primary' }}>
+                        {exp.title}
+                      </Typography>
+                      <Typography sx={{ color: 'text.secondary', fontWeight: 500, mb: 2 }}>{exp.company}</Typography>
 
-            {/* ROLES TAB */}
-            {activeTab === 'roles' && (
-              <motion.div
-                key="roles"
-                initial={{ opacity: 0, rotateX: 8, y: 20 }}
-                animate={{ opacity: 1, rotateX: 0, y: 0 }}
-                exit={{ opacity: 0, rotateX: -8, y: -20 }}
-                transition={{ duration: 0.3 }}
-                style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
-              >
-                <Stack spacing={3}>
-                  {experiences.map((exp, index) => {
-                    const IconComponent = exp.icon || Briefcase;
-                    return (
-                      <Box
-                        key={index}
-                        sx={{
-                          '&:hover .role-icon, &:hover .role-title': { color: 'primary.main' },
-                          '&:hover .role-icon': { transform: 'scale(1.05)' },
-                        }}
-                      >
-                      <IsoPanel>
-                        <Box sx={{ p: { xs: 3, md: 4 } }}>
-                          <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
-                            <Box sx={{ flexShrink: 0 }}>
-                              <Box
-                                className="role-icon"
-                                sx={{
-                                  width: 56,
-                                  height: 56,
-                                  borderRadius: 3,
-                                  bgcolor: 'background.default',
-                                  border: 1,
-                                  borderColor: 'divider',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: 'text.secondary',
-                                  transition: 'all 0.3s',
-                                }}
-                              >
-                                {IconComponent && typeof IconComponent === 'object' && 'prefix' in IconComponent ? (
-                                  <FontAwesomeIcon icon={IconComponent as IconDefinition} style={{ width: 24, height: 24 }} />
-                                ) : IconComponent ? (
-                                  <IconComponent size={24} />
-                                ) : null}
-                              </Box>
-                            </Box>
-                            <Box sx={{ flex: 1 }}>
-                              <Stack
-                                direction={{ xs: 'column', md: 'row' }}
-                                sx={{ alignItems: { md: 'center' }, justifyContent: 'space-between', gap: 1, mb: 1 }}
-                              >
-                                <Typography
-                                  variant="h3"
-                                  className="role-title"
-                                  sx={{ fontSize: '1.25rem', fontWeight: 700, color: 'text.primary', transition: 'color 0.3s' }}
-                                >
-                                  {exp.title}
-                                </Typography>
-                                <Chip
-                                  icon={<Calendar size={12} />}
-                                  label={exp.period}
-                                  size="small"
-                                  sx={{
-                                    fontWeight: 700,
-                                    fontSize: '0.75rem',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.05em',
-                                    width: 'fit-content',
-                                    '& .MuiChip-icon': { color: 'inherit' },
-                                  }}
-                                />
-                              </Stack>
-                              <Stack direction="row" spacing={1} sx={{ alignItems: 'center', color: 'text.secondary', fontWeight: 500, mb: 2 }}>
-                                <Building size={16} />
-                                <Typography sx={{ fontWeight: 500, fontSize: '1rem' }}>{exp.company}</Typography>
-                              </Stack>
-
-                              <Box sx={{ color: 'text.secondary', lineHeight: 1.75, fontSize: '0.875rem', mb: 2 }}>
-                                {Array.isArray(exp.description) ? (
-                                  <Stack component="ul" spacing={1} sx={{ listStyle: 'none', m: 0, p: 0 }}>
-                                    {exp.description.map((item, i) => (
-                                      <Stack component="li" key={i} direction="row" spacing={1.5} sx={{ alignItems: 'flex-start' }}>
-                                        <Box
-                                          sx={{
-                                            mt: '0.5rem',
-                                            width: 6,
-                                            height: 6,
-                                            borderRadius: '50%',
-                                            bgcolor: 'primary.main',
-                                            flexShrink: 0,
-                                            opacity: 0.5,
-                                          }}
-                                        />
-                                        <span>{item}</span>
-                                      </Stack>
-                                    ))}
-                                  </Stack>
-                                ) : (
-                                  <Typography sx={{ fontSize: '0.875rem' }}>{exp.description}</Typography>
-                                )}
-                              </Box>
-
-                              {exp.techStack && (
-                                <>
-                                  <Divider sx={{ mt: 2 }} />
-                                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, pt: 2 }}>
-                                    {exp.techStack.map((tech) => (
-                                      <Chip
-                                        key={tech}
-                                        size="small"
-                                        icon={
-                                          getTechIcon(tech) ? (
-                                            <FontAwesomeIcon icon={getTechIcon(tech)!} style={{ width: 12, height: 12, opacity: 0.7 }} />
-                                          ) : (
-                                            <Wrench size={12} style={{ opacity: 0.7 }} />
-                                          )
-                                        }
-                                        label={tech}
-                                        sx={{ fontSize: '0.75rem', fontWeight: 500, '& .MuiChip-icon': { color: 'inherit' } }}
-                                      />
-                                    ))}
-                                  </Box>
-                                </>
-                              )}
-                            </Box>
+                      <Box sx={{ color: 'text.secondary', lineHeight: 1.8, fontSize: '0.9375rem', mb: 2 }}>
+                        {Array.isArray(exp.description) ? (
+                          <Stack component="ul" spacing={1} sx={{ listStyle: 'disc', pl: 2.5, m: 0 }}>
+                            {exp.description.map((item, i) => <li key={i}>{item}</li>)}
                           </Stack>
-                        </Box>
-                      </IsoPanel>
+                        ) : (
+                          <Typography sx={{ fontSize: '0.9375rem' }}>{exp.description}</Typography>
+                        )}
                       </Box>
-                    )
-                  })}
-                </Stack>
-              </motion.div>
-            )}
 
-            {/* PROJECTS TAB */}
-            {activeTab === 'projects' && (
-              <motion.div
-                key="projects"
-                initial={{ opacity: 0, rotateX: 8, y: 20 }}
-                animate={{ opacity: 1, rotateX: 0, y: 0 }}
-                exit={{ opacity: 0, rotateX: -8, y: -20 }}
-                transition={{ duration: 0.3 }}
-                style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
-              >
-                <Grid container spacing={3}>
-                  {projects.map((proj, index) => {
-                    const IconComponent = proj.icon || Code;
-                    return (
-                      <Grid key={index} size={{ xs: 12, md: 6 }}>
-                        <Box
-                          sx={{
-                            height: '100%',
-                            '&:hover .project-icon, &:hover .project-title': { color: 'primary.main' },
-                          }}
-                        >
-                        <IsoPanel className="h-full">
-                          <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                            <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
-                              <Box
-                                className="project-icon"
-                                sx={{
-                                  p: 1.5,
-                                  borderRadius: 2,
-                                  bgcolor: 'background.default',
-                                  border: 1,
-                                  borderColor: 'divider',
-                                  color: 'text.secondary',
-                                  transition: 'color 0.3s',
-                                }}
-                              >
-                                {IconComponent && typeof IconComponent === 'object' && 'prefix' in IconComponent ? (
-                                  <FontAwesomeIcon icon={IconComponent as IconDefinition} style={{ width: 24, height: 24 }} />
-                                ) : IconComponent ? (
-                                  <IconComponent size={24} />
-                                ) : null}
-                              </Box>
-                              <Box
-                                sx={{
-                                  fontSize: '0.75rem',
-                                  fontWeight: 700,
-                                  color: 'text.secondary',
-                                  bgcolor: 'background.default',
-                                  px: 1,
-                                  py: 0.5,
-                                  borderRadius: 1,
-                                  border: 1,
-                                  borderColor: 'divider',
-                                }}
-                              >
-                                {proj.period}
-                              </Box>
+                      {exp.techStack && (
+                        <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1.5 }}>
+                          {exp.techStack.map((tech) => (
+                            <Stack key={tech} direction="row" spacing={0.5} alignItems="center" sx={{ color: 'text.secondary', fontSize: '0.8125rem' }}>
+                              {getTechIcon(tech) && <FontAwesomeIcon icon={getTechIcon(tech)!} style={{ width: 11, height: 11, opacity: 0.6 }} />}
+                              <span>{tech}</span>
                             </Stack>
-                            <Typography
-                              variant="h3"
-                              className="project-title"
-                              sx={{ fontSize: '1.125rem', fontWeight: 700, color: 'text.primary', mb: 0.5, transition: 'color 0.3s' }}
-                            >
-                              {proj.title}
-                            </Typography>
-                            <Typography sx={{ fontSize: '0.875rem', color: 'primary.main', fontWeight: 500, mb: 1.5 }}>
-                              {proj.company}
-                            </Typography>
-                            <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem', lineHeight: 1.75, mb: 2 }}>
-                              {Array.isArray(proj.description) ? proj.description[0] : proj.description}
-                            </Typography>
-                            {proj.link && (
-                              <Link
-                                href={proj.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                underline="hover"
-                                sx={{
-                                  mt: 'auto',
-                                  display: 'inline-flex',
-                                  alignItems: 'center',
-                                  fontSize: '0.75rem',
-                                  fontWeight: 700,
-                                  color: 'primary.main',
-                                }}
-                              >
-                                View Project →
-                              </Link>
-                            )}
-                          </Box>
-                        </IsoPanel>
+                          ))}
+                        </Stack>
+                      )}
+                    </Box>
+                  </Box>
+                ))}
+              </Stack>
+            </motion.div>
+          )}
+
+          {/* PROJECTS — isometric tiles, two per row, big gaps */}
+          {activeTab === 'projects' && (
+            <motion.div
+              key="projects"
+              initial={{ opacity: 0, rotateX: 8, y: 20 }}
+              animate={{ opacity: 1, rotateX: 0, y: 0 }}
+              exit={{ opacity: 0, rotateX: -8, y: -20 }}
+              transition={{ duration: 0.3 }}
+              style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
+            >
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' }, gap: { xs: 4, md: 5 } }}>
+                {projects.map((proj, index) => {
+                  const IconComponent = proj.icon || Code;
+                  return (
+                    <IsoPanel key={index} className="h-full">
+                      <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
+                        <Box sx={{ color: 'primary.main' }}>
+                          {IconComponent && typeof IconComponent === 'object' && 'prefix' in IconComponent ? (
+                            <FontAwesomeIcon icon={IconComponent as IconDefinition} style={{ width: 22, height: 22 }} />
+                          ) : IconComponent ? (
+                            <IconComponent size={22} />
+                          ) : null}
                         </Box>
-                      </Grid>
-                    )
-                  })}
-                </Grid>
-              </motion.div>
-            )}
+                        <Typography sx={{ fontSize: '0.75rem', fontWeight: 700, color: 'text.secondary' }}>{proj.period}</Typography>
+                      </Stack>
+                      <Typography variant="h3" sx={{ fontSize: '1.125rem', fontWeight: 700, color: 'text.primary', mb: 0.5 }}>
+                        {proj.title}
+                      </Typography>
+                      <Typography sx={{ fontSize: '0.875rem', color: 'primary.main', fontWeight: 500, mb: 1.5 }}>{proj.company}</Typography>
+                      <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem', lineHeight: 1.75, mb: 2 }}>
+                        {Array.isArray(proj.description) ? proj.description[0] : proj.description}
+                      </Typography>
+                      {proj.link && (
+                        <Link href={proj.link} target="_blank" rel="noopener noreferrer" underline="hover" sx={{ fontSize: '0.75rem', fontWeight: 700, color: 'primary.main' }}>
+                          View Project →
+                        </Link>
+                      )}
+                    </IsoPanel>
+                  );
+                })}
+              </Box>
+            </motion.div>
+          )}
 
-            {/* NPM PACKAGES TAB */}
-            {activeTab === 'npm' && (
-              <motion.div
-                key="npm"
-                initial={{ opacity: 0, rotateX: 8, y: 20 }}
-                animate={{ opacity: 1, rotateX: 0, y: 0 }}
-                exit={{ opacity: 0, rotateX: -8, y: -20 }}
-                transition={{ duration: 0.3 }}
-                style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
-              >
-                <Grid container spacing={3}>
-                  {npmPackages.map((pkg, index) => (
-                    <Grid key={index} size={{ xs: 12, md: 6 }}>
-                      <Box sx={{ height: '100%', '&:hover .npm-icon': { color: 'primary.main' } }}>
-                      <IsoPanel className="h-full">
-                          <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
-                            <Box className="npm-icon" sx={{ color: 'text.secondary', transition: 'color 0.3s', display: 'flex' }}>
-                              <Terminal size={32} />
-                            </Box>
-                            <Link
-                              href={pkg.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              underline="hover"
-                              sx={{ fontSize: '0.75rem', fontWeight: 700, color: 'primary.main' }}
-                            >
-                              View on NPM →
-                            </Link>
-                          </Stack>
-                          <Typography
-                            variant="h3"
-                            sx={{ fontSize: '1.125rem', fontWeight: 700, color: 'text.primary', mb: 1, fontFamily: 'monospace' }}
-                          >
-                            {pkg.name}
-                          </Typography>
-                          <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem', mb: 3, minHeight: 40 }}>
-                            {pkg.description}
-                          </Typography>
-
-                          <Box sx={{ position: 'relative' }}>
-                            <Box
-                              component="code"
-                              sx={{
-                                display: 'block',
-                                bgcolor: 'background.default',
-                                border: 1,
-                                borderColor: 'divider',
-                                borderRadius: 2,
-                                p: 1.5,
-                                pr: 6,
-                                fontFamily: 'monospace',
-                                fontSize: '0.75rem',
-                                color: 'text.secondary',
-                                overflowX: 'auto',
-                                whiteSpace: 'nowrap',
-                              }}
-                            >
-                              {pkg.command}
-                            </Box>
-                            <Tooltip title="Copy to install">
-                              <IconButton
-                                onClick={() => handleCopy(pkg.command)}
-                                size="small"
-                                sx={{
-                                  position: 'absolute',
-                                  right: 8,
-                                  top: '50%',
-                                  transform: 'translateY(-50%)',
-                                  color: 'text.secondary',
-                                  '&:hover': { bgcolor: 'background.paper' },
-                                }}
-                              >
-                                {copiedPkg === pkg.command ? (
-                                  <Check size={16} color="#22c55e" />
-                                ) : (
-                                  <Copy size={16} />
-                                )}
-                              </IconButton>
-                            </Tooltip>
-                          </Box>
-                      </IsoPanel>
+          {/* NPM PACKAGES */}
+          {activeTab === 'npm' && (
+            <motion.div
+              key="npm"
+              initial={{ opacity: 0, rotateX: 8, y: 20 }}
+              animate={{ opacity: 1, rotateX: 0, y: 0 }}
+              exit={{ opacity: 0, rotateX: -8, y: -20 }}
+              transition={{ duration: 0.3 }}
+              style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
+            >
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' }, gap: { xs: 4, md: 5 } }}>
+                {npmPackages.map((pkg, index) => (
+                  <IsoPanel key={index} className="h-full">
+                    <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
+                      <Terminal size={28} color="currentColor" style={{ opacity: 0.6 }} />
+                      <Link href={pkg.url} target="_blank" rel="noopener noreferrer" underline="hover" sx={{ fontSize: '0.75rem', fontWeight: 700, color: 'primary.main' }}>
+                        View on NPM →
+                      </Link>
+                    </Stack>
+                    <Typography variant="h3" sx={{ fontSize: '1.0625rem', fontWeight: 700, color: 'text.primary', mb: 1, fontFamily: 'monospace' }}>
+                      {pkg.name}
+                    </Typography>
+                    <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem', mb: 2.5, minHeight: 40 }}>{pkg.description}</Typography>
+                    <Box sx={{ position: 'relative' }}>
+                      <Box
+                        component="code"
+                        sx={{ display: 'block', bgcolor: 'background.default', borderRadius: 2, p: 1.5, pr: 6, fontFamily: 'monospace', fontSize: '0.75rem', color: 'text.secondary', overflowX: 'auto', whiteSpace: 'nowrap' }}
+                      >
+                        {pkg.command}
                       </Box>
-                    </Grid>
-                  ))}
-                </Grid>
-              </motion.div>
-            )}
+                      <Tooltip title="Copy to install">
+                        <IconButton
+                          onClick={() => handleCopy(pkg.command)}
+                          size="small"
+                          sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', color: 'text.secondary' }}
+                        >
+                          {copiedPkg === pkg.command ? <Check size={16} color="#22c55e" /> : <Copy size={16} />}
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+                  </IsoPanel>
+                ))}
+              </Box>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-          </AnimatePresence>
-        </Box>
-
-        {/* Mentorship CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <Box sx={{ mt: 12, textAlign: 'center', maxWidth: '42rem', mx: 'auto' }}>
+        <SectionReveal>
+          <Box sx={{ mt: { xs: 12, md: 18 }, textAlign: 'center', maxWidth: '36rem', mx: 'auto' }}>
             <IsoPanel elevated>
               <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'text.primary', mb: 2 }}>
                 Want to land a role like these?
@@ -575,50 +305,23 @@ export default function Experience() {
               <Typography sx={{ color: 'text.secondary', mb: 3 }}>
                 I mentor aspiring engineers to help them crack technical interviews and level up their careers.
               </Typography>
-              <Button
-                href="/mentorship"
-                variant="contained"
-                sx={{
-                  px: 3,
-                  py: 1.5,
-                  fontWeight: 700,
-                  bgcolor: 'text.primary',
-                  color: 'background.paper',
-                  '&:hover': { bgcolor: 'primary.main', color: 'primary.contrastText' },
-                }}
-              >
+              <Button href="/mentorship" variant="contained" size="large" sx={{ px: 3, py: 1.5, borderRadius: 999, fontWeight: 700 }}>
                 Explore Mentorship
               </Button>
             </IsoPanel>
-          </Box>
-        </motion.div>
 
-        {/* Download Resume CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <Box sx={{ mt: 6, textAlign: 'center' }}>
-            <Button
+            <Link
               href="/Alvian_Zachry_CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              variant="contained"
-              startIcon={<Briefcase size={20} />}
-              sx={{
-                px: 4,
-                py: 2,
-                fontWeight: 700,
-                boxShadow: 4,
-                transition: 'all 0.3s',
-                '&:hover': { transform: 'translateY(-4px)', boxShadow: 8 },
-              }}
+              underline="hover"
+              sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, mt: 5, fontWeight: 600, color: 'text.secondary', '&:hover': { color: 'primary.main' } }}
             >
+              <Briefcase size={16} />
               Download Curated Resume
-            </Button>
+            </Link>
           </Box>
-        </motion.div>
+        </SectionReveal>
       </Container>
     </Box>
   );

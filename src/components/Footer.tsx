@@ -7,6 +7,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import IconButton from '@mui/material/IconButton';
+import { alpha } from '@mui/material/styles';
 import SectionReveal from './iso/SectionReveal';
 
 const headingSx = {
@@ -55,12 +56,9 @@ export default function Footer() {
     <Box
       component="footer"
       sx={{
-        bgcolor: 'background.paper',
-        borderTop: 1,
-        borderColor: 'divider',
+        bgcolor: (theme) => (theme.custom?.isCyberpunk ? 'background.paper' : alpha(theme.palette.primary.main, 0.035)),
         color: 'text.secondary',
-        py: 8,
-        transition: 'background-color 0.3s',
+        py: { xs: 8, md: 12 },
       }}
     >
       <Container maxWidth="xl" sx={{ px: 3 }}>
@@ -74,7 +72,7 @@ export default function Footer() {
           }}
         >
           {/* Brand & Description */}
-          <Box sx={{ borderBottom: { xs: 1, md: 0 }, borderColor: { xs: 'divider' }, pb: { xs: 4, md: 0 } }}>
+          <Box sx={{ pb: { xs: 2, md: 0 } }}>
             <Link
               component={RouterLink}
               to="/"
@@ -217,9 +215,7 @@ export default function Footer() {
 
         <Box
           sx={{
-            pt: 4,
-            borderTop: 1,
-            borderColor: 'divider',
+            pt: { xs: 6, md: 8 },
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',

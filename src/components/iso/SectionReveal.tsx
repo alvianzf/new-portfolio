@@ -25,8 +25,8 @@ export default function SectionReveal({
   const initial = reduceMotion
     ? { opacity: 0 }
     : iso
-      ? { opacity: 0, rotateX: 10, y: 30 }
-      : { opacity: 0, y: 20 };
+      ? { opacity: 0, rotateX: 12, y: 56 }
+      : { opacity: 0, y: 40 };
 
   const animate = reduceMotion ? { opacity: 1 } : iso ? { opacity: 1, rotateX: 0, y: 0 } : { opacity: 1, y: 0 };
 
@@ -35,7 +35,7 @@ export default function SectionReveal({
       initial={initial}
       whileInView={animate}
       viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.5, delay }}
+      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
       className={className}
       style={iso ? { transformStyle: 'preserve-3d', perspective: 1000 } : undefined}
     >

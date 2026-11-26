@@ -6,8 +6,9 @@
 
 @layer base {
   :root {
-    --bg-primary: #f8fafc;
-    /* slate-50 */
+    --bg-primary: #fefefe;
+    /* near-white — content sits on a near-blank canvas; cards read as
+       separate via whitespace + shadow, not a different background tone */
     --text-primary: #0f172a;
     /* slate-900 */
     --text-secondary: #64748b;

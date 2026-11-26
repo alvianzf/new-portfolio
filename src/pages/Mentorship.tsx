@@ -2,40 +2,38 @@ import { motion } from 'framer-motion';
 import { ExternalLink, Flame, Target, MessageCircle, Zap, CheckCircle2, ArrowRight } from 'lucide-react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Chip from '@mui/material/Chip';
-import { alpha } from '@mui/material/styles';
 import learnWithAndiLogo from '../assets/learnwithandi.png';
 import SEO from '../components/SEO';
 import { useTheme } from '../context/ThemeContext';
 import IsoCard from '../components/iso/IsoCard';
 import IsoPanel from '../components/iso/IsoPanel';
 import IsoGrid from '../components/iso/IsoGrid';
+import SectionReveal from '../components/iso/SectionReveal';
 
 export default function Mentorship() {
   const { theme } = useTheme();
   const isCyberpunk = theme === 'cyberpunk';
   const features = [
     {
-      icon: <Flame size={24} />,
+      icon: <Flame size={22} />,
       title: "Get Roasted",
       description: "I'll dig into your fundamentals until you discover your own gaps."
     },
     {
-      icon: <Target size={24} />,
+      icon: <Target size={22} />,
       title: "Real Interview Simulation",
       description: "Practice with someone who's been on both sides of the interview table."
     },
     {
-      icon: <MessageCircle size={24} />,
+      icon: <MessageCircle size={22} />,
       title: "Brutally Honest Feedback",
       description: "No nitpicking on hard skills—just pure interview performance."
     },
     {
-      icon: <Zap size={24} />,
+      icon: <Zap size={22} />,
       title: "Find Your Gaps",
       description: "You'll identify exactly where you need to improve—yourself."
     }
@@ -77,7 +75,7 @@ export default function Mentorship() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', pt: { xs: 10, md: 16 }, pb: 10, transition: 'background-color 0.3s' }}>
+    <Box sx={{ minHeight: '100vh', pb: { xs: 10, md: 16 } }}>
       <SEO
         title="Tech Interview Mentorship"
         description="Brutal, honest mock technical interviews with a recruiter who's been on both sides of the table. Book at learnwithandi.com."
@@ -89,223 +87,127 @@ export default function Mentorship() {
         ]}
         schema={mentorshipSchema}
       />
-      <Container maxWidth="xl" sx={{ px: 3 }}>
-        {/* Hero Section */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <Box sx={{ textAlign: 'center', mb: 8, maxWidth: 896, mx: 'auto' }}>
-            <Chip
-              icon={<Flame size={16} />}
-              label="Now Accepting Students"
-              sx={{
-                mb: 3,
-                fontWeight: 500,
-                fontSize: '0.875rem',
-                color: 'primary.main',
-                bgcolor: (theme) => alpha(theme.palette.primary.main, 0.1),
-                '& .MuiChip-icon': { color: 'primary.main' },
-              }}
-            />
 
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: '2.25rem', md: '3.75rem' },
-                fontWeight: 700,
-                color: 'text.primary',
-                mb: 3,
-                lineHeight: 1.25,
-              }}
-            >
-              I'll <Box component="span" sx={{ color: 'primary.main' }}>Roast</Box> Your Tech Interview Skills
-              <Box component="span" sx={{ color: 'primary.main' }}>.</Box>
+      {/* Hero — left-aligned, generous whitespace, no boxed eyebrow badge */}
+      <Container maxWidth="md" sx={{ pt: { xs: '7rem', md: '9rem' }, pb: { xs: 8, md: 12 } }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <Stack direction="row" spacing={1} alignItems="center" sx={{ color: 'primary.main', mb: 2 }}>
+            <Flame size={16} />
+            <Typography sx={{ fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              Now Accepting Students
             </Typography>
-
-            <Typography
-              sx={{
-                fontSize: '1.25rem',
-                color: 'text.secondary',
-                mb: 4,
-                maxWidth: 672,
-                mx: 'auto',
-                lineHeight: 1.625,
-              }}
-            >
-              No fluff. No hand-holding. Just brutal, honest feedback that'll actually prepare you
-              for the real thing. Think you're ready? Let's find out.
-            </Typography>
-
-            <motion.div
-              style={{ display: 'inline-block' }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Button
-                href="https://learnwithandi.com?utm_source=alvianzf.id"
-                target="_blank"
-                rel="noopener noreferrer"
-                endIcon={<ExternalLink size={20} />}
-                sx={{
-                  px: 4,
-                  py: 2,
-                  fontSize: '1.125rem',
-                  fontWeight: 700,
-                  color: 'background.default',
-                  bgcolor: 'text.primary',
-                  boxShadow: 3,
-                  transition: 'background-color 0.3s',
-                  '&:hover': { bgcolor: 'primary.main', color: '#ffffff', boxShadow: 6 },
-                }}
-              >
-                Book a Session
-              </Button>
-            </motion.div>
-          </Box>
+          </Stack>
+          <Typography variant="h1" sx={{ fontSize: { xs: '2.5rem', md: '4rem' }, fontWeight: 700, color: 'text.primary', lineHeight: 1.1, mb: 4 }}>
+            I'll <Box component="span" sx={{ color: 'primary.main' }}>Roast</Box> Your Tech Interview Skills.
+          </Typography>
+          <Typography sx={{ fontSize: '1.25rem', color: 'text.secondary', mb: 5, maxWidth: '36rem', lineHeight: 1.6 }}>
+            No fluff. No hand-holding. Just brutal, honest feedback that'll actually prepare you
+            for the real thing. Think you're ready? Let's find out.
+          </Typography>
+          <Button
+            href="https://learnwithandi.com?utm_source=alvianzf.id"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="contained"
+            size="large"
+            endIcon={<ExternalLink size={18} />}
+            sx={{ px: 4, py: 1.75, borderRadius: 999, fontWeight: 700, fontSize: '1.0625rem' }}
+          >
+            Book a Session
+          </Button>
         </motion.div>
+      </Container>
 
-        {/* Features Grid */}
-        <Box sx={{ mb: 8 }}>
-          <IsoGrid columns={4} stagger>
-            {features.map((feature) => (
-              <IsoCard key={feature.title} className="h-full">
-                <Box
-                  sx={{
-                    p: 1.5,
-                    bgcolor: (theme) => alpha(theme.palette.primary.main, 0.1),
-                    color: 'primary.main',
-                    borderRadius: 3,
-                    width: 'fit-content',
-                    mb: 2,
-                    display: 'flex',
-                  }}
-                >
-                  {feature.icon}
-                </Box>
-                <Typography
-                  variant="h6"
-                  component="h3"
-                  sx={{ fontSize: '1.125rem', fontWeight: 700, color: 'text.primary', mb: 1 }}
-                >
-                  {feature.title}
-                </Typography>
-                <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
-                  {feature.description}
-                </Typography>
-              </IsoCard>
-            ))}
-          </IsoGrid>
-        </Box>
+      {/* Features — a bold, airy 2x2 grid of isometric tiles */}
+      <Container maxWidth="md" sx={{ pb: { xs: 10, md: 16 } }}>
+        <IsoGrid columns={2} stagger>
+          {features.map((feature) => (
+            <IsoCard key={feature.title} className="h-full">
+              <Box sx={{ color: 'primary.main', mb: 2 }}>{feature.icon}</Box>
+              <Typography variant="h6" component="h3" sx={{ fontSize: '1.125rem', fontWeight: 700, color: 'text.primary', mb: 1 }}>
+                {feature.title}
+              </Typography>
+              <Typography sx={{ color: 'text.secondary', fontSize: '0.9375rem' }}>{feature.description}</Typography>
+            </IsoCard>
+          ))}
+        </IsoGrid>
+      </Container>
 
-        {/* What You'll Get Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          <Grid container spacing={6} alignItems="center" sx={{ mb: 8 }}>
-            <Grid size={{ xs: 12, lg: 6 }}>
-              <Typography
-                variant="h2"
-                sx={{ fontSize: '1.875rem', fontWeight: 700, color: 'text.primary', mb: 3 }}
-              >
+      {/* What you'll get — plain text list beside one dark flagship panel */}
+      <Container maxWidth="lg" sx={{ pb: { xs: 10, md: 16 } }}>
+        <SectionReveal iso>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' }, gap: { xs: 6, lg: 10 }, alignItems: 'center' }}>
+            <Box>
+              <Typography variant="h2" sx={{ fontSize: { xs: '1.75rem', md: '2.25rem' }, fontWeight: 700, color: 'text.primary', mb: 4 }}>
                 What You'll Get <Box component="span" sx={{ color: 'primary.main' }}>Grilled</Box> On
               </Typography>
-              <Stack spacing={2}>
-                {benefits.map((benefit, index) => (
-                  <motion.div
-                    key={benefit}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 + index * 0.1 }}
-                  >
-                    <Stack direction="row" alignItems="center" spacing={1.5}>
-                      <Box component={CheckCircle2} size={20} sx={{ color: 'primary.main', flexShrink: 0 }} />
-                      <Typography sx={{ color: 'text.secondary', fontWeight: 500 }}>{benefit}</Typography>
-                    </Stack>
-                  </motion.div>
+              <Stack spacing={2.5}>
+                {benefits.map((benefit) => (
+                  <Stack key={benefit} direction="row" alignItems="center" spacing={1.5}>
+                    <CheckCircle2 size={20} color="var(--accent-primary)" style={{ flexShrink: 0 }} />
+                    <Typography sx={{ color: 'text.secondary', fontWeight: 500, fontSize: '1.0625rem' }}>{benefit}</Typography>
+                  </Stack>
                 ))}
               </Stack>
-            </Grid>
+            </Box>
 
-            <Grid size={{ xs: 12, lg: 6 }}>
-              <IsoPanel
-                elevated
-                sx={{
-                  ...(isCyberpunk
-                    ? {
-                        bgcolor: 'background.paper',
-                        border: '1px solid',
-                        borderColor: 'primary.main',
-                        color: 'text.primary',
-                      }
-                    : {
-                        background: 'linear-gradient(to bottom right, #0f172a, #1e293b)',
-                        border: 'none',
-                        color: '#ffffff',
-                      }),
-                }}
-              >
-                <Box sx={{ textAlign: 'center' }}>
-                  <Typography sx={{ color: isCyberpunk ? 'text.secondary' : '#cbd5e1', mb: 1 }}>Ready to get uncomfortable?</Typography>
-                  <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 700, mb: 2, color: isCyberpunk ? 'text.primary' : '#ffffff' }}>
-                    Stop practicing in your comfort zone
-                  </Typography>
-                  <Typography sx={{ color: isCyberpunk ? 'text.secondary' : '#94a3b8', mb: 3 }}>
-                    Real interviews are stressful. That's why I make our sessions stressful too.
-                    The more you sweat in training, the less you bleed in battle.
-                  </Typography>
-                  <Button
-                    href="https://learnwithandi.com?utm_source=alvianzf.id"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    endIcon={<ArrowRight size={16} />}
-                    sx={{
-                      px: 3,
-                      py: 1.5,
-                      fontWeight: 700,
-                      ...(isCyberpunk
-                        ? { bgcolor: 'primary.main', color: 'primary.contrastText' }
-                        : { bgcolor: '#ffffff', color: '#0f172a' }),
-                      transition: 'all 0.3s',
-                      '&:hover': { bgcolor: 'primary.main', color: isCyberpunk ? 'primary.contrastText' : '#ffffff' },
-                    }}
-                  >
-                    Visit learnwithandi.com
-                  </Button>
-                </Box>
-              </IsoPanel>
-            </Grid>
-          </Grid>
-        </motion.div>
-
-        {/* Footer with Logo */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          <Box sx={{ textAlign: 'center', pt: 4, borderTop: '1px solid', borderColor: 'divider' }}>
-            <Box
-              component="a"
-              href="https://learnwithandi.com?utm_source=alvianzf.id"
-              target="_blank"
-              rel="noopener noreferrer"
+            <IsoPanel
+              elevated
               sx={{
-                display: 'inline-block',
-                mb: 2,
-                transition: 'opacity 0.3s',
-                '&:hover': { opacity: 0.8 },
+                ...(isCyberpunk
+                  ? { bgcolor: 'background.paper', border: '1px solid', borderColor: 'primary.main', color: 'text.primary' }
+                  : { background: 'linear-gradient(to bottom right, #0f172a, #1e293b)', border: 'none', color: '#ffffff' }),
               }}
             >
-              <Box component="img" src={learnWithAndiLogo} alt="Learn With Andi" sx={{ height: 40, mx: 'auto' }} />
-            </Box>
-            <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
-              Mentoring aspiring engineers to land their dream jobs.
-            </Typography>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography sx={{ color: isCyberpunk ? 'text.secondary' : '#cbd5e1', mb: 1 }}>Ready to get uncomfortable?</Typography>
+                <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 700, mb: 2, color: isCyberpunk ? 'text.primary' : '#ffffff' }}>
+                  Stop practicing in your comfort zone
+                </Typography>
+                <Typography sx={{ color: isCyberpunk ? 'text.secondary' : '#94a3b8', mb: 3 }}>
+                  Real interviews are stressful. That's why I make our sessions stressful too.
+                  The more you sweat in training, the less you bleed in battle.
+                </Typography>
+                <Button
+                  href="https://learnwithandi.com?utm_source=alvianzf.id"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  endIcon={<ArrowRight size={16} />}
+                  sx={{
+                    px: 3,
+                    py: 1.5,
+                    fontWeight: 700,
+                    ...(isCyberpunk
+                      ? { bgcolor: 'primary.main', color: 'primary.contrastText' }
+                      : { bgcolor: '#ffffff', color: '#0f172a' }),
+                    transition: 'all 0.3s',
+                    '&:hover': { bgcolor: 'primary.main', color: isCyberpunk ? 'primary.contrastText' : '#ffffff' },
+                  }}
+                >
+                  Visit learnwithandi.com
+                </Button>
+              </Box>
+            </IsoPanel>
           </Box>
-        </motion.div>
+        </SectionReveal>
+      </Container>
+
+      {/* Footer with Logo */}
+      <Container maxWidth="md">
+        <Box sx={{ textAlign: 'center', pt: 5, borderTop: '1px solid', borderColor: 'divider' }}>
+          <Box
+            component="a"
+            href="https://learnwithandi.com?utm_source=alvianzf.id"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ display: 'inline-block', mb: 2, transition: 'opacity 0.3s', '&:hover': { opacity: 0.8 } }}
+          >
+            <Box component="img" src={learnWithAndiLogo} alt="Learn With Andi" sx={{ height: 40, mx: 'auto' }} />
+          </Box>
+          <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
+            Mentoring aspiring engineers to land their dream jobs.
+          </Typography>
+        </Box>
       </Container>
     </Box>
   );

@@ -17,7 +17,7 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, rotateX: 10, y: 24 },
+  hidden: { opacity: 0, rotateX: 10, y: 40 },
   show: { opacity: 1, rotateX: 0, y: 0 },
 };
 
@@ -29,7 +29,7 @@ export default function IsoGrid({
   children,
   className = '',
   columns = 3,
-  gap = 24,
+  gap = 40,
   stagger = false,
 }: IsoGridProps) {
   const reduceMotion = useReducedMotion();
