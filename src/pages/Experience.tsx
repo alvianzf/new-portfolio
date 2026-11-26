@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { lazy, Suspense, useState } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { experiences, projects, npmPackages } from '../data';
 import {
   Box,
@@ -21,6 +21,9 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faDatabase, faServer, faFire, faHashtag } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+
+const Scene3D = lazy(() => import('../components/three/Scene3D'));
+const TimelineTower = lazy(() => import('../components/three/TimelineTower'));
 
 // Helper to map string tech to icons
 const getTechIcon = (tech: string): IconDefinition | null => {
@@ -60,6 +63,7 @@ const tabs = [
 export default function Experience() {
   const [activeTab, setActiveTab] = useState<'roles' | 'projects' | 'npm'>('roles');
   const [copiedPkg, setCopiedPkg] = useState<string | null>(null);
+  const reduceMotion = useReducedMotion();
 
   const handleCopy = (command: string) => {
     navigator.clipboard.writeText(command);
@@ -113,6 +117,14 @@ export default function Experience() {
           </Box>
         </motion.div>
       </Container>
+
+      <Box sx={{ my: { xs: 2, md: 4 } }}>
+        <Suspense fallback={<Box sx={{ height: { xs: 260, md: 340 } }} />}>
+          <Scene3D height={typeof window !== 'undefined' && window.innerWidth < 768 ? 260 : 340} reduceMotion={!!reduceMotion} zoom={70}>
+            <TimelineTower />
+          </Scene3D>
+        </Suspense>
+      </Box>
 
       {/* Tabs — plain underlined text, not a boxed segmented control */}
       <Box sx={{ position: 'sticky', top: '4.5rem', zIndex: 20, bgcolor: 'background.default', borderBottom: '1px solid', borderColor: 'divider' }}>

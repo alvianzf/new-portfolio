@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { lazy, Suspense } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ExternalLink, Flame, Target, MessageCircle, Zap, CheckCircle2, ArrowRight } from 'lucide-react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -13,9 +14,13 @@ import IsoPanel from '../components/iso/IsoPanel';
 import IsoGrid from '../components/iso/IsoGrid';
 import SectionReveal from '../components/iso/SectionReveal';
 
+const Scene3D = lazy(() => import('../components/three/Scene3D'));
+const RoastFlame = lazy(() => import('../components/three/RoastFlame'));
+
 export default function Mentorship() {
   const { theme } = useTheme();
   const isCyberpunk = theme === 'cyberpunk';
+  const reduceMotion = useReducedMotion();
   const features = [
     {
       icon: <Flame size={22} />,
@@ -117,6 +122,14 @@ export default function Mentorship() {
           </Button>
         </motion.div>
       </Container>
+
+      <Box sx={{ my: { xs: 2, md: 4 } }}>
+        <Suspense fallback={<Box sx={{ height: { xs: 260, md: 340 } }} />}>
+          <Scene3D height={typeof window !== 'undefined' && window.innerWidth < 768 ? 260 : 340} reduceMotion={!!reduceMotion} zoom={55}>
+            <RoastFlame />
+          </Scene3D>
+        </Suspense>
+      </Box>
 
       {/* Features — a bold, airy 2x2 grid of isometric tiles */}
       <Container maxWidth="md" sx={{ pb: { xs: 10, md: 16 } }}>

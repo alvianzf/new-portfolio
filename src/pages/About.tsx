@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { lazy, Suspense } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Terminal, Zap, Coffee, Code2, Briefcase, WifiOff, Smartphone, Infinity as InfinityIcon, Flame, Bot, TestTube, Siren, Gamepad2, Wrench, FileText } from 'lucide-react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -11,6 +12,9 @@ import SectionReveal from '../components/iso/SectionReveal';
 import SEO from '../components/SEO';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+const Scene3D = lazy(() => import('../components/three/Scene3D'));
+const TerminalCube = lazy(() => import('../components/three/TerminalCube'));
 
 const CodeSpan = ({ children }: { children: React.ReactNode }) => (
   <Box
@@ -108,6 +112,7 @@ const SectionHeading = ({ icon, color, children }: { icon?: React.ReactNode; col
 );
 
 export default function About() {
+  const reduceMotion = useReducedMotion();
   const themeSnippet = `// How I handle your retinas
   const toggleTheme = () => {
     if (theme === 'light') setTheme('dark');
@@ -241,9 +246,17 @@ async function generateSitemap() {
             </Typography>
             <Box sx={{ borderLeft: '3px solid', borderColor: 'primary.main', pl: 3 }}>
               <Typography sx={{ fontSize: '1.125rem', color: 'text.secondary', lineHeight: 1.75, fontStyle: 'italic' }}>
-                "Warning: Contains excessive amounts of 'Regional Manager' energy, mathematically generated worms, and an unnecessarily comprehensive testing infrastructure. Proceed with caution."
+                "Warning: Contains excessive amounts of 'Regional Manager' energy, a gratuitous WebGL cube, and an unnecessarily comprehensive testing infrastructure. Proceed with caution."
               </Typography>
             </Box>
+          </Box>
+
+          <Box sx={{ my: { xs: 2, md: 4 } }}>
+            <Suspense fallback={<Box sx={{ height: { xs: 220, md: 280 } }} />}>
+              <Scene3D height={typeof window !== 'undefined' && window.innerWidth < 768 ? 220 : 280} reduceMotion={!!reduceMotion} zoom={110}>
+                <TerminalCube />
+              </Scene3D>
+            </Suspense>
           </Box>
         </motion.div>
 
