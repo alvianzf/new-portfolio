@@ -32,6 +32,7 @@ export default function Bug({ id, x, y, onClick }: BugProps) {
         e.stopPropagation();
         onClick(id);
       }}
+      aria-label="Squash bug"
       className="p-2 text-red-500 hover:text-red-600 transition-colors transform -translate-x-1/2 -translate-y-1/2 z-10"
     >
       <BugIcon className="w-8 h-8 drop-shadow-lg" />

@@ -71,7 +71,11 @@ const DEFAULT_LATEX = `\\documentclass{article}
 export default function LatexEditor() {
   const [code, setCode] = useState(DEFAULT_LATEX);
   const [error, setError] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1024);
+  // 900px matches MUI's default `md` breakpoint, which is also what
+  // Header.tsx uses to decide whether the desktop nav (and this tool's
+  // link) is shown at all — keep the two thresholds in sync so the nav
+  // never links to a page that immediately blocks you as "desktop only".
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 900);
   const [isCheatSheetOpen, setIsCheatSheetOpen] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -79,7 +83,7 @@ export default function LatexEditor() {
   // Mobile detection
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024); // Block on tablets too for best experience
+      setIsMobile(window.innerWidth < 900);
     };
 
     checkMobile();

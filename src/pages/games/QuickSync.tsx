@@ -163,6 +163,7 @@ export default function QuickSync() {
           <div className="pointer-events-auto flex gap-4">
             <IconButton
               onClick={() => setIsPaused(!isPaused)}
+              aria-label={isPaused ? 'Resume' : 'Pause'}
               sx={{ bgcolor: 'background.paper', color: 'text.primary', borderRadius: 2, border: '1px solid', borderColor: 'divider', boxShadow: 4, '&:hover': { bgcolor: 'background.default' } }}
             >
               {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}

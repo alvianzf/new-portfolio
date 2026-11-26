@@ -53,6 +53,20 @@ export default function TableCard({ table, position, onMove }: TableCardProps) {
     if (dragRef.current?.pointerId === e.pointerId) dragRef.current = null;
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const step = e.shiftKey ? 32 : 8;
+    const deltas: Record<string, Position> = {
+      ArrowUp: { x: 0, y: -step },
+      ArrowDown: { x: 0, y: step },
+      ArrowLeft: { x: -step, y: 0 },
+      ArrowRight: { x: step, y: 0 },
+    };
+    const delta = deltas[e.key];
+    if (!delta) return;
+    e.preventDefault();
+    onMove(table.name, { x: position.x + delta.x, y: position.y + delta.y });
+  };
+
   return (
     <Box
       data-testid={`table-card-${table.name}`}
@@ -60,6 +74,10 @@ export default function TableCard({ table, position, onMove }: TableCardProps) {
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="group"
+      aria-label={`Table ${table.name}. Focused — use arrow keys to reposition, hold Shift to move further.`}
       sx={{
         position: 'absolute',
         left: position.x,
@@ -74,6 +92,7 @@ export default function TableCard({ table, position, onMove }: TableCardProps) {
         userSelect: 'none',
         touchAction: 'none',
         '&:active': { cursor: 'grabbing' },
+        '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', outlineOffset: 2 },
         overflow: 'hidden',
       }}
     >

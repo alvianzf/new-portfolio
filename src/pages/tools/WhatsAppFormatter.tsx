@@ -35,8 +35,30 @@ export default function WhatsAppFormatter() {
     let newText = '';
 
     if (type === 'wrap') {
-      // Check if already formatted (simple toggle)
-      if (before.endsWith(symbol) && after.startsWith(symbol)) {
+      // Check if already formatted (simple toggle). Two cases: the markers
+      // sit immediately outside the selection (the common case right after
+      // an "add" operation restored the selection to the inner text), or
+      // the selection itself includes both markers (e.g. the user selected
+      // the whole `*text*` span). Either way, unwrap instead of re-wrapping.
+      const selectionIncludesMarkers =
+        selectedText.length >= symbol.length * 2 &&
+        selectedText.startsWith(symbol) &&
+        selectedText.endsWith(symbol);
+      const markersAdjacent = before.endsWith(symbol) && after.startsWith(symbol);
+
+      if (selectionIncludesMarkers) {
+        const inner = selectedText.slice(symbol.length, selectedText.length - symbol.length);
+        newText = before + inner + after;
+        setText(newText);
+
+        setTimeout(() => {
+          if (textareaRef.current) {
+            textareaRef.current.selectionStart = start;
+            textareaRef.current.selectionEnd = start + inner.length;
+            textareaRef.current.focus();
+          }
+        }, 0);
+      } else if (markersAdjacent) {
         // Remove formatting
         newText = before.slice(0, -symbol.length) + selectedText + after.slice(symbol.length);
         setText(newText);
@@ -176,7 +198,12 @@ export default function WhatsAppFormatter() {
             <Paper variant="outlined" sx={{ display: 'flex', borderRadius: 2, p: 0.5 }}>
               {inlineTools.map(tool => (
                 <Tooltip key={tool.title} title={tool.title}>
-                  <IconButton size="small" onClick={() => applyFormat(tool.symbol)} sx={{ width: 40, height: 40, borderRadius: 1, color: 'text.secondary' }}>
+                  <IconButton
+                    size="small"
+                    onClick={() => applyFormat(tool.symbol)}
+                    aria-label={tool.title}
+                    sx={{ width: 40, height: 40, borderRadius: 1, color: 'text.secondary' }}
+                  >
                     {tool.icon}
                   </IconButton>
                 </Tooltip>
@@ -187,7 +214,12 @@ export default function WhatsAppFormatter() {
             <Paper variant="outlined" sx={{ display: 'flex', borderRadius: 2, p: 0.5 }}>
               {blockTools.map(tool => (
                 <Tooltip key={tool.title} title={tool.title}>
-                  <IconButton size="small" onClick={() => applyFormat(tool.symbol, tool.type)} sx={{ width: 40, height: 40, borderRadius: 1, color: 'text.secondary' }}>
+                  <IconButton
+                    size="small"
+                    onClick={() => applyFormat(tool.symbol, tool.type)}
+                    aria-label={tool.title}
+                    sx={{ width: 40, height: 40, borderRadius: 1, color: 'text.secondary' }}
+                  >
                     {tool.icon}
                   </IconButton>
                 </Tooltip>
