@@ -4,7 +4,6 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Check, Copy, Download, Rocket } from 'lucide-react';
-import SEO from '../../components/SEO';
 import DiagramCanvas from '../../components/tools/dbml/DiagramCanvas';
 import { CARD_WIDTH } from '../../components/tools/dbml/TableCard';
 import { DbmlParseError, parseDbml } from '../../components/tools/dbml/parseDbml';
@@ -100,6 +99,7 @@ export function DbDesignerTool({ onSendToSandbox }: DbDesignerToolProps) {
   const [errors, setErrors] = useState<DbmlError[] | null>(null);
   const [positions, setPositions] = useState<Record<string, Position>>({});
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
   const runIdRef = useRef(0);
 
   useEffect(() => {
@@ -127,9 +127,14 @@ export function DbDesignerTool({ onSendToSandbox }: DbDesignerToolProps) {
   const sql = result?.sql ?? '';
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(sql);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(sql);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopyFailed(true);
+      setTimeout(() => setCopyFailed(false), 2000);
+    }
   };
 
   const handleDownload = () => {
@@ -213,11 +218,12 @@ export function DbDesignerTool({ onSendToSandbox }: DbDesignerToolProps) {
         <Button
           size="small"
           variant="outlined"
+          color={copyFailed ? 'error' : 'primary'}
           onClick={handleCopy}
           disabled={!sql}
           startIcon={copied ? <Check size={14} /> : <Copy size={14} />}
         >
-          {copied ? 'Copied' : 'Copy'}
+          {copied ? 'Copied' : copyFailed ? 'Copy failed' : 'Copy'}
         </Button>
         <Button
           size="small"
@@ -295,27 +301,5 @@ export function DbDesignerTool({ onSendToSandbox }: DbDesignerToolProps) {
         {sqlPane}
       </Box>
     </Card>
-  );
-}
-
-export default function DbDesigner() {
-  return (
-    <Box className="min-h-screen pt-32 pb-20 px-6" sx={{ bgcolor: 'background.default' }}>
-      <SEO
-        title="Whiteboard Architect"
-        description="Drag boxes around a fake whiteboard until they become CREATE TABLE statements. Enterprise-ready, microservices sold separately."
-      />
-      <Box sx={{ maxWidth: 1400, mx: 'auto' }}>
-        <Box sx={{ textAlign: 'center', mb: 5 }}>
-          <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', color: 'text.primary', mb: 2 }}>
-            Whiteboard Architect
-          </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>
-            Type DBML, drag boxes, receive PostgreSQL. Just like the architecture meeting, but something ships.
-          </Typography>
-        </Box>
-        <DbDesignerTool />
-      </Box>
-    </Box>
   );
 }

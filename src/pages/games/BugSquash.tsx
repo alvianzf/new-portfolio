@@ -13,6 +13,10 @@ interface BugEntity {
   createdAt: number;
 }
 
+// Missed bugs despawn after this long so the per-frame health drain
+// (proportional to bugs.length) can't snowball into an unrecoverable spiral.
+const BUG_LIFETIME_MS = 8000;
+
 export default function BugSquash() {
   const [bugs, setBugs] = useState<BugEntity[]>([]);
   const [score, setScore] = useState(0);
@@ -38,6 +42,10 @@ export default function BugSquash() {
       }
       return newHealth;
     });
+
+    // Despawn bugs that have lived too long, so missed bugs don't
+    // accumulate forever and snowball the health drain above.
+    setBugs(prev => prev.filter(b => time - b.createdAt < BUG_LIFETIME_MS));
 
     // Spawn bugs
     if (time - lastSpawnTime.current > 1000 - Math.min(score * 10, 800)) { // Spawn faster as score increases

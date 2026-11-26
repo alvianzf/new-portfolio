@@ -11,6 +11,7 @@ export default function WhatsAppFormatter() {
   const { theme } = useTheme();
   const [text, setText] = useState('');
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
   const [phone, setPhone] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -90,10 +91,15 @@ export default function WhatsAppFormatter() {
     }
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopyFailed(true);
+      setTimeout(() => setCopyFailed(false), 2000);
+    }
   };
 
   const renderPreview = (content: string) => {
@@ -201,9 +207,14 @@ export default function WhatsAppFormatter() {
                   color: '#15803d',
                   '&:hover': { bgcolor: '#dcfce7' },
                 }),
+                ...(copyFailed && {
+                  bgcolor: '#fee2e2',
+                  color: '#b91c1c',
+                  '&:hover': { bgcolor: '#fee2e2' },
+                }),
               }}
             >
-              {copied ? 'Copied!' : 'Copy'}
+              {copied ? 'Copied!' : copyFailed ? 'Copy failed' : 'Copy'}
             </Button>
           </Box>
 

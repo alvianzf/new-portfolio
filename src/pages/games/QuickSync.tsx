@@ -26,6 +26,10 @@ export default function QuickSync() {
   const lastUpdateRef = useRef<number>(0);
   const inviteIdCounter = useRef(0);
   const scoreIntervalRef = useRef<number>(0);
+  // Mirrors playerX for the game loop's collision check, so gameLoop doesn't
+  // need playerX as a dependency — that would recreate it (and restart the
+  // rAF loop + score interval) on every mousemove/touchmove event.
+  const playerXRef = useRef(playerX);
 
   // Mouse/Touch movement handler
   const handleMove = useCallback((e: React.MouseEvent | React.TouchEvent) => {
@@ -39,8 +43,9 @@ export default function QuickSync() {
     }
 
     const width = window.innerWidth;
-    const percentage = (clientX / width) * 100;
-    setPlayerX(Math.max(0, Math.min(100, percentage)));
+    const percentage = Math.max(0, Math.min(100, (clientX / width) * 100));
+    playerXRef.current = percentage;
+    setPlayerX(percentage);
   }, [isPlaying, gameOver]);
 
   // Game Loop
@@ -61,9 +66,9 @@ export default function QuickSync() {
     }
 
     // Update Invites
+    let collisionThisFrame = false;
     setInvites(prev => {
       const nextInvites: InviteEntity[] = [];
-      let collision = false;
 
       prev.forEach(invite => {
         const newY = invite.y + invite.speed;
@@ -71,8 +76,8 @@ export default function QuickSync() {
         // Collision Detection
         // Player is at playerX (%), bottom 4px (approx 95% Y)
         // Hitbox approx: X +/- 3%, Y > 92% (Make it tighter)
-        if (newY > 92 && newY < 98 && Math.abs(invite.x - playerX) < 5) {
-          collision = true;
+        if (newY > 92 && newY < 98 && Math.abs(invite.x - playerXRef.current) < 5) {
+          collisionThisFrame = true;
         }
 
         if (newY < 110) {
@@ -80,7 +85,7 @@ export default function QuickSync() {
         }
       });
 
-      if (collision) {
+      if (collisionThisFrame) {
         setGameOver(true);
         setIsPlaying(false);
         return prev; // Stop updating
@@ -89,10 +94,13 @@ export default function QuickSync() {
       return nextInvites;
     });
 
-    if (!gameOver) {
+    // Use the collision computed this frame, not the (stale, closed-over)
+    // `gameOver` state — that wouldn't flip to true until the next render,
+    // which would otherwise schedule one extra frame after a collision.
+    if (!collisionThisFrame) {
       requestRef.current = requestAnimationFrame(gameLoop);
     }
-  }, [isPlaying, gameOver, level, playerX, isPaused]);
+  }, [isPlaying, gameOver, level, isPaused]);
 
   useEffect(() => {
     if (isPlaying && !gameOver && !isPaused) {

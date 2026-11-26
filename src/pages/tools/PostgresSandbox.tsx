@@ -5,7 +5,6 @@ import {
 } from '@mui/material';
 import { Play, RotateCcw, Database, History, Table2 } from 'lucide-react';
 import type { PGlite, Results } from '@electric-sql/pglite';
-import SEO from '../../components/SEO';
 import { SEED_SQL, EXAMPLE_QUERIES, DEFAULT_QUERY } from '../../components/tools/pg/seed';
 
 const MAX_DISPLAY_ROWS = 500;
@@ -516,28 +515,6 @@ export function PostgresSandboxTool({ initialSql }: PostgresSandboxToolProps) {
             </Box>
           )}
         </Card>
-      </Box>
-    </Box>
-  );
-}
-
-export default function PostgresSandbox() {
-  return (
-    <Box className="min-h-screen pt-32 pb-20 px-6" sx={{ bgcolor: 'background.default' }}>
-      <SEO
-        title="Consequence-Free Database"
-        description="A real PostgreSQL running entirely in your browser. Practice DROP TABLE without updating your resume — everything is wiped when you close the tab, just like staging."
-      />
-      <Box sx={{ maxWidth: 1100, mx: 'auto' }}>
-        <Box sx={{ textAlign: 'center', mb: 5 }}>
-          <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', color: 'text.primary', mb: 2 }}>
-            Consequence-Free Database
-          </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>
-            Real PostgreSQL, in your browser, in memory. Run DROP TABLE like nobody&apos;s watching — because nobody is, and it&apos;s gone when you close the tab anyway.
-          </Typography>
-        </Box>
-        <PostgresSandboxTool />
       </Box>
     </Box>
   );
