@@ -1,7 +1,17 @@
-import { Edges, Float, RoundedBox } from '@react-three/drei';
+import { Edges, Float, Html, RoundedBox } from '@react-three/drei';
 import { useAccentColor } from './useAccentColor';
 
-/** A wireframe-edged cube with an inner glowing core — a literal "terminal block" for the README/dev-humor tone. */
+const labelStyle: React.CSSProperties = {
+  fontFamily: 'monospace',
+  fontWeight: 700,
+  fontSize: 13,
+  color: 'var(--text-primary)',
+  whiteSpace: 'nowrap',
+  pointerEvents: 'none',
+  userSelect: 'none',
+};
+
+/** A wireframe-edged, translucent cube with a glowing "README.md" core label — the actual file this page is framed as. */
 export default function TerminalCube() {
   const accent = useAccentColor('--accent-primary', '#4f46e5');
   const textPrimary = useAccentColor('--text-primary', '#1c1917');
@@ -10,13 +20,12 @@ export default function TerminalCube() {
     <group>
       <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.9}>
         <RoundedBox args={[1.8, 1.8, 1.8]} radius={0.08}>
-          <meshStandardMaterial color="#1c1917" roughness={0.6} transparent opacity={0.25} />
+          <meshStandardMaterial color="#1c1917" roughness={0.6} transparent opacity={0.18} />
           <Edges color={accent} />
         </RoundedBox>
-        <mesh>
-          <boxGeometry args={[0.55, 0.55, 0.55]} />
-          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.8} />
-        </mesh>
+        <Html center style={labelStyle}>
+          README.md
+        </Html>
       </Float>
       <Float speed={1.6} rotationIntensity={0.5} floatIntensity={1.1}>
         <mesh position={[1.6, 1.2, -0.5]}>

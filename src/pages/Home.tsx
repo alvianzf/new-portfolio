@@ -147,7 +147,7 @@ export default function Home() {
       <Box sx={{ mt: { xs: 2, md: -1 }, mb: { xs: 2, md: 0 } }}>
         <Suspense fallback={<Box sx={{ height: { xs: 320, md: 440 } }} />}>
           <Scene3D height={typeof window !== 'undefined' && window.innerWidth < 768 ? 320 : 440} reduceMotion={!!reduceMotion} zoom={64}>
-            <HeroScene portraitSrc={alvian} />
+            <HeroScene portraitSrc={alvian} skillLabels={['React', 'TypeScript', 'Node.js', 'Python']} />
           </Scene3D>
         </Suspense>
         <Typography sx={{ textAlign: 'center', mt: 1, fontSize: '0.75rem', color: 'text.secondary', opacity: 0.7 }}>

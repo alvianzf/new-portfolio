@@ -126,7 +126,7 @@ export default function Mentorship() {
       <Box sx={{ my: { xs: 2, md: 4 } }}>
         <Suspense fallback={<Box sx={{ height: { xs: 260, md: 340 } }} />}>
           <Scene3D height={typeof window !== 'undefined' && window.innerWidth < 768 ? 260 : 340} reduceMotion={!!reduceMotion} zoom={55}>
-            <RoastFlame />
+            <RoastFlame labels={benefits.slice(0, 3)} />
           </Scene3D>
         </Suspense>
       </Box>
