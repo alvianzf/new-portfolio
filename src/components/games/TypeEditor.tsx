@@ -47,8 +47,10 @@ export default function TypeEditor() {
   const [input, setInput] = useState("");
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState("");
+  const [completed, setCompleted] = useState(false);
 
   const challenge = CHALLENGES[currentLevel];
+  const isLastLevel = currentLevel === CHALLENGES.length - 1;
 
   const checkAnswer = () => {
     if (input.trim() === 'any') {
@@ -67,17 +69,49 @@ export default function TypeEditor() {
   };
 
   const nextLevel = () => {
-    if (currentLevel < CHALLENGES.length - 1) {
+    if (!isLastLevel) {
       setCurrentLevel(l => l + 1);
       setInput("");
       setStatus('idle');
       setMessage("");
     } else {
-      setMessage("You have proven yourself worthy of the compiler. Now go fix the 400 other errors.");
+      setCompleted(true);
     }
   };
 
+  const restart = () => {
+    setCurrentLevel(0);
+    setInput("");
+    setStatus('idle');
+    setMessage("");
+    setCompleted(false);
+  };
+
   const inputColor = status === 'error' ? '#F48771' : status === 'success' ? '#4EC9B0' : undefined;
+
+  if (completed) {
+    return (
+      <div className="w-full max-w-4xl mx-auto space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-[#1E1E1E] rounded-xl shadow-2xl border border-slate-700 p-10 text-center space-y-6"
+        >
+          <Check className="w-12 h-12 mx-auto text-[#4EC9B0]" />
+          <p className="text-[#D4D4D4] font-mono text-lg">
+            You have proven yourself worthy of the compiler. Now go fix the 400 other errors.
+          </p>
+          <Button
+            onClick={restart}
+            variant="contained"
+            sx={{ px: 4, py: 1.5, bgcolor: '#2563eb', color: 'white', fontWeight: 'bold', borderRadius: 2, boxShadow: 4, '&:hover': { bgcolor: '#1d4ed8' } }}
+          >
+            Play Again
+          </Button>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-8">
@@ -182,13 +216,13 @@ export default function TypeEditor() {
             Compile
           </Button>
 
-          {status === 'success' && currentLevel < CHALLENGES.length - 1 && (
+          {status === 'success' && (
             <Button
               onClick={nextLevel}
               variant="contained"
               sx={{ px: 4, py: 1.5, bgcolor: '#1e293b', color: 'white', fontWeight: 'bold', borderRadius: 2, boxShadow: 4, '&:hover': { bgcolor: '#334155' } }}
             >
-              Next Error
+              {isLastLevel ? 'Finish' : 'Next Error'}
             </Button>
           )}
         </div>

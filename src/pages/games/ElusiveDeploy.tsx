@@ -22,15 +22,23 @@ export default function ElusiveDeploy() {
   const [attempts, setAttempts] = useState(0);
   const [taunt, setTaunt] = useState("Click the button to deploy.");
   const [isFrozen, setIsFrozen] = useState(false);
+  const [isDeployed, setIsDeployed] = useState(false);
 
   const handleAttempt = () => {
     setAttempts(prev => prev + 1);
-    if (isFrozen) {
-      setTaunt("Cheating? Really? Fine, deploy it.");
-    } else {
-      const randomTaunt = TAUNTS[Math.floor(Math.random() * TAUNTS.length)];
-      setTaunt(randomTaunt);
-    }
+    const randomTaunt = TAUNTS[Math.floor(Math.random() * TAUNTS.length)];
+    setTaunt(randomTaunt);
+  };
+
+  const handleSuccess = () => {
+    setIsDeployed(true);
+    setTaunt(isFrozen ? "Cheating? Really? Fine, deploy it." : "Deployment successful. Somehow.");
+  };
+
+  const handleReset = () => {
+    setAttempts(0);
+    setIsDeployed(false);
+    setTaunt("Click the button to deploy.");
   };
 
   return (
@@ -51,25 +59,31 @@ export default function ElusiveDeploy() {
           <Typography sx={{ fontSize: '0.75rem', fontWeight: 'bold', color: 'text.secondary', textTransform: 'uppercase', letterSpacing: '0.05em', mb: 0.5 }}>Status Log</Typography>
           <AnimatePresence mode="wait">
             <motion.p
-              key={attempts}
+              key={isDeployed ? 'deployed' : attempts}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="text-red-500 font-mono font-bold text-center"
+              className={`font-mono font-bold text-center ${isDeployed ? 'text-green-500' : 'text-red-500'}`}
             >
               {`> ${taunt}`}
             </motion.p>
           </AnimatePresence>
         </Paper>
 
-        <Typography sx={{ mt: 1, fontSize: '0.875rem', color: 'text.secondary' }}>
-          Attempts: <Box component="span" sx={{ fontFamily: 'monospace', fontWeight: 'bold', color: 'text.primary' }}>{attempts}</Box>
-        </Typography>
+        {isDeployed ? (
+          <Typography sx={{ mt: 1, fontSize: '1rem', fontWeight: 'bold', color: '#22c55e' }}>
+            🚀 Deployed to production after {attempts} failed {attempts === 1 ? 'attempt' : 'attempts'}.
+          </Typography>
+        ) : (
+          <Typography sx={{ mt: 1, fontSize: '0.875rem', color: 'text.secondary' }}>
+            Attempts: <Box component="span" sx={{ fontFamily: 'monospace', fontWeight: 'bold', color: 'text.primary' }}>{attempts}</Box>
+          </Typography>
+        )}
       </div>
 
       {/* Game Area */}
       <div className="flex-1 w-full relative">
-        <RunawayButton onAttempt={handleAttempt} frozen={isFrozen} />
+        <RunawayButton onAttempt={handleAttempt} onSuccess={handleSuccess} frozen={isFrozen} deployed={isDeployed} />
       </div>
 
       {/* Controls */}
@@ -91,11 +105,11 @@ export default function ElusiveDeploy() {
         </Button>
 
         <Button
-          onClick={() => setAttempts(0)}
+          onClick={handleReset}
           startIcon={<RotateCcw className="w-4 h-4" />}
           sx={{ px: 3, py: 1.5, bgcolor: 'background.paper', color: 'text.primary', borderRadius: 3, boxShadow: 4, fontWeight: 'bold', border: '1px solid', borderColor: 'divider', '&:hover': { bgcolor: 'background.default' } }}
         >
-          Reset Shame
+          {isDeployed ? 'Deploy Again' : 'Reset Shame'}
         </Button>
       </div>
 
