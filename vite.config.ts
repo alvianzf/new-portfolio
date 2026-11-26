@@ -8,12 +8,12 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apples-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['favicon.svg', 'favicon.ico', 'apples-touch-icon.png', 'masked-icon.svg'],
       manifest: {
         name: 'Alvian Zachry Portfolio',
         short_name: 'AlvianZF',
         description: 'Portfolio of Alvian Zachry Faturrahman - Program Manager & Full Stack Engineer',
-        theme_color: '#ffffff',
+        theme_color: '#4f46e5',
         icons: [
           {
             src: 'pwa-192x192.svg',
