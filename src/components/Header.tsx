@@ -222,17 +222,17 @@ export default function Header() {
           px: { xs: 2, md: 3 },
         }}
       >
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ minHeight: '64px' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: '64px' }}>
           <Box
             component={NavLink}
             to="/"
-            sx={{ display: 'flex', alignItems: 'center', gap: 0.75, fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.025em', color: 'text.primary', textDecoration: 'none', '&:hover': { color: 'primary.main' } }}
+            sx={{ display: 'flex', flexShrink: 0, alignItems: 'center', gap: 0.75, fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.025em', color: 'text.primary', textDecoration: 'none', whiteSpace: 'nowrap', '&:hover': { color: 'primary.main' } }}
           >
             <Terminal size={20} color={theme.palette.primary.main} />
             azf.
           </Box>
 
-          <Stack direction="row" spacing={4} alignItems="center" component="nav" sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             {NAV_ITEMS.map((item) => (
               <Box
                 key={item}
@@ -276,10 +276,10 @@ export default function Header() {
                 </Box>
               </Box>
             </HoverDropdown>
-          </Stack>
+          </Box>
 
-          <Stack direction="row" spacing={{ xs: 1, md: 2 }} alignItems="center">
-            <Stack direction="row" spacing={{ xs: 0.5, md: 1 }} alignItems="center" sx={{ display: { xs: 'none', sm: 'flex' } }}>
+          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexShrink: 0, gap: { xs: 1, md: 2 } }}>
+            <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'row', alignItems: 'center', gap: { xs: 0.5, md: 1 } }}>
               <Tooltip title="GitHub">
                 <IconButton component="a" href="https://github.com/alvianzf" target="_blank" rel="noopener noreferrer" size="small" sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}>
                   <Github size={20} />
@@ -304,13 +304,13 @@ export default function Header() {
               >
                 Contact
               </Button>
-            </Stack>
+            </Box>
 
             <IconButton onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu" sx={{ display: { md: 'none' }, color: 'text.secondary', '&:hover': { color: 'primary.main' } }}>
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </IconButton>
-          </Stack>
-        </Stack>
+          </Box>
+        </Box>
       </Container>
 
       {/* Mobile Menu Overlay */}
