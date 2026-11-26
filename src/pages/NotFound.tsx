@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Home, ArrowLeft } from 'lucide-react';
 import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
-import { SquigglyBackground } from '@alvianzf/squiggly-lines-go-brrr';
 import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
 
@@ -43,18 +42,6 @@ export default function NotFound() {
       <Helmet>
         <meta name="robots" content="noindex" />
       </Helmet>
-      <SquigglyBackground
-        variant="worms"
-        count={50}
-        colors={['text-red-500/20', 'text-slate-400/30']}
-        minStrokeWidth={1}
-        maxStrokeWidth={3}
-        minDuration={5}
-        maxDuration={10}
-        backgroundColor={theme.palette.background.default}
-        className="fixed inset-0 -z-10 pointer-events-none"
-      />
-
       <Box sx={{ position: 'relative', zIndex: 10, maxWidth: '42rem', width: '100%', textAlign: 'center' }}>
         <Stack spacing={4}>
           <motion.div

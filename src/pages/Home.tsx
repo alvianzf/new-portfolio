@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
+import { lazy, Suspense } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ArrowRight, Download, Mail, Calendar, Linkedin, Github } from 'lucide-react';
 import { Box, Button, Container, Link as MuiLink, Stack, Typography } from '@mui/material';
@@ -10,6 +10,11 @@ import { skills, categories } from "../data";
 import IsoCard from "../components/iso/IsoCard";
 import SectionReveal from "../components/iso/SectionReveal";
 import SEO from '../components/SEO';
+
+// 3D scene is heavy (three.js/r3f/drei) — lazy-loaded into its own chunk so
+// pages that don't use it never pay for it.
+const Scene3D = lazy(() => import('../components/three/Scene3D'));
+const HeroScene = lazy(() => import('../components/three/HeroScene'));
 
 // data.ts mixes FontAwesome icon definitions and lucide components
 function SkillIcon({ icon }: { icon: (typeof skills)[number]['icon'] }) {
@@ -32,76 +37,8 @@ const contactItems = [
   { title: 'GitHub', icon: Github, href: 'https://github.com/alvianzf', label: 'github.com/alvianzf', external: true },
 ];
 
-/** Floating isometric portrait: persistent tilt at rest, smooth cursor-parallax on top of it. */
-function FloatingPortrait() {
-  const reduceMotion = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  // Asymmetric ranges so the resting position (input 0) still sits at the
-  // isometric baseline tilt — the parallax moves *around* that baseline.
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [16, -8]), { stiffness: 150, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-16, 8]), { stiffness: 150, damping: 20 });
-
-  const handleMove = (e: React.MouseEvent) => {
-    if (reduceMotion || !ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-  const handleLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
-  return (
-    <Box
-      ref={ref}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-      className="iso-perspective"
-      sx={{ position: 'relative', width: { xs: '16rem', sm: '20rem', md: '24rem' }, mx: 'auto' }}
-    >
-      {/* Oversized tinted block sitting behind the frame — the isometric signature */}
-      <Box
-        aria-hidden
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          borderRadius: 4,
-          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
-          transform: 'translate(28px, 28px) rotate(-3deg)',
-        }}
-      />
-      <Box
-        aria-hidden
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          borderRadius: 4,
-          border: '2px solid',
-          borderColor: 'primary.main',
-          transform: 'translate(14px, -14px) rotate(2deg)',
-        }}
-      />
-      <Box
-        component={motion.img}
-        style={reduceMotion ? undefined : { rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        src={alvian}
-        alt="Alvian Zachry"
-        sx={{
-          position: 'relative',
-          borderRadius: 4,
-          width: '100%',
-          display: 'block',
-          boxShadow: 6,
-        }}
-      />
-    </Box>
-  );
-}
-
 export default function Home() {
+  const reduceMotion = useReducedMotion();
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -174,70 +111,49 @@ export default function Home() {
         ]}
       />
 
-      {/* Hero — asymmetric: huge headline block, portrait floats as a signature
-          element rather than sitting in a mirrored column. */}
-      <Container maxWidth="lg" sx={{ px: 3, pt: { xs: '7rem', md: '9rem' }, pb: { xs: 8, md: 14 } }}>
-        <Box sx={{ maxWidth: '48rem' }}>
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: '3rem', sm: '4.5rem', md: '5.5rem' },
-                fontWeight: 700,
-                letterSpacing: '-0.04em',
-                lineHeight: 1.05,
-                color: 'text.primary',
-              }}
+      {/* Hero — a real, draggable 3D isometric scene is the centerpiece, not
+          a DOM card with a CSS tilt. Text sits above it, minimal and centered. */}
+      <Container maxWidth="md" sx={{ px: 3, pt: { xs: '7rem', md: '8rem' }, textAlign: 'center' }}>
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+          <Typography
+            variant="h1"
+            sx={{ fontSize: { xs: '2.75rem', sm: '4rem', md: '5rem' }, fontWeight: 700, letterSpacing: '-0.04em', lineHeight: 1.05, color: 'text.primary' }}
+          >
+            Alvian Zachry.
+          </Typography>
+          <Typography
+            sx={{ mt: 3, fontSize: { xs: '1.125rem', md: '1.375rem' }, color: 'text.secondary', lineHeight: 1.6, maxWidth: '36rem', mx: 'auto' }}
+          >
+            Software Engineer, Recruiter, &amp; Bootcamp Tech Instructor — bridging the gap between people and technology.
+          </Typography>
+          <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 4, flexWrap: 'wrap', rowGap: 2 }}>
+            <Button href="/experience" variant="contained" size="large" endIcon={<ArrowRight size={16} />} sx={{ px: 3.5, py: 1.5, borderRadius: 999 }}>
+              See my work
+            </Button>
+            <Button
+              href="/Alvian_Zachry_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="large"
+              endIcon={<Download size={16} />}
+              sx={{ px: 3.5, py: 1.5, borderRadius: 999, color: 'text.secondary', '&:hover': { color: 'primary.main', bgcolor: 'transparent' } }}
             >
-              Alvian Zachry.
-            </Typography>
-            <Typography
-              sx={{
-                mt: 3,
-                fontSize: { xs: '1.25rem', md: '1.5rem' },
-                color: 'text.secondary',
-                lineHeight: 1.6,
-                maxWidth: '36rem',
-              }}
-            >
-              Software Engineer, Recruiter, &amp; Bootcamp Tech Instructor — bridging the gap between people and technology.
-            </Typography>
-            <Stack direction="row" spacing={2} sx={{ mt: 5, flexWrap: 'wrap', rowGap: 2 }}>
-              <Button href="/experience" variant="contained" size="large" endIcon={<ArrowRight size={16} />} sx={{ px: 3.5, py: 1.5, borderRadius: 999 }}>
-                See my work
-              </Button>
-              <Button
-                href="/Alvian_Zachry_CV.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                size="large"
-                endIcon={<Download size={16} />}
-                sx={{ px: 3.5, py: 1.5, borderRadius: 999, color: 'text.secondary', '&:hover': { color: 'primary.main', bgcolor: 'transparent' } }}
-              >
-                Download CV
-              </Button>
-            </Stack>
-          </motion.div>
-        </Box>
-
-        {/* Portrait floats below-right of the headline, overlapping the next
-            section's top edge for an asymmetric, magazine-style break. */}
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: { xs: 'center', md: 'flex-end' },
-            mt: { xs: 6, md: -4 },
-            mb: { xs: 2, md: -10 },
-            pr: { md: 4 },
-            position: 'relative',
-            zIndex: 2,
-          }}
-        >
-          <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.15 }}>
-            <FloatingPortrait />
-          </motion.div>
-        </Box>
+              Download CV
+            </Button>
+          </Stack>
+        </motion.div>
       </Container>
+
+      <Box sx={{ mt: { xs: 2, md: -1 }, mb: { xs: 2, md: 0 } }}>
+        <Suspense fallback={<Box sx={{ height: { xs: 320, md: 440 } }} />}>
+          <Scene3D height={typeof window !== 'undefined' && window.innerWidth < 768 ? 320 : 440} reduceMotion={!!reduceMotion} zoom={64}>
+            <HeroScene portraitSrc={alvian} />
+          </Scene3D>
+        </Suspense>
+        <Typography sx={{ textAlign: 'center', mt: 1, fontSize: '0.75rem', color: 'text.secondary', opacity: 0.7 }}>
+          Drag to rotate
+        </Typography>
+      </Box>
 
       {/* Expertise marquee — flat, borderless pills; the motion itself carries
           the "interactive" feel instead of boxy chrome. */}

@@ -20,7 +20,6 @@ describe('About Page', () => {
   it('renders feature sections', () => {
     renderWithProviders(<About />);
     expect(screen.getByText('The "Indecisive" Theme Engine')).toBeInTheDocument();
-    expect(screen.getByText('The "Worm" Background')).toBeInTheDocument();
     expect(screen.getByText('The Testing Pyramid That Nobody Asked For')).toBeInTheDocument();
   });
 

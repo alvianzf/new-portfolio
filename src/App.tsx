@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import PageTransition from './components/iso/PageTransition';
@@ -9,7 +8,6 @@ import Experience from './pages/Experience';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Mentorship from './pages/Mentorship';
-import WormBackground from './components/WormBackground';
 import ThemeToggle from './components/ThemeToggle';
 import { ThemeProvider } from './context/ThemeContext';
 import MuiThemeBridge from './theme/MuiThemeBridge';
@@ -39,9 +37,6 @@ function App() {
             <div className="fixed bottom-4 right-4 z-50">
               <ThemeToggle />
             </div>
-            <Suspense fallback={null}>
-              <WormBackground />
-            </Suspense>
             <Header />
             <main>
               <PageTransition>

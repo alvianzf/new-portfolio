@@ -108,28 +108,6 @@ const SectionHeading = ({ icon, color, children }: { icon?: React.ReactNode; col
 );
 
 export default function About() {
-  const wormSnippet = `// The actual math behind the wiggle (from my npm package)
-const generatePath = (width, height, variant) => {
-  const startX = Math.random() * width;
-  const startY = Math.random() * height;
-  switch (variant) {
-    case "worms": {
-      const cp1X = startX + (Math.random() - 0.5) * 400;
-      const cp1Y = startY + (Math.random() - 0.5) * 400;
-      const endX = cp1X + (Math.random() - 0.5) * 400;
-      const endY = cp1Y + (Math.random() - 0.5) * 400;
-      return \`M \${startX} \${startY} Q \${cp1X} \${cp1Y} \${endX} \${endY}\`;
-    }
-    case "thunder": {
-      // Zap zap!
-      const cp1X = startX + (Math.random() - 0.5) * 500;
-      const cp1Y = startY + (Math.random() - 0.5) * 100;
-      return \`M \${startX} \${startY} L \${cp1X} \${cp1Y} ...\`;
-    }
-    // ... more bugs ...
-  }
-};`;
-
   const themeSnippet = `// How I handle your retinas
   const toggleTheme = () => {
     if (theme === 'light') setTheme('dark');
@@ -333,21 +311,6 @@ async function generateSitemap() {
               </Stack>
             </Stack>
             <CodeWindow title="src/components/ThemeToggle.tsx" language="typescript" code={themeSnippet} />
-          </SectionReveal>
-
-          {/* Worms Section */}
-          <SectionReveal iso>
-            <SectionHeading>The "Worm" Background</SectionHeading>
-            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
-              You noticed the squiggly lines? I call them "Worms." <Box component="span" sx={{ color: 'primary.main', fontWeight: 700, fontSize: '0.8125rem' }}>MATHEMATICALLY VERIFIED</Box>
-            </Typography>
-            <Box component="ul" sx={{ listStyle: 'disc', pl: 2.5, m: 0, mb: 3, mt: 2, color: 'text.secondary', '& > li + li': { mt: 1 } }}>
-              <li><strong>What it does:</strong> I use complex Bézier curves (<CodeSpan>Q</CodeSpan> commands, because I'm fancy) and <CodeSpan>Math.random()</CodeSpan> to generate floating squiggles.</li>
-              <li><strong>Paranoid Testing:</strong> I literally wrote <strong>unit tests</strong> for these lines. If a worm is straight, the build fails. I have trust issues with <CodeSpan>Math.random()</CodeSpan>.</li>
-              <li><strong>Tech Spec:</strong> It renders <strong>50</strong> independent SVG paths that fade in and out. Yes, I am personally responsible for your laptop fan spinning up right now. You're welcome.</li>
-              <li><strong>Want to steal it?</strong> Of course you do. Install it via npm: <CodeSpan>npm install @alvianzf/squiggly-lines-go-brrr</CodeSpan>. I even packaged it for you because I'm too nice.</li>
-            </Box>
-            <CodeWindow title="src/components/WormBackground.tsx" language="typescript" code={wormSnippet} dots showLineNumbers />
           </SectionReveal>
 
           {/* Experience Ecosystem */}
@@ -589,7 +552,7 @@ async function generateSitemap() {
                 Licensed under <strong>MIT</strong> (Mostly Intense TypeScript).
               </Typography>
               <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
-                Feel free to steal the WormBackground (it's on npm: <CodeSpan>@alvianzf/squiggly-lines-go-brrr</CodeSpan>) or the testing infrastructure. I know that's the only reason you're looking at the code anyway.
+                Feel free to steal the testing infrastructure, or check out my other npm nonsense. I know that's the only reason you're looking at the code anyway.
               </Typography>
             </IsoCard>
           </SectionReveal>
